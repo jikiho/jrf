@@ -47,7 +47,11 @@ export class AddressComponent implements AfterViewInit {
                 VSS_SERV: 'ZUMJRFADR',
                 filename: file
             }),
-            request = this.http.xmlPost('api:', body);
+            request = this.http.xmlPost('api:', body, {
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
 
         request.subscribe(response => {
             this.parser.parseString(response.body, (error, result) => this.setXmlValue(result));

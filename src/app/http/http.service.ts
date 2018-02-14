@@ -2,19 +2,22 @@
  * Provides request/response.
  */
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class HttpService extends HttpClient {
-    xmlPost(url: string, body: any | null, options?: any): Observable<any> {
-        return this.post(url, body, Object.assign({
-            headers: {
+    xmlPost(url: string, body: any | null, options: any = {}): Observable<any> {
+        const headers = new HttpHeaders(options.headers).set({
                 'Accept': 'text/xml'
-            },
+            });
+
+        return this.post(url, body, Object.assign({
             observe: 'response',
             responseType: 'text'
-        }, options));
+        }, options, {
+            headers
+        }));
     }
 
     xmlFile(content: string, name: string = 'request.xml'): File {
