@@ -26,14 +26,14 @@ export class HttpService extends HttpClient {
     formData(params?: any): FormData {
         const data = new FormData();
 
-        Object.entries(params).forEach(([name, param]) => {
-            if (param instanceof File) {
-                data.append(name, param, param.name);
+        for (let [name, value] of Object.entries(params)) {
+            if (value instanceof File) {
+                data.append(name, value, value.name);
             }
             else {
-                data.append(name, param);
+                data.append(name, value);
             }
-        });
+        }
 
         return data;
     }
