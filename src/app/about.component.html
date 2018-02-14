@@ -1,0 +1,23 @@
+<details *ngIf="app.abouts$ | async as abouts">
+    <summary i18n>O aplikaci</summary>
+    <dl>
+        <dt i18n>Backend version</dt>
+        <dd>{{abouts.backend | unavailable}}</dd>
+        <dt i18n>Frontend version</dt>
+        <dd>{{abouts.frontend | unavailable}}</dd>
+        <dt i18n>Angular version</dt>
+        <dd>{{abouts.angular.full}}</dd>
+        <dt i18n>Browser</dt>
+        <dd>{{abouts.navigator.userAgent}}</dd>
+        <dt i18n>Location</dt>
+        <dd>{{abouts.location.href}}</dd>
+        <dt i18n>Application locale</dt>
+        <dd>{{abouts.locale}}</dd>
+        <dt i18n>Started</dt>
+        <dd>{{abouts.started | timestamp}}</dd>
+        <dt i18n>Requested</dt>
+        <dd>{{abouts.requested | unavailable}}</dd>
+        <dt i18n>Responsed</dt>
+        <dd>{{abouts.responsed | timestamp | unavailable}}</dd>
+    </dl>
+</details>
