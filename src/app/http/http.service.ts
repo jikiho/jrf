@@ -8,9 +8,8 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class HttpService extends HttpClient {
     xmlPost(url: string, body: any | null, options: any = {}): Observable<any> {
-        const headers = new HttpHeaders(options.headers).set({
-                'Accept': 'text/xml'
-            });
+        const headers = new HttpHeaders(options.headers)
+            .set('Accept', 'text/xml');
 
         return this.post(url, body, Object.assign({
             observe: 'response',
@@ -29,14 +28,14 @@ export class HttpService extends HttpClient {
     formData(params?: any): FormData {
         const data = new FormData();
 
-        for (let [name, value] of Object.entries(params)) {
+        Object.entries(params).forEach(([name, value]) => {
             if (value instanceof File) {
-                data.append(name, value, value.name);
+                data.append(name, <Blob>value, value.name);
             }
             else {
-                data.append(name, value);
+                data.append(name, <string>value);
             }
-        }
+        });
 
         return data;
     }
