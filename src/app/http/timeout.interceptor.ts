@@ -44,7 +44,7 @@ export class TimeoutInterceptor implements HttpInterceptor {
                     error = new HttpErrorResponse({
                         status: 524,
                         statusText: 'A timeout occurred',
-                        url: request.url
+                        url: request.urlWithParams
                     });
                 }
 

@@ -17,7 +17,7 @@ export class ProcessInterceptor implements HttpInterceptor {
      * Prepares a request process and cancelation.
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const cancelable = /*request.headers.get('...') ||*/ this.config.requestCancelable,
+        const cancelable = /*request.headers.get('...') ||*/ this.config.requestCancel,
             process = this.process.init({
                 subject: request,
                 cancelable
@@ -40,7 +40,7 @@ export class ProcessInterceptor implements HttpInterceptor {
         const error = new HttpErrorResponse({
             status: 499,
             statusText: 'Client closed request',
-            url: request.url
+            url: request.urlWithParams
         });
 
         /*

@@ -17,7 +17,7 @@ export class RequestInterceptor implements HttpInterceptor {
      * Prepares a resource and calls for a request.
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const url = new URL(request.url),
+        const url = new URL(request.url, document.baseURI),
             resource = this.config.resources.get(url.protocol);
 
         return this.makeRequest(request, next, url.pathname, resource);
@@ -34,13 +34,14 @@ export class RequestInterceptor implements HttpInterceptor {
             });
 
         if (this.config.debug) {
-            console.debug(`${retry ? 'RETRY ' : ''}${request.method || 'REQUEST'}`, request.url, request);
+            console.debug(`${retry ? 'RETRY ' : ''}${request.method || 'REQUEST'}`,
+                    request.urlWithParams, request);
         }
 
         return next.handle(request)
             .do(() => {
                 this.app.about({
-                    requested: request.url
+                    requested: new Date()
                 });
             })
             .retryWhen(errors => {
@@ -54,7 +55,7 @@ export class RequestInterceptor implements HttpInterceptor {
                     }
 
                     return Observable.throw(new HttpErrorResponse(Object.assign(error, {
-                        url: error.url || request.url
+                        url: error.url || request.urlWithParams
                     })));
                 }
 

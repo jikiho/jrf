@@ -10,9 +10,9 @@ export class AboutModel extends Model<AboutModel> {
     backend: string;
     frontend: string;
     locale: string;
-    location: Location = window.location;
-    navigator: Navigator = window.navigator;
-    requested: string;
+    location: Location;
+    navigator: Navigator;
+    requested: Date;
     responsed: Date;
     started: Date;
 }

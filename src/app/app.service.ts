@@ -2,7 +2,6 @@
  * Provides the main application properties and management.
  */
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
-import {PlatformLocation} from '@angular/common'
 import {Router, ActivatedRoute} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs/Rx';
 
@@ -54,7 +53,7 @@ export class AppService {
     /**
      * Initializes the application.
      */
-    constructor(private location: PlatformLocation, private router: Router, private route: ActivatedRoute,
+    constructor(private router: Router, private route: ActivatedRoute,
             @Inject(LOCALE_ID) public readonly locale: string, //application locale string
             private config: ConfigService, private process: ProcessService) {
         const lang = utils.localeLang(locale);
@@ -64,11 +63,13 @@ export class AppService {
         this.about({
             frontend: utils.concat(this.config.version, this.config.build) || undefined,
             locale: this.locale,
+            location: window.location,
+            navigator: window.navigator,
             started: this.started
         });
 
         // global reference
-        Object.assign(window, {app: this});
+        Object.assign(window, {app: this, utils});
     }
 
     /**

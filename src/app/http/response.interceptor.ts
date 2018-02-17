@@ -14,16 +14,16 @@ export class ResponseInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
             .do(response => {
-                if (response instanceof HttpResponse) {
-                    this.app.about({
-                        requested: response.url || request.url,
-                        responsed: new Date()
-                    });
+                this.app.about({
+                    responsed: new Date()
+                });
 
+                if (response instanceof HttpResponse) {
                     if (this.config.debug) {
-                        console.debug('RESPONSE', response.status, response.url || request.url, response);
+                        console.debug('RESPONSE', response.status,
+                                response.url || request.urlWithParams, response);
                     }
                 }
-            });
+            })
     }
 }

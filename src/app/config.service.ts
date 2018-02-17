@@ -39,7 +39,7 @@ export class ConfigService {
     /**
      * Allow request canceling.
      */
-    requestCancelable: boolean = true;
+    requestCancel: boolean = true;
 
     /**
      * Allow request cache.
