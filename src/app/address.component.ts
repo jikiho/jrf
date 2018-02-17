@@ -7,6 +7,7 @@ import {BehaviorSubject, Observable} from 'rxjs/Rx';
 import {Builder, Parser} from 'xml2js';
 
 import {HttpService} from './http/http.service';
+import {UtilsModule as utils} from './utils.module';
 
 @Component({
     selector: 'address-component',
@@ -14,10 +15,6 @@ import {HttpService} from './http/http.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent implements AfterViewInit {
-    response$: BehaviorSubject<string> = new BehaviorSubject(null);
-
-    input: any;
-
     @ViewChild('form')
     private form: NgForm;
 
@@ -42,20 +39,21 @@ export class AddressComponent implements AfterViewInit {
     @HostListener('submit', ['$event'])
     private submit(event?: Event) {
         const content = this.getXmlValue(this.form.value),
-            file = this.http.xmlFile(content),
-            body = this.http.formData({
+            file = utils.xmlFile(content),
+            body = utils.formData({
                 VSS_SERV: 'ZUMJRFADR',
                 filename: file
-            }),
-            request = this.http.xmlPost('api:', body, {
+            });
+
+        this.http
+            .postXml('api:', body, {
                 headers: {
                     'Cache-Control': 'no-cache'
                 }
+            })
+            .subscribe(response => {
+                this.parser.parseString(response.body, (error, result) => this.setXmlValue(result));
             });
-
-        request.subscribe(response => {
-            this.parser.parseString(response.body, (error, result) => this.setXmlValue(result));
-        });
     }
 
     private setXmlValue(result: any) {

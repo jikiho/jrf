@@ -12,8 +12,10 @@ import {BoolericPipe} from './booleric.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
 import {DisabledDirective} from './disabled.directive';
+import {FileInputDirective} from './file-input.directive';
 import {FormDirective, ProvideControlDirective} from './form.directive';
 import {NumericPipe} from './numeric.pipe';
+import {SafeUrlPipe} from './safe-url.pipe';
 import {TimestampPipe} from './timestamp.pipe';
 import {UnavailablePipe} from './unavailable.pipe';
 
@@ -27,9 +29,11 @@ import {UnavailablePipe} from './unavailable.pipe';
         DatericPipe,
         DialogDirective,
         DisabledDirective,
+        FileInputDirective,
         FormDirective,
         NumericPipe,
         ProvideControlDirective,
+        SafeUrlPipe,
         TimestampPipe,
         UnavailablePipe
     ],
@@ -38,11 +42,13 @@ import {UnavailablePipe} from './unavailable.pipe';
         DatericPipe,
         DialogDirective,
         DisabledDirective,
+        FileInputDirective,
         FormDirective,
         NgCommonModule,
         NgRouterModule,
         NumericPipe,
         ProvideControlDirective,
+        SafeUrlPipe,
         TimestampPipe,
         UnavailablePipe
     ]

@@ -12,6 +12,7 @@ import {MD5} from 'object-hash';
 export class UtilsModule {
     static RELATIVE_ORIGIN = 'https://target';
     static RELATIVE_PATHNAME = '/';
+    static MAX_SAFE_INTEGER32 = Math.pow(2, 32) - 1;
 
     /**
      * Converts a locale to the corresponding language.
@@ -32,6 +33,31 @@ export class UtilsModule {
     }
 
     /**
+     * Gets a property value by its name.
+     * Use dot notation string for a nested property.
+     */
+    static getProperty(obj: any, name: string): any {
+        return name.split('.').reduce((acc, part) => acc && acc[part], obj);
+    }
+
+    /**
+     * Sets a property value by its name.
+     * Use dot notation string for a nested property.
+     */
+    static setProperty(obj: any, name: string, value?: any) {
+        const parts = name.split('.');
+
+        if (parts.length > 1) {
+            name = parts.splice(-1)[0];
+            obj = parts.reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        if (obj && obj.hasOwnProperty(name)) {
+            obj[name] = value;
+        }
+    }
+
+    /**
      * Concats values into a sentence (timmed string with single spaces).
      */
     static concat(...args): string {
@@ -39,10 +65,90 @@ export class UtilsModule {
     }
 
     /**
+     * Generates a random value.
+     */
+    static random(limit: number = 1): number {
+        if (limit > Number.MAX_SAFE_INTEGER) {
+            throw new Error('Random limit exceeds a safe integer maximum.');
+        }
+
+        const value = !crypto || limit > UtilsModule.MAX_SAFE_INTEGER32 ? Math.random() :
+                crypto.getRandomValues(new Uint32Array(1))[0] / UtilsModule.MAX_SAFE_INTEGER32;
+
+        return Math.round(value * limit);
+    }
+
+    /**
      * Generates a MD5 hash from a value (object).
      */
     static md5(value: any, options?: any) {
         return MD5(value, options);
+    }
+
+    /**
+     * Converts a value to base64 ascii value.
+     */
+    static toAscii(value: any, size: number = 512): string {
+//TODO
+        return btoa(value);
+    }
+
+    /**
+     * Converts a base64 ascii value to a binary value (bytes).
+     */
+    static asciiToBytes(value: string, size: number = 512): Uint8Array[] {
+        const chars = atob(value),
+            bytes: Uint8Array[] = [];
+
+        for (let offset = 0; offset < chars.length; offset += size) {
+            const slice = chars.slice(offset, offset + size),
+                numbers = new Array(slice.length);
+
+            for (let i = 0; i < slice.length; i += 1) {
+                 numbers[i] = slice.charCodeAt(i);
+            }
+
+            bytes.push(new Uint8Array(numbers));
+        }
+
+        return bytes;
+    }
+
+    /**
+     * Converts a base64 ascii value to a binary file.
+     */
+    static asciiToFile(value: string, name?: string, type?: string): File {
+        const bytes = UtilsModule.asciiToBytes(value),
+            file = new File(bytes, name, {type});
+
+        return file;
+    }
+
+    /**
+     * Creates a XML file.
+     */
+    static xmlFile(content: string, name: string = 'request.xml'): File {
+        return new File([content], name, {
+            type: 'text/xml'
+        });
+    }
+
+    /**
+     * Creates...
+     */
+    static formData(params?: any): FormData {
+        const data = new FormData();
+
+        Object.entries(params).forEach(([name, value]) => {
+            if (value instanceof File) {
+                data.append(name, <Blob>value, value.name);
+            }
+            else {
+                data.append(name, <string>value);
+            }
+        });
+
+        return data;
     }
 
     /**

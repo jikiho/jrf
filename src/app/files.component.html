@@ -1,0 +1,22 @@
+<h2 i18n>Soubory</h2>
+
+<form #form="ngForm">
+    <fieldset>
+        <button (click)="loadUrl('url')" i18n>Načíst přílohy ze zdroje</button>
+        <input type="text" name="url" ngModel>
+    </fieldset>
+
+    <fieldset>
+        <button (click)="loadFile('file')" i18n>Načíst soubory</button>
+        <input type="file" name="file" multiple value ngModel>
+    </fieldset>
+
+    <button type="reset">Obnovit údaje</button>
+</form>
+
+<h3>Přílohy</h3>
+<ol *ngIf="items$ | async as items">
+    <li *ngFor="let item of items; let index = index">
+        <a href="#" (click)="download(index)">{{item.name}}</a>
+    </li>
+</ol>

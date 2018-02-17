@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppService} from './app.service';
 import {CommonModule} from './common/common.module';
 import {ConfigService} from './config.service';
+import {FilesComponent} from './files.component';
 import {HistoryModule} from './history.module';
 import {HomeComponent} from './home.component';
 import {HttpModule} from './http/http.module';
@@ -22,6 +23,7 @@ import {ProcessService} from './process.service';
         AboutComponent,
         AddressComponent,
         AppComponent,
+        FilesComponent,
         HomeComponent
     ],
     imports: [

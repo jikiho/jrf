@@ -1,42 +1,44 @@
 <h2>Adresa</h2>
 
 <form #form="ngForm">
-    <label>
-        <dfn i18n>Stát</dfn>
-        <input type="text" name="stat" ngModel>
-    </label>
+    <fieldset>
+        <label>
+            <dfn i18n>Stát</dfn>
+            <input type="text" name="stat" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>Obec</dfn>
-        <input type="text" name="obec" ngModel>
-    </label>
+        <label>
+            <dfn i18n>Obec</dfn>
+            <input type="text" name="obec" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>Část obce</dfn>
-        <input type="text" name="castObce" ngModel>
-    </label>
+        <label>
+            <dfn i18n>Část obce</dfn>
+            <input type="text" name="castObce" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>Ulice</dfn>
-        <input type="text" name="ulice" ngModel>
-    </label>
+        <label>
+            <dfn i18n>Ulice</dfn>
+            <input type="text" name="ulice" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>Číslo domovní</dfn>
-        <input type="text" name="cisloDomovni" ngModel>
-    </label>
+        <label>
+            <dfn i18n>Číslo domovní</dfn>
+            <input type="text" name="cisloDomovni" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>Číslo orientační</dfn>
-        <input type="text" name="cisloOrientacni" ngModel>
-    </label>
+        <label>
+            <dfn i18n>Číslo orientační</dfn>
+            <input type="text" name="cisloOrientacni" ngModel>
+        </label>
 
-    <label>
-        <dfn i18n>PSČ</dfn>
-        <input type="text" name="psc" ngModel>
-    </label>
+        <label>
+            <dfn i18n>PSČ</dfn>
+            <input type="text" name="psc" ngModel>
+        </label>
 
-    <button type="submit">Doplnit adresu</button>
+        <button type="submit">Doplnit adresu</button>
+
+        <button type="reset">Obmovit údaje</button>
+    </fieldset>
 </form>
-
-<pre *ngIf="response$ | async as response">{{response}}</pre>

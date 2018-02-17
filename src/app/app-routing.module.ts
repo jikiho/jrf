@@ -7,6 +7,7 @@ import {RouterModule as NgRouterModule, Routes, RouteReuseStrategy as NgRouteReu
 import {AddressComponent} from './address.component';
 import {AppService} from './app.service';
 import {ConfigService} from './config.service';
+import {FilesComponent} from './files.component';
 import {HomeComponent} from './home.component';
 import {RouteReuseStrategy} from './route-reuse-strategy';
 
@@ -21,6 +22,10 @@ const routes: Routes = [
     {
         path: 'adresa',
         component: AddressComponent
+    },
+    {
+        path: 'soubory',
+        component: FilesComponent
     },
     {
         path: '**',
