@@ -9,7 +9,7 @@ import {UtilsModule as utils} from '../utils.module';
 @Directive({
     selector: 'input[type=file][name][value]'
 })
-export class FileInputDirective {
+export class InputFileDirective {
     @Input()
     private value;
 

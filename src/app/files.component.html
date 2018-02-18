@@ -15,8 +15,8 @@
 </form>
 
 <h3>Přílohy</h3>
-<ol *ngIf="items$ | async as items">
-    <li *ngFor="let item of items; let index = index">
-        <a href="#" (click)="download(index)">{{item.name}}</a>
+<ol *ngIf="files$ | async as files">
+    <li *ngFor="let file of files; let index = index">
+        <a href="#" (click)="download(index)">{{file.name}} ({{file.type}}, {{file.size | bytes}})</a>
     </li>
 </ol>

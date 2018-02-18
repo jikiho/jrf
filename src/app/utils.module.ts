@@ -10,10 +10,6 @@ import {MD5} from 'object-hash';
 @NgModule({
 })
 export class UtilsModule {
-    static RELATIVE_ORIGIN = 'https://target';
-    static RELATIVE_PATHNAME = '/';
-    static MAX_SAFE_INTEGER32 = Math.pow(2, 32) - 1;
-
     /**
      * Converts a locale to the corresponding language.
      */
@@ -67,13 +63,15 @@ export class UtilsModule {
     /**
      * Generates a random value.
      */
+    static readonly MAX_SAFE_INTEGER_32 = Math.pow(2, 32) - 1;
+
     static random(limit: number = 1): number {
         if (limit > Number.MAX_SAFE_INTEGER) {
             throw new Error('Random limit exceeds a safe integer maximum.');
         }
 
-        const value = !crypto || limit > UtilsModule.MAX_SAFE_INTEGER32 ? Math.random() :
-                crypto.getRandomValues(new Uint32Array(1))[0] / UtilsModule.MAX_SAFE_INTEGER32;
+        const value = !crypto || limit > UtilsModule.MAX_SAFE_INTEGER_32 ? Math.random() :
+                crypto.getRandomValues(new Uint32Array(1))[0] / UtilsModule.MAX_SAFE_INTEGER_32;
 
         return Math.round(value * limit);
     }
@@ -86,17 +84,41 @@ export class UtilsModule {
     }
 
     /**
-     * Converts a value to base64 ascii value.
+     * Converts number of bytes to file size with a corresponding unit.
      */
-    static toAscii(value: any, size: number = 512): string {
+    static readonly BYTES_PREFIX = ['', 'K', 'M', 'G', 'T'];
+    static readonly BYTES_MULTIPLE = 1024;
+
+    static bytes(value: number): string {
+        let sign = Math.sign(value),
+            range = Math.abs(value),
+            convert = UtilsModule.BYTES_PREFIX.length,
+            prefix: string;
+
+        for (prefix of UtilsModule.BYTES_PREFIX) {
+            if (range < UtilsModule.BYTES_MULTIPLE) {
+                break;
+            }
+            else if (convert -= 1) {
+                range /= UtilsModule.BYTES_MULTIPLE;
+            }
+        }
+
+        return [sign * Math.round(range * 10) / 10, `${prefix}B`].join(' ');
+    }
+
+    /**
+     * Converts a value to base64 ASCII value.
+     */
+    static btoa(value: any, size: number = 512): string {
 //TODO
         return btoa(value);
     }
 
     /**
-     * Converts a base64 ascii value to a binary value (bytes).
+     * Converts a base64 ASCII value to bytes.
      */
-    static asciiToBytes(value: string, size: number = 512): Uint8Array[] {
+    static atob(value: string, size: number = 512): Uint8Array[] {
         const chars = atob(value),
             bytes: Uint8Array[] = [];
 
@@ -115,10 +137,10 @@ export class UtilsModule {
     }
 
     /**
-     * Converts a base64 ascii value to a binary file.
+     * Converts a base64 ASCII value to a file with bytes.
      */
-    static asciiToFile(value: string, name?: string, type?: string): File {
-        const bytes = UtilsModule.asciiToBytes(value),
+    static atobFile(value: string, name?: string, type?: string): File {
+        const bytes = UtilsModule.atob(value),
             file = new File(bytes, name, {type});
 
         return file;
@@ -154,6 +176,9 @@ export class UtilsModule {
     /**
      * Merges properties of one or more urls.
      */
+    static readonly RELATIVE_ORIGIN = 'https://target';
+    static readonly RELATIVE_PATHNAME = '/';
+
     static mergeUrl(arg, ...args): URL {
         let url = new URL(arg);
 

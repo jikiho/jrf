@@ -17,7 +17,7 @@ import {UtilsModule as utils} from './utils.module';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilesComponent {
-    items$: BehaviorSubject<any[]> = new BehaviorSubject(null);
+    files$: BehaviorSubject<any[]> = new BehaviorSubject(null);
 
     @ViewChild('form')
     private form: NgForm;
@@ -36,13 +36,13 @@ export class FilesComponent {
     }
 
     loadUrl(name: string) {
-        const value = utils.getProperty(this.form.value, name);
+        const url = utils.getProperty(this.form.value, name);
 
-        if (value) {
-            this.items$.next(null);
+        if (url) {
+            this.files$.next(null);
 
             this.http
-                .getXml(value, {
+                .getXml(url, {
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -54,18 +54,14 @@ export class FilesComponent {
     }
 
     loadFile(name: string) {
-        const value = utils.getProperty(this.form.value, name);
+        const files = utils.getProperty(this.form.value, name);
 
-        if (value) {
-            console.log(value);
-        }
+        this.files$.next(files);
     }
 
     download(index: number) {
-        const items = this.items$.getValue(),
-            item = items && items[index],
-            content = item && item.content,
-            file: File = content && utils.asciiToFile(content, item.name, item.type);
+        const files = this.files$.getValue(),
+            file = files && files[index];
 
         if (file) {
             saveAs(file);
@@ -73,15 +69,16 @@ export class FilesComponent {
     }
 
     private update(content?: any) {
-        const source = content && content.Podani.NovaOpravneniPO.DokumentPriloha || [],
-            items = source.map(item => {
+        const items = content && content.Podani.NovaOpravneniPO.DokumentPriloha || [],
+            files = items.map(item => {
                 const name = item.DokumentObsah.$.nazevPrilohy,
                     type = item.DokumentObsah.$.contentType,
-                    content = item.DokumentObsah._;
+                    content = item.DokumentObsah._,
+                    file = content && utils.atobFile(content, name, type);
 
-                return {name, type, content};
+                return file;
             });
 
-        this.items$.next(items);
+        this.files$.next(files);
     }
 }
