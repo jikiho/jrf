@@ -6,6 +6,7 @@
  */
 import {NgModule} from '@angular/core';
 import {MD5} from 'object-hash';
+import {Observable} from 'rxjs/Rx';
 
 @NgModule({
 })
@@ -108,18 +109,20 @@ export class UtilsModule {
     }
 
     /**
-     * Converts a value to base64 ASCII value.
+     * Converts buffer(s) to an ascii value (base64).
      */
-    static btoa(value: any, size: number = 512): string {
-//TODO
-        return btoa(value);
+    static btoa(buffer: any): string {
+        const bytes = new Uint8Array(buffer).reduce((bytes, byte) =>
+                bytes + String.fromCharCode(byte), '');
+
+        return window.btoa(bytes);
     }
 
     /**
-     * Converts a base64 ASCII value to bytes.
+     * Converts an ascii value (base64) to buffers.
      */
     static atob(value: string, size: number = 512): Uint8Array[] {
-        const chars = atob(value),
+        const chars = window.atob(value),
             bytes: Uint8Array[] = [];
 
         for (let offset = 0; offset < chars.length; offset += size) {
@@ -137,13 +140,28 @@ export class UtilsModule {
     }
 
     /**
-     * Converts a base64 ASCII value to a file with bytes.
+     * Reads a file content as an observable.
      */
-    static atobFile(value: string, name?: string, type?: string): File {
-        const bytes = UtilsModule.atob(value),
-            file = new File(bytes, name, {type});
+//TODO: reader.abort on unsubscribe
+    static read<T>(file: File, method: string = 'readAsArrayBuffer'): Observable<T> {
+        return new Observable((observer) => {
+            const reader = new FileReader();
 
-        return file;
+            reader.onload = () => {
+                observer.next(reader.result);
+                observer.complete();
+            };
+
+            reader.onabort = () => {
+                observer.complete();
+            }
+
+            reader.onerror = () => {
+                observer.error(reader.error);
+            };
+
+            reader[method](file);
+        });
     }
 
     /**

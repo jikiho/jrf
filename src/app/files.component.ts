@@ -74,7 +74,8 @@ export class FilesComponent {
                 const name = item.DokumentObsah.$.nazevPrilohy,
                     type = item.DokumentObsah.$.contentType,
                     content = item.DokumentObsah._,
-                    file = content && utils.atobFile(content, name, type);
+                    buffers = content && utils.atob(content),
+                    file = buffers && new File(buffers, name, {type});
 
                 return file;
             });
