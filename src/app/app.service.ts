@@ -2,6 +2,7 @@
  * Provides the main application properties and management.
  */
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
+//import {Title} from '@angular/platform-browser';
 import {Router, ActivatedRoute} from '@angular/router';
 import {BehaviorSubject, Subject} from 'rxjs/Rx';
 

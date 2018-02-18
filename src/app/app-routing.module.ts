@@ -28,17 +28,15 @@ const routes: Routes = [
         component: FilesComponent
     },
     {
+        path: 'soubory/:name',
+        component: FilesComponent,
+        canActivate: ['stop']
+    },
+    {
         path: '**',
         redirectTo: ''
     }
 ];
-
-/**
- * Returns a false value (e.g. to stop routing).
- */
-export function getFalse(): boolean {
-    return false;
-}
 
 @NgModule({
     imports: [
@@ -57,7 +55,7 @@ export function getFalse(): boolean {
         },
         {
             provide: 'stop',
-            useValue: getFalse
+            useValue: () => false
         }
     ]
 })

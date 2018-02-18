@@ -17,6 +17,6 @@
 <h3>Přílohy</h3>
 <ol *ngIf="files$ | async as files">
     <li *ngFor="let file of files; let index = index">
-        <a href="#" (click)="download(index)">{{file.name}} ({{file.type}}, {{file.size | bytes}})</a>
+        <a routerLink="./{{file.name}}" (click)="download(index)">{{file.name}} ({{file.type}}, {{file.size | bytes}})</a>
     </li>
 </ol>
