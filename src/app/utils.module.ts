@@ -45,7 +45,7 @@ export class UtilsModule {
         const parts = name.split('.');
 
         if (parts.length > 1) {
-            name = parts.splice(-1)[0];
+            name = parts.pop();
             obj = parts.reduce((acc, part) => acc && acc[part], obj);
         }
 
@@ -109,11 +109,10 @@ export class UtilsModule {
     }
 
     /**
-     * Converts buffer(s) to an ascii value (base64).
+     * Converts buffer to an ascii value (base64).
      */
-    static btoa(buffer: any): string {
-        const bytes = new Uint8Array(buffer).reduce((bytes, byte) =>
-                bytes + String.fromCharCode(byte), '');
+    static btoa(buffer: ArrayBuffer): string {
+        const bytes = new Uint8Array(buffer).reduce((bytes, byte) => bytes + String.fromCharCode(byte), '');
 
         return window.btoa(bytes);
     }
@@ -121,9 +120,9 @@ export class UtilsModule {
     /**
      * Converts an ascii value (base64) to buffers.
      */
-    static atob(value: string, size: number = 512): Uint8Array[] {
+    static atob(value: string, size: number = 4096): Uint8Array[] {
         const chars = window.atob(value),
-            bytes: Uint8Array[] = [];
+            buffers: Uint8Array[] = [];
 
         for (let offset = 0; offset < chars.length; offset += size) {
             const slice = chars.slice(offset, offset + size),
@@ -133,10 +132,10 @@ export class UtilsModule {
                  numbers[i] = slice.charCodeAt(i);
             }
 
-            bytes.push(new Uint8Array(numbers));
+            buffers.push(new Uint8Array(numbers));
         }
 
-        return bytes;
+        return buffers;
     }
 
     /**
