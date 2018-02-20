@@ -1,5 +1,5 @@
 /**
- * Dialog element enhancement.
+ * Directive to enhance a dialog functionality.
  */
 import {NgModule, Directive, Input, ElementRef, OnChanges} from '@angular/core';
 
@@ -7,7 +7,8 @@ import {NgModule, Directive, Input, ElementRef, OnChanges} from '@angular/core';
     selector: 'dialog[modal]'
 })
 export class DialogDirective implements OnChanges {
-    @Input() visible: boolean;
+    @Input()
+    private visible: boolean;
 
     constructor(private el: ElementRef) {
     }
@@ -21,4 +22,3 @@ export class DialogDirective implements OnChanges {
         }
     }
 }
-

@@ -1,7 +1,7 @@
 /**
- * File input element enhancement.
+ * Directive to synchronize a file input and a corresponding control group value.
  */
-import {Directive, Input, HostListener} from '@angular/core';
+import {Directive, HostListener} from '@angular/core';
 import {NgControl} from '@angular/forms';
 
 import {UtilsModule as utils} from '../utils.module';
@@ -10,9 +10,6 @@ import {UtilsModule as utils} from '../utils.module';
     selector: 'input[type=file][name][value]'
 })
 export class InputFileDirective {
-    @Input()
-    private value;
-
     constructor(private control: NgControl) {
     }
 

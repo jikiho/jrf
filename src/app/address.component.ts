@@ -1,7 +1,7 @@
 /**
  * Address feature component.
  */
-import {Component, ChangeDetectionStrategy, AfterViewInit, ViewChild, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, ViewChild, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {BehaviorSubject, Observable} from 'rxjs/Rx';
 import {Builder, Parser} from 'xml2js';
@@ -14,7 +14,7 @@ import {UtilsModule as utils} from './utils.module';
     templateUrl: './address.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddressComponent implements AfterViewInit {
+export class AddressComponent implements OnInit {
     @ViewChild('form')
     private form: NgForm;
 
@@ -27,13 +27,15 @@ export class AddressComponent implements AfterViewInit {
     constructor(private http: HttpService) {
     }
 
-    ngAfterViewInit() {
-        setTimeout(() => this.form.reset({
-            stat: 'CZ',
-            obec: 'Praha 10',
-            ulice: 'Na Nežárce',
-            cisloOrientacni: 4
-        }));
+    ngOnInit() {
+        setTimeout(() => {
+            this.form.reset({
+                stat: 'CZ',
+                obec: 'Praha 10',
+                ulice: 'Na Nežárce',
+                cisloOrientacni: 4
+            });
+        });
     }
 
     @HostListener('submit', ['$event'])

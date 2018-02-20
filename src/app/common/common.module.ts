@@ -12,10 +12,11 @@ import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
-import {DisabledDirective} from './disabled.directive';
-import {FormDirective, ProvideControlDirective} from './form.directive';
+import {EnabledDirective} from './enabled.directive';
+import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
 import {InputFileDirective} from './input-file.directive';
 import {NumericPipe} from './numeric.pipe';
+import {ProvideControlDirective} from './provide-control.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
 import {TimestampPipe} from './timestamp.pipe';
 import {UnavailablePipe} from './unavailable.pipe';
@@ -27,11 +28,12 @@ import {UnavailablePipe} from './unavailable.pipe';
     ],
     declarations: [
         BoolericPipe,
+        ButtonClearDirective,
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        DisabledDirective,
-        FormDirective,
+        EnabledDirective,
+        FormResetDirective,
         InputFileDirective,
         NumericPipe,
         ProvideControlDirective,
@@ -41,11 +43,12 @@ import {UnavailablePipe} from './unavailable.pipe';
     ],
     exports: [
         BoolericPipe,
+        ButtonClearDirective,
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        DisabledDirective,
-        FormDirective,
+        EnabledDirective,
+        FormResetDirective,
         InputFileDirective,
         NgCommonModule,
         NgRouterModule,
