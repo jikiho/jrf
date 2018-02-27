@@ -12,28 +12,10 @@ import {Observable} from 'rxjs/Rx';
 })
 export class UtilsModule {
     /**
-     * Converts a locale to the corresponding language.
-     */
-    static localeLang(locale: string): string {
-        return locale.split('-')[0];
-    }
-
-    /**
-     * Converts any value to a corresponding string.
-     */
-    static stringify(value: any, defaults?: string): string {
-        if (value == undefined) {
-            return defaults;
-        }
-
-        return typeof value === 'object' ? JSON.stringify(value) : value.toString();
-    }
-
-    /**
      * Gets a property value by its name.
      * Use dot notation string for a nested property.
      */
-    static getProperty(obj: any, name: string): any {
+    static get(obj: any, name: string): any {
         return name.split('.').reduce((acc, part) => acc && acc[part], obj);
     }
 
@@ -41,7 +23,7 @@ export class UtilsModule {
      * Sets a property value by its name.
      * Use dot notation string for a nested property.
      */
-    static setProperty(obj: any, name: string, value?: any) {
+    static set(obj: any, name: string, value?: any) {
         const parts = name.split('.');
 
         if (parts.length > 1) {
@@ -55,7 +37,60 @@ export class UtilsModule {
     }
 
     /**
-     * Concats values into a sentence (timmed string with single spaces).
+     * Converts a value to the corresponding boolean.
+     * Optional values to be inverted (e.g. '' to return true for an empty string).
+     */
+    static booleric(value: any, ...args): boolean {
+        if (args.indexOf(value) > -1) {
+            return !value;
+        }
+        
+        return !!value;
+    }
+
+    /**
+     * Converts a value to the corresponding date.
+     * A number is treated as a timestamp.
+     */
+    static dateric(value: any): Date {
+        const timestamp = typeof value === 'number' ? value : Date.parse(value);
+
+        return new Date(timestamp);
+    }
+
+    /**
+     * Converts a value to the corresponding number.
+     * A date is treated as the number of milliseconds since midnight January 1, 1970.
+     */
+    static numeric(value: any): number {
+        if (typeof value === 'string') {
+            return parseFloat(value);
+        }
+
+        return Number(value);
+    }
+
+    /**
+     * Converts a value to the corresponding string.
+     * Optional values to be an empty string (e.g. undefiend).
+     */
+    static stringify(value: any, ...args): string {
+        if (args.indexOf(value) > -1) {
+            return '';
+        }
+        
+        return typeof value === 'object' ? JSON.stringify(value) : value.toString();
+    }
+
+    /**
+     * Converts a locale to the corresponding language.
+     */
+    static localeLang(locale: string): string {
+        return locale.split('-')[0];
+    }
+
+    /**
+     * Concats values into a sentence (trimmed string with single spaces).
      */
     static concat(...args): string {
         return args.join(' ').trim().replace(/ +/, ' ');
@@ -173,7 +208,7 @@ export class UtilsModule {
     }
 
     /**
-     * Creates...
+     * Creates standard form data.
      */
     static formData(params?: any): FormData {
         const data = new FormData();
@@ -225,7 +260,7 @@ export class UtilsModule {
         const keys = o ? Object.keys(o) : undefined;
 
         if (keys) {
-            keys.sort(fn).forEach(key => {
+            keys.sort(fn).forEach((key) => {
                 let value;
 
                 if (Array.isArray(o[key])) {

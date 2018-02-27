@@ -44,7 +44,7 @@ export class RequestInterceptor implements HttpInterceptor {
                     requested: new Date()
                 });
             })
-            .retryWhen(errors => {
+            .retryWhen((errors) => {
                 // standard request retry
                 return this.retryable(errors);
             })

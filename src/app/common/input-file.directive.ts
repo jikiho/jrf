@@ -22,6 +22,6 @@ export class InputFileDirective {
             name = this.control.name,
             files = input.files;
 
-        utils.setProperty(group.value, name, files.length ? files : null);
+        utils.set(group.value, name, files.length ? files : null);
     }
 }

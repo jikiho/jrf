@@ -13,7 +13,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
-            .do(response => {
+            .do((response) => {
                 this.app.about({
                     responsed: new Date()
                 });

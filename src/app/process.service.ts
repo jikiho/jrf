@@ -43,7 +43,7 @@ export class ProcessService {
     private tasks$ = new Subject<TaskModel>();
 
     /**
-     * List of active processes (top at 0).
+     * List of active processes (last in, first out).
      */
     private processes: ProcessModel[] = [];
 
@@ -100,7 +100,7 @@ export class ProcessService {
     }
 
     /**
-     * Handle a task process.
+     * Handles a task process.
      */
     private handle(process: TaskModel) {
         this.init(process);

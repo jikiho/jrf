@@ -69,7 +69,7 @@ export class CacheInterceptor implements HttpInterceptor {
 
         if (key && storable) {
             return next.handle(request)
-                .do(response => {
+                .do((response) => {
                     if (response instanceof HttpResponse) {
                         this.storage.set(key, response);
                     }

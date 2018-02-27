@@ -53,7 +53,7 @@ export class AddressComponent implements OnInit {
                     'Cache-Control': 'no-cache'
                 }
             })
-            .subscribe(response => {
+            .subscribe((response) => {
                 this.parser.parseString(response.body, (error, result) => this.setXmlValue(result));
             });
     }

@@ -14,10 +14,12 @@ import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
 import {EnabledDirective} from './enabled.directive';
 import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
+import {FormValidateDirective} from './form-validate.directive';
 import {InputFileDirective} from './input-file.directive';
 import {NumericPipe} from './numeric.pipe';
 import {ProvideControlDirective} from './provide-control.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
+import {StringifyPipe} from './stringify.pipe';
 import {TimestampPipe} from './timestamp.pipe';
 import {UnavailablePipe} from './unavailable.pipe';
 
@@ -34,10 +36,12 @@ import {UnavailablePipe} from './unavailable.pipe';
         DialogDirective,
         EnabledDirective,
         FormResetDirective,
+        FormValidateDirective,
         InputFileDirective,
         NumericPipe,
         ProvideControlDirective,
         SafeUrlPipe,
+        StringifyPipe,
         TimestampPipe,
         UnavailablePipe
     ],
@@ -49,12 +53,14 @@ import {UnavailablePipe} from './unavailable.pipe';
         DialogDirective,
         EnabledDirective,
         FormResetDirective,
+        FormValidateDirective,
         InputFileDirective,
         NgCommonModule,
         NgRouterModule,
         NumericPipe,
         ProvideControlDirective,
         SafeUrlPipe,
+        StringifyPipe,
         TimestampPipe,
         UnavailablePipe
     ]

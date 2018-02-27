@@ -59,7 +59,8 @@ export class FormResetDirective implements OnInit {
     }
 
     /**
-     * Handles form reset to set the form default value.
+     * Handles form reset.
+     * Enhances a form reset functionality to update a default value.
      */
     private handleReset() {
         const form = this.form,
@@ -78,8 +79,9 @@ export class FormResetDirective implements OnInit {
 
     /**
      * Handles form clear.
+     * Adds a form element clear functionality.
      */
-    handleClear() {
+    private handleClear() {
         this.el.nativeElement.clear = () => {
             this.clearing = true;
 

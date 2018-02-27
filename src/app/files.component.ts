@@ -36,7 +36,7 @@ export class FilesComponent {
     }
 
     loadUrl(name: string) {
-        const url = utils.getProperty(this.form.value, name);
+        const url = utils.get(this.form.value, name);
 
         if (url) {
             this.files$.next(null);
@@ -47,14 +47,14 @@ export class FilesComponent {
                         'Cache-Control': 'no-cache'
                     }
                 })
-                .subscribe(response => {
+                .subscribe((response) => {
                     this.parser.parseString(response.body, (error, result) => this.update(result));
                 });
         }
     }
 
     loadFile(name: string) {
-        const files = utils.getProperty(this.form.value, name);
+        const files = utils.get(this.form.value, name);
 
         this.files$.next(files);
     }
@@ -70,7 +70,7 @@ export class FilesComponent {
 
     private update(content?: any) {
         const items = content && content.Podani.NovaOpravneniPO.DokumentPriloha || [],
-            files = items.map(item => {
+            files = items.map((item) => {
                 const name = item.DokumentObsah.$.nazevPrilohy,
                     type = item.DokumentObsah.$.contentType,
                     content = item.DokumentObsah._,

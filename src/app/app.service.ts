@@ -106,7 +106,7 @@ export class AppService {
      *      app.confirm(message, () => console.log('YES'));
      *
      * @example callback
-     *      app.confirm(message, result => console.log(result ? 'YES' : 'NO'), true);
+     *      app.confirm(message, (result) => console.log(result ? 'YES' : 'NO'), true);
      */
     confirm(value: any, handler?: Function, force: boolean = false): TaskModel {
         const message = utils.stringify(value);
