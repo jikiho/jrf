@@ -1,46 +1,45 @@
 <h2>Adresa</h2>
 
 <form #form="ngForm">
-    <fieldset>
-        <label>
-            <dfn i18n>Stát</dfn>
-            <input type="text" name="stat" ngModel>
-        </label>
+    <dl>
+        <dt><label for="{{a}}country" required i18n>Stát</label></dt>
+        <dd>
+            <input type="text" id="{{a}}country" name="stat" #country="ngModel" autocomplete="country" required ngModel>
+            <output required for="{{a}}country"></output>
+        </dd>
 
-        <label>
-            <dfn i18n>Obec</dfn>
-            <input type="text" name="obec" ngModel>
-        </label>
+        <dt><label i18n>Obec</label></dt>
+        <dd>
+            <input type="text" name="obec" autocomplete="city" ngModel>
+        </dd>
 
-        <label>
-            <dfn i18n>Část obce</dfn>
+        <dt><label i18n>Část obce</label></dt>
+        <dd>
             <input type="text" name="castObce" ngModel>
-        </label>
+        </dd>
 
-        <label>
-            <dfn i18n>Ulice</dfn>
-            <input type="text" name="ulice" ngModel>
-        </label>
+        <dt><label i18n>Ulice</label></dt>
+        <dd>
+            <input type="text" name="ulice" autocomplete="street-address" ngModel>
+        </dd>
 
-        <label>
-            <dfn i18n>Číslo domovní</dfn>
-            <input type="text" name="cisloDomovni" ngModel>
-        </label>
+        <dt><label i18n>Číslo domovní</label></dt>
+        <dd>
+            <input type="text" name="cisloDomovni" autocomplete="house-number" ngModel>
+        </dd>
 
-        <label>
-            <dfn i18n>Číslo orientační</dfn>
+        <dt><label i18n>Číslo orientační</label></dt>
+        <dd>
             <input type="text" name="cisloOrientacni" ngModel>
-        </label>
+        </dd>
 
-        <label>
-            <dfn i18n>PSČ</dfn>
-            <input type="text" name="psc" ngModel>
-        </label>
+        <dt><label i18n>PSČ</label></dt>
+        <dd>
+            <input type="text" name="psc" autocomplete="postal-code" ngModel>
+        </dd>
+    </dl>
 
-        <button type="submit">Doplnit adresu</button>
-
-        <button type="reset">Obmovit údaje</button>
-
-        <button type="clear">Smazat údaje</button>
-    </fieldset>
+    <button type="submit">Doplnit adresu</button>
+    <button type="reset">Obmovit údaje</button>
+    <button type="clear">Smazat údaje</button>
 </form>

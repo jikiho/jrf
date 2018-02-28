@@ -3,5 +3,5 @@ html {
 }
 
 body {
-    margin: 1em;
+    margin: var(--margin);
 }

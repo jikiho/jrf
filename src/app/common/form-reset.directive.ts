@@ -19,11 +19,11 @@ export class FormResetDirective implements OnInit {
     private clearing: boolean = false;
 
     constructor(private form: NgForm, private el: ElementRef) {
-        this.handleReset();
+        this.settleReset();
     }
 
     ngOnInit() {
-        this.handleClear();
+        this.settleClear();
     }
 
     /**
@@ -59,10 +59,10 @@ export class FormResetDirective implements OnInit {
     }
 
     /**
-     * Handles form reset.
+     * Initializes and handles form reset.
      * Enhances a form reset functionality to update a default value.
      */
-    private handleReset() {
+    private settleReset() {
         const form = this.form,
             reset = form.reset;
 
@@ -78,10 +78,10 @@ export class FormResetDirective implements OnInit {
     }
 
     /**
-     * Handles form clear.
+     * Initializes and handles form clear.
      * Adds a form element clear functionality.
      */
-    private handleClear() {
+    private settleClear() {
         this.el.nativeElement.clear = () => {
             this.clearing = true;
 

@@ -14,6 +14,6 @@
     <router-outlet (activate)="activate($event)" (deactivate)="deactivate($event)"></router-outlet>
 
     <footer>
-        <p><about-component></about-component></p>
+        <p><about-component [about]="app.about$ | async"></about-component></p>
     </footer>
 </main>

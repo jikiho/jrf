@@ -12,6 +12,17 @@ import {Observable} from 'rxjs/Rx';
 })
 export class UtilsModule {
     /**
+     * Freezes script execution for a specific time (milliseconds).
+     */
+    static freeze(time: number = 0): number {
+        time += Date.now();
+
+        while (Date.now() < time);
+
+        return time;
+    }
+
+    /**
      * Gets a property value by its name.
      * Use dot notation string for a nested property.
      */
@@ -155,6 +166,7 @@ export class UtilsModule {
     /**
      * Converts an ascii value (base64) to buffers.
      */
+//TODO: offset progress
     static atob(value: string, size: number = 4096): Uint8Array[] {
         const chars = window.atob(value),
             buffers: Uint8Array[] = [];
@@ -177,6 +189,7 @@ export class UtilsModule {
      * Reads a file content as an observable.
      */
 //TODO: reader.abort on unsubscribe
+//TODO: reader.progress
     static read<T>(file: File, method: string = 'readAsArrayBuffer'): Observable<T> {
         return new Observable((observer) => {
             const reader = new FileReader();

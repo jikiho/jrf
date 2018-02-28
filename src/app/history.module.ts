@@ -16,13 +16,13 @@ import {HistoryStateModel} from './history-state.model';
 export class HistoryModule {
     constructor(private location: PlatformLocation, private router: Router,
             private app: AppService) {
-        this.handleState();
+        this.settleState();
     }
 
     /**
-     * Handles navigation history state.
+     * Initializes and handles navigation history state.
      */
-    private handleState() {
+    private settleState() {
         const location = this.location,
             pushState = location.pushState,
             replaceState = location.replaceState;

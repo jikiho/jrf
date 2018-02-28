@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     active: Component;
 
     constructor(private process: ProcessService,
-            private app: AppService) {
+            public app: AppService) {
     }
 
     /**

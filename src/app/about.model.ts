@@ -14,12 +14,21 @@ export class AboutModel extends Model<AboutModel> {
     /**
      * Backend version.
      */
-    backend: string;
+    backend: {
+        full: string
+    };
 
     /**
-     * Frontend version (build and timestamp).
+     * Frontend version.
      */
-    frontend: string;
+    frontend: {
+        full: string;
+    };
+
+    /**
+     * Application unique identification.
+     */
+    id: string;
 
     /**
      * Application locale.
@@ -27,19 +36,19 @@ export class AboutModel extends Model<AboutModel> {
     locale: string;
 
     /**
-     * Window location (url).
+     * Document base location (window).
+     */
+    base: URL;
+
+    /**
+     * Document location (window).
      */
     location: Location;
 
     /**
-     * Window navigator (browser).
+     * User agent identification and state (window).
      */
     navigator: Navigator;
-
-    /**
-     * Last request timestamp.
-     */
-    requested: Date;
 
     /**
      * Last response timestamp.

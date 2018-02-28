@@ -15,6 +15,8 @@ import {UtilsModule as utils} from './utils.module';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent implements OnInit {
+    a: string;
+
     @ViewChild('form')
     private form: NgForm;
 

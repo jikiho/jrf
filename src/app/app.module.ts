@@ -17,6 +17,7 @@ import {HistoryModule} from './history.module';
 import {HomeComponent} from './home.component';
 import {HttpModule} from './http/http.module';
 import {ProcessService} from './process.service';
+import {WindowModule} from './window.module';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import {ProcessService} from './process.service';
         HomeComponent
     ],
     imports: [
+        WindowModule,
         AppRoutingModule,
         NgBrowserModule,
         NgFormsModule,

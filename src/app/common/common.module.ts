@@ -1,8 +1,5 @@
 /**
- * Common module with standard enhancements.
- *
- * Map to JSON conversion.
- * Circular-structure safe value to JSON conversion.
+ * Common module with enhancements.
  */
 import {NgModule} from '@angular/core';
 import {CommonModule as NgCommonModule} from '@angular/common';
@@ -17,6 +14,7 @@ import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
 import {InputFileDirective} from './input-file.directive';
 import {NumericPipe} from './numeric.pipe';
+import {OutputForDirective} from './output-for.directive';
 import {ProvideControlDirective} from './provide-control.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
 import {StringifyPipe} from './stringify.pipe';
@@ -39,6 +37,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         FormValidateDirective,
         InputFileDirective,
         NumericPipe,
+        OutputForDirective,
         ProvideControlDirective,
         SafeUrlPipe,
         StringifyPipe,
@@ -58,6 +57,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         NgCommonModule,
         NgRouterModule,
         NumericPipe,
+        OutputForDirective,
         ProvideControlDirective,
         SafeUrlPipe,
         StringifyPipe,
@@ -67,52 +67,3 @@ import {UnavailablePipe} from './unavailable.pipe';
 })
 export class CommonModule {
 }
-
-/**
- * Map to JSON conversion.
- */
-Map.prototype.hasOwnProperty('toJSON') ||
-        Object.defineProperty(Map.prototype, 'toJSON', {
-    value: function() {
-        let items = {
-            keys: [],
-            values: []
-        };
-
-        this.forEach((value, key) => {
-            items.keys.push(key);
-            items.values.push(value);
-        });
-
-        return JSON.stringify(items);
-    }
-});
-
-/**
- * Circular-structure safe value to JSON conversion.
- */
-JSON.stringify = ((stringify: Function) => {
-    return (value: any, replacer?: any, space: number = 4) => {
-        let refs = new Set();
-
-        try {
-            return stringify(value, replacer || ((key, value) => {
-                if (typeof value === 'object' && value) {
-                    if (refs.has(value)) {
-                        let name = value.constructor.name,
-                            definition = name === 'Object' ? `${name} {...}` : `class ${name} {...}`;
-                        return `${definition} //circular structure`;
-                    }
-                    refs.add(value);
-                }
-                return value;
-            }), space);
-        }
-        catch (error) {
-            throw error;
-        }
-        finally {
-            refs.clear();
-        }
-    };
-})(JSON.stringify);

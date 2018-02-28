@@ -1,9 +1,9 @@
 /**
  * Simple...
  */
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 
-import {AppService} from './app.service';
+import {AboutModel} from './about.model';
 
 @Component({
     selector: 'about-component',
@@ -11,6 +11,6 @@ import {AppService} from './app.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
-    constructor(public app: AppService) {
-    }
+    @Input()
+    about: AboutModel;
 }

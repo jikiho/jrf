@@ -12,7 +12,11 @@ export class Model<T> {
         args.length && Object.assign(this, ...args);
     }
 
-    update(...args): T {
+    update(...args): Model<T> {
         return args.length && Object.assign(this, ...args);
+    }
+
+    clone(...args): Model<T> {
+        return new Model<T>(this, ...args);
     }
 }

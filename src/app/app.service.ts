@@ -2,9 +2,10 @@
  * Provides the main application properties and management.
  */
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
+import {PlatformLocation} from '@angular/common';
 //import {Title} from '@angular/platform-browser';
-import {Router, ActivatedRoute} from '@angular/router';
-import {BehaviorSubject, Subject} from 'rxjs/Rx';
+import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
+import {Observable, BehaviorSubject} from 'rxjs/Rx';
 
 import {AboutModel} from './about.model';
 import {ConfigService} from './config.service';
@@ -15,32 +16,22 @@ import {UtilsModule as utils} from './utils.module';
 @Injectable()
 export class AppService {
     /**
-     * Application start timestamp.
+     * Information about the application (stream).
      */
-    started = new Date();
+    about$: BehaviorSubject<AboutModel> = new BehaviorSubject<AboutModel>(null);
 
     /**
-     * Application identification.
+     * Current application unique identification.
      */
-    id = utils.md5([window.navigator.userAgent, this.started]);
+    get id(): string {
+        return this.about$.getValue().id;
+    }
 
     /**
      * Navigation history state.
      */
     get historyState(): HistoryStateModel {
         return new HistoryStateModel(history.state);
-    }
-
-    /**
-     * Information about the aplication (stream).
-     */
-    abouts$ = new BehaviorSubject<AboutModel>(null);
-
-    /**
-     * Information about the aplication.
-     */
-    get abouts(): AboutModel {
-        return this.abouts$.getValue();
     }
 
     /**
@@ -54,30 +45,15 @@ export class AppService {
     /**
      * Initializes the application.
      */
-    constructor(private router: Router, private route: ActivatedRoute,
-            @Inject(LOCALE_ID) public readonly locale: string, //application locale string
+    constructor(private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
+            @Inject(LOCALE_ID) public readonly locale: string, //locale string
             private config: ConfigService, private process: ProcessService) {
-        const lang = utils.localeLang(locale);
-
-        document.documentElement.setAttribute('lang', lang);
-
-        this.about({
-            frontend: utils.concat(this.config.version, this.config.build) || undefined,
-            locale: this.locale,
-            location: window.location,
-            navigator: window.navigator,
-            started: this.started
-        });
-
-        // global reference
+        // global references
         Object.assign(window, {app: this, utils});
-    }
 
-    /**
-     * Updates information about the aplication.
-     */
-    about(...args) {
-        this.abouts$.next(new AboutModel(this.abouts, ...args));
+        document.documentElement.setAttribute('lang', utils.localeLang(locale));
+
+        this.settleAbout();
     }
 
     /**
@@ -116,5 +92,46 @@ export class AppService {
             handler,
             cancelable: false
         });
+    }
+
+    /**
+     * Updates information about the aplication.
+     */
+    about(...args) {
+        const about = this.about$.getValue();
+
+        this.about$.next(new AboutModel(about, ...args));
+    }
+
+    /**
+     * Initializes and handles information about the application.
+     */
+    private settleAbout() {
+        const started = new Date(),
+            base = this.location.getBaseHrefFromDOM() || '';
+
+        this.about({
+            backend: {
+                full: undefined
+            },
+            frontend: {
+                full: utils.concat(this.config.version, this.config.build) || undefined
+            },
+            id: utils.md5([window.navigator.userAgent, started]),
+            locale: this.locale,
+            base: new URL(base, window.location.origin),
+            location: window.location,
+            navigator: window.navigator,
+            viewport: window['visualViewport'],
+            started
+        });
+
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe((event: NavigationEnd) => this.about()); //update location
+
+        Observable.fromEvent(window, 'resize')
+            .map((event: Event) => event.target['visualViewport'])
+            .subscribe((viewport) => this.about(viewport)); //update viewport
     }
 }
