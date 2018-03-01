@@ -1,5 +1,5 @@
 /**
- * Provides the main application properties and management.
+ * Main application service.
  */
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
 import {PlatformLocation} from '@angular/common';

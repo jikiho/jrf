@@ -1,5 +1,5 @@
 /**
- * Provides the application configuration and environment.
+ * Application configuration service.
  */
 import {Injectable} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';

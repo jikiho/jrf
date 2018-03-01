@@ -1,5 +1,5 @@
 /**
- * Collection of information about the application.
+ * Model with information about the application.
  */
 import {Version as Angular, VERSION} from '@angular/core';
 

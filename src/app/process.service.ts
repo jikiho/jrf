@@ -1,5 +1,5 @@
 /**
- * Provides application process properties and management.
+ * Application process service.
  *
  * document:keydown.Escape
  * Keyboard event handler is defined in the main application component.

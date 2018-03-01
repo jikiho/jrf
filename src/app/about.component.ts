@@ -1,5 +1,5 @@
 /**
- * Simple...
+ * Component with information about the aplication.
  */
 import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 

@@ -1,13 +1,11 @@
 /**
- * Main application routing with configuration.
+ * Main application routing module with configuration.
  */
 import {NgModule} from '@angular/core';
 import {RouterModule as NgRouterModule, Routes, RouteReuseStrategy as NgRouteReuseStrategy, Router, ActivatedRoute, RouterEvent, NavigationEnd, NavigationCancel, NavigationError} from '@angular/router';
 
-import {AddressComponent} from './address.component';
 import {AppService} from './app.service';
 import {ConfigService} from './config.service';
-import {FilesComponent} from './files.component';
 import {HomeComponent} from './home.component';
 import {RouteReuseStrategy} from './route-reuse-strategy';
 
@@ -17,24 +15,16 @@ import {RouteReuseStrategy} from './route-reuse-strategy';
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
-    },
-    {
-        path: 'adresa',
-        component: AddressComponent
-    },
-    {
-        path: 'soubory',
-        component: FilesComponent
-    },
-    {
-        path: 'soubory/:name',
-        component: FilesComponent,
-        canActivate: ['stop']
-    },
-    {
-        path: '**',
-        redirectTo: ''
+        children: [
+            {
+                path: '',
+                component: HomeComponent
+            },
+            {
+                path: '**',
+                redirectTo: ''
+            }
+        ]
     }
 ];
 

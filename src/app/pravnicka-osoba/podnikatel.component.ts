@@ -1,11 +1,11 @@
 /**
- * Home feature component.
+ * "Pravnicka osoba - Podnikatel" feature component.
  */
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-    templateUrl: './home.component.html',
+    templateUrl: './podnikatel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class PodnikatelComponent {
 }
