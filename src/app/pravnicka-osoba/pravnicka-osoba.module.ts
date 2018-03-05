@@ -12,7 +12,7 @@ import {OstatniComponent} from './ostatni.component';
 import {PodnikatelComponent} from './podnikatel.component';
 //import {PravnickaOsobaRoutingModule} from './pravnicka-osoba-routing.module';
 import {ZivnostiComponent} from './zivnosti.component';
-import {ZmenovyListComponent} from './zmenovy-list.component';
+import {ZmenoveListyComponent} from './zmenove-listy.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +21,7 @@ import {ZmenovyListComponent} from './zmenovy-list.component';
         OstatniComponent,
         PodnikatelComponent,
         ZivnostiComponent,
-        ZmenovyListComponent
+        ZmenoveListyComponent
     ],
     imports: [
         CommonModule,

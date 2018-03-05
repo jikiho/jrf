@@ -3,6 +3,7 @@
         line-height: 1.25rem;
         font-family: Verdana, sans-serif;
         font-weight: normal;
+        font-style: normal;
         font-size: 14px;
         background: #dde7f0;
         color: #000;
@@ -17,8 +18,9 @@
         padding: 0;
         line-height: inherit;
         font-family: inherit;
-        font-weight: inherit;
         font-size: inherit;
+        font-weight: inherit;
+        font-style: inherit;
     }
 
     *, *:after, *:before {
@@ -32,16 +34,12 @@
         margin: 1.5rem auto;
     }
 
-    h1, h2, p, dt, ul {
+    h1, h2, h3, h4, p, dt, ul {
         margin-top: 0.5rem;
     }
 
     h1, h2, h3, h4 {
         font-weight: bold;
-    }
-
-    h1, h2 {
-        display: none;
     }
 
     hr {
@@ -125,14 +123,6 @@
         outline: none;
     }
 
-    form label {
-        display: block;
-    }
-
-    form .labeled label {
-        display: inline-block;
-    }
-
     table, button, input[type="text"], input[type="password"], select, textarea {
         border: 1px solid #999;
         border-radius: 0.25rem;
@@ -144,34 +134,32 @@
         opacity: 0.75;
     }
 
-    input[type="text"][readonly], textarea[readonly] {
+    input[type="text"][readonly], select[readonly], textarea[readonly] {
         background: #eaeaea !important;
-        opacity: 0.75;
     }
 
     /*
     input[type="number"],
     */
-    button, input[type="text"], input[type="password"], select, textarea {
+    button, input[type="text"], input[type="password"], select:not([multiple]) {
         overflow: visible;
     }
 
-    /*
     textarea {
         overflow: auto;
     }
-    */
 
     button {
-        min-height: 2rem;
-        padding: 0.25rem 1.25rem;
+        height: 2rem;
+        line-height: 1rem;
+        padding: 0 1rem;
         background: #f3f3f3;
         background-image: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
         cursor: pointer;
     }
 
     button.compact {
-        min-height: 0;
+        height: auto;
         padding: 0 0.25rem;
     }
 
@@ -226,10 +214,14 @@
     /*
     input[type="number"],
     */
-    input[type="text"], input[type="password"], select {
+    input[type="text"], input[type="password"], select:not([multiple]) {
         height: 2rem;
-        line-height: 2rem;
+        line-height: 1rem;
         padding: 0 0.5rem;
+    }
+
+    select[multiple] {
+        min-height: 3.5rem;
     }
 
     textarea {
@@ -242,8 +234,22 @@
         height: 3.5rem;
     }
 
+    form label {
+        display: block;
+    }
+
+    label dfn {
+        font-size: 0.9rem;
+    }
+
     input[type="checkbox"], input[type="radio"] {
+        width: 1.25rem;
+        height: 1.25rem;
         vertical-align: middle;
+    }
+
+    .grid.gutterless .row {
+        margin-top: 0.25rem;
     }
 
     /*
@@ -281,6 +287,19 @@
         min-height: 1.25rem;
         background: #fff;
     }
+
+    select[multiple] option {
+        padding: 0.25rem 0.5rem;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /*
+    .wrap, select.wrap option {
+        white-space: normal;
+    }
+    */
 
     button:focus, input:focus, select:focus, textarea:focus {
         box-shadow: 0 0 1.5px 0 #ccc;
@@ -399,17 +418,23 @@
     }
 
     section {
-        margin: 1rem 0;
+        margin-top: 0.5rem;
     }
 
-    .block output {
+    section.block {
+        margin: 0.5rem -1rem;
+        padding: 1rem;
+        border: none;
+        border-radius: 0.25rem;
+        /* background: #ccc; */
+        background: #7aa5cc;
+    }
+
+    section.block output {
         color: #fff;
     }
 
-    .block {
-        margin: 0.5rem -1rem;
-        padding: 1rem;
-        background: #7aa5cc;
-        border-radius: 0.25rem;
+    footer {
+        margin-top: 1rem;
     }
 }

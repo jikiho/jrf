@@ -1,7 +1,9 @@
 <header>
-    <h2>Odpovědní zástupci</h2>
     <app-menu-component></app-menu-component>
     <menu-component></menu-component>
+    <!--
+    <h2>Odpovědní zástupci</h2>
+    -->
 </header>
 
 <section class="block">
@@ -47,28 +49,64 @@
 
 <section>
     <form #form="ngForm">
-        <div class="grid">
+        <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
-                    <h4 accesskey="8">08 Odpovědný zástupce</h4>
+                    <h4>0<u>8</u> Odpovědný zástupce</h4>
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
-                    <label>a) titul</label>
-                    <input type="text" name="TitulPred" ngModel>
+                <div class="col-1">
+                    <label>
+                        <dfn>a) titul</dfn>
+                        <input type="text" name="TitulPred" ngModel #accesskey8>
+                    </label>
+                </div>
+                <div class="col-5">
+                    <label>
+                        <dfn>b) jméno</dfn>
+                        <input type="text" name="Jmeno" ngModel>
+                    </label>
+                </div>
+                <div class="col-5">
+                    <label>
+                        <dfn>c) příjmení</dfn>
+                        <input type="text" name="Prijmeni" ngModel>
+                    </label>
+                </div>
+                <div class="col-1">
+                    <label>
+                        <dfn>d) titul</dfn>
+                        <input type="text" name="TitulZa" ngModel>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label>
+                        <dfn>e) státní občanství</dfn>
+                        <select name="StatniObcanstvi" ngModel disabled>
+                            <option value=""></option>
+                        </select>
+                    </label>
                 </div>
                 <div class="col-4">
-                    <label>b) jméno</label>
-                    <input type="text" name="Jmeno" ngModel>
-                </div>
-                <div class="col-4">
-                    <label>c) příjmení</label>
-                    <input type="text" name="Prijmeni" ngModel>
+                    <label>
+                        <dfn>f) rodné příjmení</dfn>
+                        <input type="text" name="RodnePrijmeni" ngModel disabled>
+                    </label>
                 </div>
                 <div class="col-2">
-                    <label>d) titul</label>
-                    <input type="text" name="TitulZa" ngModel>
+                    <label>
+                        <dfn>g) <abbr title="datum narození">narození</abbr></dfn>
+                        <input type="text" name="DatumNarozeni" ngModel>
+                    </label>
+                </div>
+                <div class="col-2">
+                    <label>
+                        <dfn>h) rodné číslo</dfn>
+                        <input type="text" name="RodneCislo" ngModel>
+                    </label>
                 </div>
             </div>
             <div class="row">
@@ -78,21 +116,16 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h4 accesskey="2">12 Ustanovení odpovědného zástupce pro předměty podnikání</h4>
+                    <h4>1<u>2</u> Ustanovení odpovědného zástupce pro předměty podnikání</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <textarea name="zivnosti" readonly></textarea>
+                    <select multiple readonly title="Seznam předmětů podnikání" #accesskey2>
+                        <!-- seznam predmetu podnikani -->
+                    </select>
                 </div>
             </div>
-            <!--
-            <div class="row">
-                <div class="col-12">
-                    <button type="button" (click)="void" title="Vybrat předměty podnikání"><i class="fa fa-reorder"></i> Vybrat živnosti</button>
-                </div>
-            </div>
-            -->
             <div class="row">
                 <div class="col-12">
                     <table>

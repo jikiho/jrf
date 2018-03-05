@@ -106,7 +106,7 @@ export class ConfigService {
     initRequestResources(resources: any = {}) {
         for (let [name, config] of Object.entries(resources)) {
             const protocol = `${name}:`,
-                urls = config instanceof Array ? [...config] : [config],
+                urls = Array.isArray(config) ? [...config] : [config],
                 resource = new RequestResourceModel(urls, this);
 
             this.resources.set(protocol, resource);

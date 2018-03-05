@@ -6,6 +6,8 @@ import {Version as Angular, VERSION} from '@angular/core';
 import {Model} from './model';
 
 export class AboutModel extends Model<AboutModel> {
+    name: string = 'JRF';
+
     /**
      * Angular version.
      */

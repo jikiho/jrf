@@ -4,7 +4,7 @@
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
 import {PlatformLocation} from '@angular/common';
 //import {Title} from '@angular/platform-browser';
-import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
+import {Router, ActivatedRoute, NavigationExtras, NavigationEnd} from '@angular/router';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 
 import {AboutModel} from './about.model';
@@ -55,6 +55,23 @@ export class AppService {
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
 
         this.settleAbout();
+    }
+
+    /**
+     * Navigates...
+     */
+    navigate(params: any = '/', search?: any): Promise<boolean> {
+        const commands = Array.isArray(params) ? params : [params],
+            extras: NavigationExtras = {
+                preserveQueryParams: false,
+                preserveFragment: false
+            };
+
+        if (search) {
+            extras.queryParams = search;
+        }
+
+        return this.router.navigate(commands, extras);
     }
 
     /**

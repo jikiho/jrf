@@ -8,7 +8,7 @@ import {OdpovedniZastupciComponent} from './odpovedni-zastupci.component';
 import {OstatniComponent} from './ostatni.component';
 import {PodnikatelComponent} from './podnikatel.component';
 import {ZivnostiComponent} from './zivnosti.component';
-import {ZmenovyListComponent} from './zmenovy-list.component';
+import {ZmenoveListyComponent} from './zmenove-listy.component';
 
 /**
  * Routing configuration.
@@ -31,8 +31,8 @@ export const PravnickaOsobaRoutes: Routes = [
         component: OstatniComponent
     },
     {
-        path: 'zmenovy-list',
-        component: ZmenovyListComponent
+        path: 'zmenove-listy',
+        component: ZmenoveListyComponent
     },
     {
         path: '**',

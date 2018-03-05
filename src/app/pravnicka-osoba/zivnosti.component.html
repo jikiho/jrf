@@ -1,7 +1,9 @@
 <header>
-    <h2>Živnosti</h2>
     <app-menu-component></app-menu-component>
     <menu-component></menu-component>
+    <!--
+    <h2>Živnosti</h2>
+    -->
 </header>
 
 <section class="block">
@@ -45,26 +47,33 @@
 
 <section>
     <form #form="ngForm">
-        <div class="grid">
+        <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
-                    <h4 accesskey="5">05 Předmět podnikání</h4>
+                    <h4>0<u>5</u> Předmět podnikání</h4>
                     <p>Ve smyslu § 45 resp. § 50 Živnostenského zákona ohlašuji resp. žádám o koncesi pro předmět podnikání.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label>a) předmět podnikání</label>
-                    <textarea name="zivnosti" ngModel readonly></textarea>
+                    <label>
+                        <dfn>druh živnosti</dfn>
+                        <select name="DruhZivnosti" ngModel #accesskey5>
+                            <option value=""></option>
+                        </select>
+                    </label>
                 </div>
             </div>
-            <!--
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="void" title="Vybrat předmět podnikání"><i class="fa fa-reorder"></i> Vybrat živnost</button>
+                    <label>
+                        <dfn>a) předmět podnikání</dfn>
+                        <select name="PredmetPodnikani" ngModel>
+                            <option value=""></option>
+                        </select>
+                    </label>
                 </div>
             </div>
-            -->
         </div>
     </form>
 </section>

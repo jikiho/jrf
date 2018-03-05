@@ -1,12 +1,19 @@
 <header>
-    <h2>Ostatní</h2>
     <app-menu-component></app-menu-component>
     <menu-component></menu-component>
+    <!--
+    <h2>Ostatní</h2>
+    -->
 </header>
 
 <section>
     <form #form="ngForm">
-        <div class="grid">
+        <div class="grid gutterless">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Část <u>B</u> - Oznámení pracovního místa</h3>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     ...
@@ -14,33 +21,50 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
+                    <h3>Část <u>C</u> - Vyberte úřady, vůči kterým je podání učiněno</h3>
                 </div>
             </div>
-            <div class="row">
+            <div class="row row-middle">
                 <div class="col-3">
-                    <label>a) Živnostenský úřad</label>
-                    <input type="checkbox" name="PodaniZU" ngModel>
-                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                    <label>
+                        a)
+                        <dfn>Živnostenský úřad</dfn>
+                        <input type="checkbox" name="PodaniZU" ngModel #accesskeyC>
+                    </label>
                 </div>
                 <div class="col-3">
-                    <label>b) Finanční úřad</label>
-                    <input type="checkbox" name="PodaniFU" ngModel>
-                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                    <label>
+                        <dfn>počet příloh</dfn>
+                        <input type="text" size="3" readonly>
+                    </label>
                 </div>
                 <div class="col-3">
-                    <label>c) Úřad práce</label>
-                    <input type="checkbox" name="PodaniPU" ngModel>
-                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                    <label>
+                        b)
+                        <dfn>Finanční úřad</dfn>
+                        <input type="checkbox" name="PodaniFU" ngModel>
+                    </label>
+                </div>
+                <div class="col-3">
+                    <label>
+                        <dfn>počet příloh</dfn>
+                        <input type="text" size="3" readonly>
+                    </label>
+                </div>
+                <div class="col-3">
+                    <label>
+                        c)
+                        <dfn>Úřad práce</dfn>
+                        <input type="checkbox" name="PodaniPU" ngModel>
+                    </label>
+                </div>
+                <div class="col-3">
+                    <label>
+                        <dfn>počet příloh</dfn>
+                        <input type="text" size="3" readonly>
+                    </label>
                 </div>
             </div>
-            <!--
-            <div class="row">
-                <div class="col-12">
-                    <button type="button" (click)="void" title="Vybrat elektronické přílohy"><i class="fa fa-reorder"></i> Vybrat přílohy</button>
-                </div>
-            </div>
-            -->
             <div class="row">
                 <div class="col-12">
                     <table>
@@ -80,7 +104,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <button type="button" (click)="void" title="Přidat elektronickou přílohu"><i class="fa fa-plus"></i> Nová příloha</button>
                 </div>
             </div>
