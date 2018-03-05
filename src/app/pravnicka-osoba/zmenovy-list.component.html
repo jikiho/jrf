@@ -1,5 +1,5 @@
 <header>
-    <h2>Živnosti</h2>
+    <h2>Změnový list</h2>
     <app-menu-component></app-menu-component>
     <menu-component></menu-component>
 </header>
@@ -13,18 +13,16 @@
                         <thead>
                             <tr>
                                 <th><abbr title="Číslo">č.</abbr></th>
-                                <th width="25%">kód živnosti</th>
-                                <th width="75%">předmět podnikání</th>
+                                <th width="100%">změnový list</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody *ngIf="items$ | async as items">
                             <tr *ngFor="let item of items; let index = index;">
                                 <td>{{index + 1}}</td>
-                                <td>{{item.kod}}</td>
-                                <td>{{item.nazev}}</td>
+                                <td>{{item}}</td>
                                 <td>
-                                    <button type="button" (click)="void" title="Odebrat živnost" class="compact"><i class="fa fa-remove"></i></button>
+                                    <button type="button" (click)="void" title="Odebrat změnový list" class="compact"><i class="fa fa-remove"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -33,10 +31,10 @@
             </div>
             <div class="row">
                 <div class="col-10">
-                    <button type="button" (click)="void" title="Přidat živnost"><i class="fa fa-plus"></i> Nová živnost</button>
+                    <button type="button" (click)="void" title="Přidat změnový list"><i class="fa fa-plus"></i> Nový list</button>
                 </div>
                 <div class="col-2 col-middle right">
-                    <output title="Vybraná živnost">0 / 0</output>
+                    <output title="Vybraný změnový list">0 / 0</output>
                 </div>
             </div>
         </div>
@@ -48,23 +46,15 @@
         <div class="grid">
             <div class="row">
                 <div class="col-12">
-                    <h4 accesskey="5">05 Předmět podnikání</h4>
-                    <p>Ve smyslu § 45 resp. § 50 Živnostenského zákona ohlašuji resp. žádám o koncesi pro předmět podnikání.</p>
+                    <h3>Změnový list</h3>
+                    <p>Oznamuji živnostenskému úřadu ve smyslu živnostenského zákona následující skutečnosti.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label>a) předmět podnikání</label>
-                    <textarea name="zivnosti" ngModel readonly></textarea>
+                    ...
                 </div>
             </div>
-            <!--
-            <div class="row">
-                <div class="col-12">
-                    <button type="button" (click)="void" title="Vybrat předmět podnikání"><i class="fa fa-reorder"></i> Vybrat živnost</button>
-                </div>
-            </div>
-            -->
         </div>
     </form>
 </section>

@@ -1,0 +1,94 @@
+<header>
+    <h2>Ostatní</h2>
+    <app-menu-component></app-menu-component>
+    <menu-component></menu-component>
+</header>
+
+<section>
+    <form #form="ngForm">
+        <div class="grid">
+            <div class="row">
+                <div class="col-12">
+                    ...
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label>a) Živnostenský úřad</label>
+                    <input type="checkbox" name="PodaniZU" ngModel>
+                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                </div>
+                <div class="col-3">
+                    <label>b) Finanční úřad</label>
+                    <input type="checkbox" name="PodaniFU" ngModel>
+                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                </div>
+                <div class="col-3">
+                    <label>c) Úřad práce</label>
+                    <input type="checkbox" name="PodaniPU" ngModel>
+                    <small>počet příloh</small> <input type="text" size="3" readonly>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="void" title="Vybrat elektronické přílohy"><i class="fa fa-reorder"></i> Vybrat přílohy</button>
+                </div>
+            </div>
+            -->
+            <div class="row">
+                <div class="col-12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><abbr title="Číslo">č.</abbr></th>
+                                <th width="60%">název přílohy</th>
+                                <th width="20%">typ</th>
+                                <th width="20%">velikost</th>
+                                <th><abbr title="Živnostenský úřad">ŽÚ</abbr></th>
+                                <th><abbr title="Finanční úřad">FÚ</abbr></th>
+                                <th><abbr title="Úřad práce">ÚP</abbr></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="items$ | async as items">
+                            <tr *ngFor="let item of items; let index = index;">
+                                <td>{{index + 1}}</td>
+                                <td>{{item.nazev}}</td>
+                                <td>{{item.typ}}</td>
+                                <td>{{item.velikost}}</td>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td>
+                                    <button type="button" (click)="void" title="Odebrat elektronickou přílohu" class="compact"><i class="fa fa-remove"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <button type="button" (click)="void" title="Přidat elektronickou přílohu"><i class="fa fa-plus"></i> Nová příloha</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    ...
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

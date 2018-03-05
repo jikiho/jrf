@@ -1,7 +1,6 @@
 /**
  * "Pravnicka osoba" feature menu component.
  */
-//TODO: feature relative paths
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({

@@ -4,6 +4,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule as NgCommonModule} from '@angular/common';
 import {RouterModule as NgRouterModule} from "@angular/router";
+import {FormsModule as NgFormsModule} from '@angular/forms';
 
 import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
@@ -16,6 +17,7 @@ import {InputFileDirective} from './input-file.directive';
 import {NumericPipe} from './numeric.pipe';
 import {OutputForDirective} from './output-for.directive';
 import {ProvideControlDirective} from './provide-control.directive';
+import {RouterLinkActiveDirective} from './router-link-active.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
 import {StringifyPipe} from './stringify.pipe';
 import {TimestampPipe} from './timestamp.pipe';
@@ -24,6 +26,7 @@ import {UnavailablePipe} from './unavailable.pipe';
 @NgModule({
     imports: [
         NgCommonModule,
+        NgFormsModule,
         NgRouterModule
     ],
     declarations: [
@@ -36,6 +39,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         FormResetDirective,
         FormValidateDirective,
         InputFileDirective,
+        RouterLinkActiveDirective,
         NumericPipe,
         OutputForDirective,
         ProvideControlDirective,
@@ -54,7 +58,9 @@ import {UnavailablePipe} from './unavailable.pipe';
         FormResetDirective,
         FormValidateDirective,
         InputFileDirective,
+        RouterLinkActiveDirective,
         NgCommonModule,
+        NgFormsModule,
         NgRouterModule,
         NumericPipe,
         OutputForDirective,

@@ -2,7 +2,6 @@
  * Window module with enhancements.
  *
  * Circular-structure-safe value to JSON conversion.
- * Map to JSON conversion.
  * Window visual viewport property.
  */
 import {NgModule} from '@angular/core';
@@ -11,50 +10,64 @@ import {NgModule} from '@angular/core';
 })
 export class WindowModule {
     /**
-     * Circular-structure-safe value to JSON conversion.
+     * Default circular-structure-safe value to JSON conversion.
      */
     static safeSringify(stringify: Function) {
         return (value: any, replacer?: any, space: number = 4) => {
-            const refs = new Set();
+            const suffix: string = ' //object reference',
+                refs = new Map(),
+                parents = [],
+                keys = [];
 
             try {
-                return stringify(value, replacer || ((key, value) => {
+                return stringify(value, replacer || function(key, value) {
+                    const parent = this;
+
                     if (typeof value === 'object' && value) {
                         if (refs.has(value)) {
-                            const name = value.constructor.name,
-                                definition = name === 'Object' ? `${name} {...}` : `class ${name} {...}`;
-                            return `${definition} //circular structure`;
+                            const ref = refs.get(value).slice(1).join(''),
+                                name = value.constructor ? value.constructor.name : 'Object',
+                                definition = Array.isArray(value) ? `Array(${value.length})` : name;
+
+                            return `${ref} => ${definition}${suffix}`;
                         }
-                        refs.add(value);
+
+                        key = Array.isArray(parent) ? `[${key}]` : `['${key}']`;
+
+                        if (!parents.length) {
+                            ; //root
+                        }
+                        else if (parent === parents.slice(-1)[0]) {
+                            ; //sibling
+                        }
+                        else {
+                            while (parents.length > 1 && parent !== parents.slice(-1)[0]) {
+                                parents.pop();
+                                keys.pop();
+                            }
+                        }
+
+                        parents.push(value);
+                        keys.push(key);
+
+                        refs.set(value, [...keys]);
                     }
+
+                    if (value instanceof Set || value instanceof Map) {
+                        //todo
+                    }
+
                     return value;
-                }), space);
+                }, space);
             }
             catch (error) {
                 throw error;
             }
             finally {
                 refs.clear();
+                parents.splice(0);
+                keys.splice(0);
             }
-        };
-    }
-
-    /**
-     * Map to JSON conversion.
-     */
-    static mapToJson() {
-        return function() {
-            const items = {
-                keys: [],
-                values: []
-            };
-
-            this.forEach((value, key) => {
-                items.keys.push(key);
-                items.values.push(value);
-            });
-
-            return JSON.stringify(items);
         };
     }
 
@@ -83,12 +96,6 @@ export class WindowModule {
         Object.defineProperty(JSON, 'stringify', {
             value: WindowModule.safeSringify(JSON.stringify)
         });
-
-        if (!Map.prototype.hasOwnProperty('toJSON')) {
-            Object.defineProperty(Map.prototype, 'toJSON', {
-                value: WindowModule.mapToJson()
-            });
-        }
 
         if (!window.hasOwnProperty('visualViewport')) {
             Object.defineProperty(window, 'visualViewport', {

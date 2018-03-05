@@ -18,7 +18,7 @@ export class AppService {
     /**
      * Information about the application (stream).
      */
-    about$: BehaviorSubject<AboutModel> = new BehaviorSubject<AboutModel>(null);
+    about$ = new BehaviorSubject<AboutModel>(null);
 
     /**
      * Current application unique identification.
@@ -48,8 +48,9 @@ export class AppService {
     constructor(private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
             @Inject(LOCALE_ID) public readonly locale: string, //locale string
             private config: ConfigService, private process: ProcessService) {
-        // global references
-        Object.assign(window, {app: this, utils});
+        if (this.config.debug) {
+            Object.assign(window, {app: this, utils});
+        }
 
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
 

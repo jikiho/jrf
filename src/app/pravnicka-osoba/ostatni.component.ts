@@ -1,11 +1,11 @@
 /**
- * Home feature component.
+ * "Pravnicka osoba - Ostatni" feature component.
  */
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-    templateUrl: './home.component.html',
+    templateUrl: './ostatni.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class OstatniComponent {
 }

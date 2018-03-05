@@ -1,5 +1,5 @@
 <details *ngIf="about">
-    <summary i18n>O aplikaci</summary>
+    <summary i18n-title title="O aplikaci..."><abbr i18n>JRF</abbr> / {{about.backend.full | unavailable}} / {{about.frontend.full | unavailable}}</summary>
     <dl>
         <dt i18n>Backend version</dt>
         <dd>{{about.backend.full | unavailable}}</dd>

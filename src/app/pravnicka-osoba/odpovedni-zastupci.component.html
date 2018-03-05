@@ -1,0 +1,120 @@
+<header>
+    <h2>Odpovědní zástupci</h2>
+    <app-menu-component></app-menu-component>
+    <menu-component></menu-component>
+</header>
+
+<section class="block">
+    <form>
+        <div class="grid">
+            <div class="row">
+                <div class="col-12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><abbr title="Číslo">č.</abbr></th>
+                                <th width="40%">jméno</th>
+                                <th width="40%">příjmení</th>
+                                <th width="20%"><abbr title="datum narození">narození</abbr></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="items$ | async as items">
+                            <tr *ngFor="let item of items; let index = index;">
+                                <td>{{index + 1}}</td>
+                                <td>{{item.jmeno}}</td>
+                                <td>{{item.prijmeni}}</td>
+                                <td>{{item.datumNarozeni}}</td>
+                                <td>
+                                    <button type="button" (click)="void" title="Odebrat odpovědného zástupce" class="compact"><i class="fa fa-remove"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <button type="button" (click)="void" title="Přidat odpovědného zástupce"><i class="fa fa-plus"></i> Nový zástupce</button>
+                </div>
+                <div class="col-2 col-middle right">
+                    <output title="Vybraný odpovědný zástupce">0 / 0</output>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section>
+    <form #form="ngForm">
+        <div class="grid">
+            <div class="row">
+                <div class="col-12">
+                    <h4 accesskey="8">08 Odpovědný zástupce</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label>a) titul</label>
+                    <input type="text" name="TitulPred" ngModel>
+                </div>
+                <div class="col-4">
+                    <label>b) jméno</label>
+                    <input type="text" name="Jmeno" ngModel>
+                </div>
+                <div class="col-4">
+                    <label>c) příjmení</label>
+                    <input type="text" name="Prijmeni" ngModel>
+                </div>
+                <div class="col-2">
+                    <label>d) titul</label>
+                    <input type="text" name="TitulZa" ngModel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    ...
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4 accesskey="2">12 Ustanovení odpovědného zástupce pro předměty podnikání</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <textarea name="zivnosti" readonly></textarea>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="void" title="Vybrat předměty podnikání"><i class="fa fa-reorder"></i> Vybrat živnosti</button>
+                </div>
+            </div>
+            -->
+            <div class="row">
+                <div class="col-12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><abbr title="Číslo">č.</abbr></th>
+                                <th><input type="checkbox" title="Výběr předmětů podnikání"></th>
+                                <th width="25%">kód živnosti</th>
+                                <th width="75%">předmět podnikání</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="items$ | async as items">
+                            <tr *ngFor="let item of items; let index = index;">
+                                <td>{{index + 1}}</td>
+                                <th><input type="checkbox" title="Výběr předmětu podnikání"></th>
+                                <td>{{item.kod}}</td>
+                                <td>{{item.nazev}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

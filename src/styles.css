@@ -1,13 +1,415 @@
-a[disabled], [disabled] a {
-    pointer-events: none;
-    color: inherit;
-    cursor: default;
-}
+@media all {
+    html {
+        line-height: 1.25rem;
+        font-family: Verdana, sans-serif;
+        font-weight: normal;
+        font-size: 14px;
+        background: #dde7f0;
+        color: #000;
+        /*
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        */
+    }
 
-[disabled] {
-    opacity: 0.6;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        line-height: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        font-size: inherit;
+    }
 
-nav a.active {
-    font-weight: bold;
+    *, *:after, *:before {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+
+    body {
+        max-width: 50rem;
+        margin: 1.5rem auto;
+    }
+
+    h1, h2, p, dt, ul {
+        margin-top: 0.5rem;
+    }
+
+    h1, h2, h3, h4 {
+        font-weight: bold;
+    }
+
+    h1, h2 {
+        display: none;
+    }
+
+    hr {
+        margin-top: 0.5rem;
+        border-top: 1px solid #999;
+    }
+
+    th, small, .small {
+        font-size: 0.9rem;
+        font-weight: normal;
+    }
+
+    nav {
+        word-spacing: -0.25rem;
+    }
+
+    nav ul {
+        padding: 0;
+    }
+
+    nav li {
+        display: inline-block;
+        word-spacing: 0;
+    }
+
+    nav li + li:before {
+        content: "|";
+        margin: 0 0.25rem;
+    }
+
+    a[disabled], [disabled] a {
+        pointer-events: none;
+        color: inherit !important;
+        cursor: default;
+    }
+
+    [disabled] {
+        opacity: 0.45;
+    }
+
+    a {
+        display: inline-block;
+        cursor: default;
+    }
+
+    a:link {
+        text-decoration: underline;
+        color: #059;
+        cursor: pointer;
+    }
+
+    nav a:link {
+        text-decoration: none;
+    }
+
+    a:link:hover {
+        text-decoration: underline;
+    }
+
+    a:visited {
+        color: #059;
+    }
+
+    a:hover {
+    }
+
+    a:active, a.active {
+        outline: none;
+        color: #c00;
+    }
+
+    a:focus {
+        outline: 1px dotted #999;
+    }
+
+    details summary {
+        cursor: pointer;
+    }
+
+    details summary:focus {
+        outline: none;
+    }
+
+    form label {
+        display: block;
+    }
+
+    form .labeled label {
+        display: inline-block;
+    }
+
+    table, button, input[type="text"], input[type="password"], select, textarea {
+        border: 1px solid #999;
+        border-radius: 0.25rem;
+    }
+
+    button[disabled], input[disabled], select[disabled], textarea[disabled] {
+        background: #eaeaea !important;
+        cursor: default;
+        opacity: 0.75;
+    }
+
+    input[type="text"][readonly], textarea[readonly] {
+        background: #eaeaea !important;
+        opacity: 0.75;
+    }
+
+    /*
+    input[type="number"],
+    */
+    button, input[type="text"], input[type="password"], select, textarea {
+        overflow: visible;
+    }
+
+    /*
+    textarea {
+        overflow: auto;
+    }
+    */
+
+    button {
+        min-height: 2rem;
+        padding: 0.25rem 1.25rem;
+        background: #f3f3f3;
+        background-image: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+        cursor: pointer;
+    }
+
+    button.compact {
+        min-height: 0;
+        padding: 0 0.25rem;
+    }
+
+    button::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+    }
+
+    button:-moz-focusring {
+        outline: none;
+    }
+
+    /* no inner frame */
+    select:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+    }
+
+    button:hover:not([disabled]) {
+        background: #f9f9f9;
+        background-image: linear-gradient(to bottom, #ffffff, #f6f6f6);
+    }
+
+    /*
+    input[type="number"],
+    */
+    input[type="text"], input[type="password"], select, textarea {
+        width: 100%;
+        background: #fff;
+    }
+
+    input[type="text"][size="1"] {
+        width: 2rem;
+    }
+
+    input[type="text"][size="3"] {
+        width: 3.5rem;
+    }
+
+    input[type="text"][size="6"] {
+        width: 5.25rem;
+    }
+
+    input[type="text"][size="10"] {
+        width: 8.25rem;
+    }
+
+    input[type="text"][size="15"] {
+        width: 11.5rem;
+    }
+
+    /*
+    input[type="number"],
+    */
+    input[type="text"], input[type="password"], select {
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 0.5rem;
+    }
+
+    textarea {
+        min-height: 3.5rem;
+        padding: 0.25rem 0.5rem;
+        resize: vertical;
+    }
+
+    textarea:not([rows]) {
+        height: 3.5rem;
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+        vertical-align: middle;
+    }
+
+    /*
+    select {
+        padding-right: 25px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    select::-ms-expand {
+        display: none;
+    }
+    */
+
+    /*
+	input[type="number"] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+		margin: 0;
+	}
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    */
+
+    select:focus, select:hover:not([disabled]) {
+        background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    }
+
+    option {
+        min-height: 1.25rem;
+        background: #fff;
+    }
+
+    button:focus, input:focus, select:focus, textarea:focus {
+        box-shadow: 0 0 1.5px 0 #ccc;
+        outline: 1px dotted #999;
+        outline-offset: -4px;
+    }
+
+    input[type="checkbox"]:focus, input[type="radio"]:focus {
+        outline-offset: 1px;
+    }
+
+    .invalid {
+        color: #e33;
+    }
+
+    /*
+    input[type="number"].ng-invalid,
+    */
+    input[type="text"].ng-invalid, input[type="password"].ng-invalid, select.ng-invalid, textarea.ng-invalid {
+        box-shadow: none;
+        border-color: #e33;
+    }
+
+    /*
+    input[type="number"]:focus.ng-invalid,
+    */
+    input[type="text"]:focus.ng-invalid, input[type="password"]:focus.ng-invalid, select:focus.ng-invalid, textarea:focus.ng-invalid {
+        box-shadow: 0 0 1.5px 0 #ccc;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+    }
+
+    form table {
+        width: 100%;
+    }
+
+    table.stripe thead th, table.stripe tbody tr:nth-child(even) th {
+        background: #ececec;
+    }
+
+    table.stripe tbody tr:nth-child(even) td {
+        background: #f9f9f9;
+    }
+
+    table > * + * tr:first-child > *, tr + tr:not(.stuck) > * {
+        border-top: 1px solid #ddd;
+    }
+
+    tr > * + * {
+        border-left: 1px solid #ddd;
+    }
+
+    tr[hidden] + tr > *, form tfoot tr + tr > * {
+        border: none;
+    }
+
+    tr.upper > * {
+        border-top-color: #999;
+    }
+
+    th.lefter, td.lefter {
+        border-left-color: #999;
+    }
+
+    th.leftest, td.leftest {
+        border-left: 3px double #999;
+    }
+
+    th, td {
+        padding: 0.5rem;
+        vertical-align: top;
+    }
+
+    th[rowspan], td[rowspan] {
+        vertical-align: middle;
+    }
+
+    th {
+        font-weight: normal;
+        text-align: center;
+        background: #f3f3f3;
+        cursor: text;
+    }
+
+    td {
+        background: #fff;
+    }
+
+    td:first-of-type:last-of-type {
+        min-width: 25rem;
+    }
+
+    .fa {
+        color: inherit;
+        cursor: inherit;
+    }
+
+    i.fa {
+        margin-right: 0.25em;
+    }
+
+    u.fa {
+        margin-left: 0.25em;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    section {
+        margin: 1rem 0;
+    }
+
+    .block output {
+        color: #fff;
+    }
+
+    .block {
+        margin: 0.5rem -1rem;
+        padding: 1rem;
+        background: #7aa5cc;
+        border-radius: 0.25rem;
+    }
 }

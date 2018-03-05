@@ -6,25 +6,25 @@ import {RouterModule as NgRouterModule, Routes, RouteReuseStrategy as NgRouteReu
 
 import {AppService} from './app.service';
 import {ConfigService} from './config.service';
-import {HomeComponent} from './home.component';
 import {RouteReuseStrategy} from './route-reuse-strategy';
+import {UvodniStrankaRoutes} from './uvodni-stranka/uvodni-stranka-routing.module';
+import {PravnickaOsobaRoutes} from './pravnicka-osoba/pravnicka-osoba-routing.module';
 
 /**
  * Routing configuration.
  */
 const routes: Routes = [
     {
+        path: 'pravnicka-osoba',
+        children: PravnickaOsobaRoutes
+    },
+    {
         path: '',
-        children: [
-            {
-                path: '',
-                component: HomeComponent
-            },
-            {
-                path: '**',
-                redirectTo: ''
-            }
-        ]
+        children: UvodniStrankaRoutes
+    },
+    {
+        path: '**',
+        redirectTo: ''
     }
 ];
 

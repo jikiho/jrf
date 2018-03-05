@@ -1,5 +1,95 @@
-<h2>Právnická osoba</h2>
+<header>
+    <h2>Právnická osoba</h2>
+    <app-menu-component></app-menu-component>
+    <menu-component></menu-component>
+</header>
 
-<menu-component></menu-component>
-
-<h3>Podnikatel</h3>
+<section>
+    <form #form="ngForm">
+        <div class="grid">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Část A - Podnikatel</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4 accesskey="1">01 Podnikatel</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>a) obchodní firma / název právnické osoby</label>
+                    <input type="text" name="ObchodniJmeno" ngModel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <label>b) právní forma</label>
+                    <select name="PravniForma" ngModel>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label>c) <abbr title="identifikační číslo osoby">IČO</abbr></label>
+                    <input type="text" name="ICO" ngModel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="void"><i class="fa fa-search"></i> Doplnit podnikatele</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4 accesskey="2" class="col-12">02 Adresa sídla</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>a) název ulice</label>
+                    <input type="text" name="UliceNazev" ngModel>
+                </div>
+                <div class="col-2">
+                    <label>b) <abbr title="číslo domovní (popisné / evidenční)">č.p. / č.ev.</abbr></label>
+                    <input type="text" name="CisloDomovni" ngModel>
+                </div>
+                <div class="col-2">
+                    <label>c) <abbr title="číslo orientační">č. or.</abbr></label>
+                    <input type="text" name="CisloOrientacni" ngModel>
+                </div>
+                <div class="col-2">
+                    <label>d) <abbr title="poštovní směrovací číslo">PSČ</abbr></label>
+                    <input type="text" name="PSC" ngModel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>e) název obce</label>
+                    <input type="text" name="ObecNazev" ngModel>
+                </div>
+                <div class="col-6">
+                    <label>f) část obce</label>
+                    <input type="text" name="CastObceNazev" ngModel>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>g) okres</label>
+                    <input type="text" name="OkresNazev" ngModel>
+                </div>
+                <div class="col-6">
+                    <label>h) stát</label>
+                    <select name="StatNazev" ngModel>
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="void"><i class="fa fa-search"></i> Doplnit adresu</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
