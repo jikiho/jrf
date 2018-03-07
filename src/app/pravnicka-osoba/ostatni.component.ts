@@ -5,6 +5,7 @@ import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener}
 import {NgForm} from '@angular/forms';
 
 import {AppService} from '../app.service';
+import {DataService} from './data.service';
 
 @Component({
     templateUrl: './ostatni.component.html',
@@ -17,17 +18,7 @@ export class OstatniComponent {
     @ViewChild('accesskeyC')
     private accesskeyC: ElementRef;
 
-    constructor( private app: AppService) {
-    }
-
-    @HostListener('document:keydown.alt.PageUp')
-    private previousRouteOnKey() {
-        this.app.navigate(['pravnicka-osoba', 'odpovedni-zastupci']);
-    }
-
-    @HostListener('document:keydown.alt.PageDown')
-    private nextRouteOnKey() {
-        this.app.navigate(['/pravnicka-osoba', 'zmenove-listy']);
+    constructor(private app: AppService, private data: DataService) {
     }
 
     @HostListener('document:keydown.alt.C')

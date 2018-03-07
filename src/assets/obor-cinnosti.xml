@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  CISELNIK zif,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="zif"> 
+   <Polozka><Kod>1</Kod><Hodnota>Poskytování služeb pro zemědělství, zahradnictví, rybníkářství, lesnictví a myslivost</Hodnota><Poznamka>Z01001</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>2</Kod><Hodnota>Činnost odborného lesního hospodáře a vyhotovování lesních hospodářských plánů a osnov</Hodnota><Poznamka>Z01081</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>3</Kod><Hodnota>Diagnostická, zkušební a poradenská činnost v ochraně rostlin a ošetřování rostlin, rostlinných produktů, objektů a půdy proti škodlivým organismům přípravky na ochranu rostlin nebo biocidními přípravky</Hodnota><Poznamka>Z01082</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>4</Kod><Hodnota>Nakládání s reprodukčním materiálem lesních dřevin</Hodnota><Poznamka>Z01004</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>5</Kod><Hodnota>Chov zvířat a jejich výcvik (s výjimkou živočišné výroby)</Hodnota><Poznamka>Z01005</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>6</Kod><Hodnota>Úprava nerostů, dobývání rašeliny a bahna</Hodnota><Poznamka>Z01006</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>7</Kod><Hodnota>Výroba potravinářských a škrobárenských výrobků</Hodnota><Poznamka>Z01007</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>8</Kod><Hodnota>Pěstitelské pálení</Hodnota><Poznamka>Z01008</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>9</Kod><Hodnota>Výroba krmiv, krmných směsí, doplňkových látek a premixů</Hodnota><Poznamka>Z01009</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>10</Kod><Hodnota>Výroba textilií, textilních výrobků, oděvů a oděvních doplňků</Hodnota><Poznamka>Z01010</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>11</Kod><Hodnota>Výroba a opravy obuvi, brašnářského a sedlářského zboží</Hodnota><Poznamka>Z01011</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>12</Kod><Hodnota>Zpracování dřeva, výroba dřevěných, korkových, proutěných a slaměných výrobků</Hodnota><Poznamka>Z01012</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>13</Kod><Hodnota>Výroba vlákniny, papíru a lepenky a zboží z těchto materiálů</Hodnota><Poznamka>Z01013</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>14</Kod><Hodnota>Vydavatelské činnosti, polygrafická výroba, knihařské a kopírovací práce</Hodnota><Poznamka>Z01014</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>15</Kod><Hodnota>Výroba, rozmnožování, distribuce, prodej, pronájem zvukových a zvukově-obrazových záznamů a výroba nenahraných nosičů údajů a záznamů</Hodnota><Poznamka>Z01015</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>16</Kod><Hodnota>Výroba koksu, surového dehtu a jiných pevných paliv</Hodnota><Poznamka>Z01016</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>17</Kod><Hodnota>Výroba chemických látek a chemických směsí nebo předmětů a kosmetických přípravků</Hodnota><Poznamka>Z01017</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>18</Kod><Hodnota>Výroba hnojiv</Hodnota><Poznamka>Z01018</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>19</Kod><Hodnota>Výroba plastových a pryžových výrobků</Hodnota><Poznamka>Z01019</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>20</Kod><Hodnota>Výroba a zpracování skla</Hodnota><Poznamka>Z01020</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>21</Kod><Hodnota>Výroba stavebních hmot, porcelánových, keramických a sádrových výrobků</Hodnota><Poznamka>Z01021</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>22</Kod><Hodnota>Výroba brusiv a ostatních minerálních nekovových výrobků</Hodnota><Poznamka>Z01022</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>23</Kod><Hodnota>Broušení technického a šperkového kamene</Hodnota><Poznamka>Z01023</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>24</Kod><Hodnota>Výroba a hutní zpracování železa, drahých a neželezných kovů a jejich slitin</Hodnota><Poznamka>Z01024</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>25</Kod><Hodnota>Výroba kovových konstrukcí a kovodělných výrobků</Hodnota><Poznamka>Z01025</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>26</Kod><Hodnota>Umělecko-řemeslné zpracování kovů</Hodnota><Poznamka>Z01026</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>27</Kod><Hodnota>Povrchové úpravy a svařování kovů a dalších materiálů</Hodnota><Poznamka>Z01027</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>28</Kod><Hodnota>Výroba měřicích, zkušebních, navigačních, optických a fotografických přístrojů a zařízení</Hodnota><Poznamka>Z01028</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>29</Kod><Hodnota>Výroba elektronických součástek, elektrických zařízení a výroba a opravy elektrických strojů, přístrojů a elektronických zařízení pracujících na malém napětí</Hodnota><Poznamka>Z01029</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>30</Kod><Hodnota>Výroba neelektrických zařízení pro domácnost</Hodnota><Poznamka>Z01030</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>31</Kod><Hodnota>Výroba strojů a zařízení</Hodnota><Poznamka>Z01031</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>32</Kod><Hodnota>Výroba motorových a přípojných vozidel a karoserií</Hodnota><Poznamka>Z01032</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>33</Kod><Hodnota>Stavba a výroba plavidel</Hodnota><Poznamka>Z01033</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>34</Kod><Hodnota>Výroba, vývoj, projektování, zkoušky, instalace, údržba, opravy, modifikace a konstrukční změny letadel, motorů letadel, vrtulí, letadlových částí a zařízení a leteckých  pozemních zařízení</Hodnota><Poznamka>Z01034</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>35</Kod><Hodnota>Výroba drážních hnacích vozidel a drážních vozidel na dráze tramvajové, trolejbusové a lanové a železničního parku</Hodnota><Poznamka>Z01035</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>36</Kod><Hodnota>Výroba jízdních kol, vozíků pro invalidy a jiných nemotorových dopravních prostředků</Hodnota><Poznamka>Z01036</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>37</Kod><Hodnota>Výroba a opravy čalounických výrobků</Hodnota><Poznamka>Z01037</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>38</Kod><Hodnota>Výroba, opravy a údržba sportovních potřeb, her, hraček a dětských kočárků</Hodnota><Poznamka>Z01038</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>39</Kod><Hodnota>Výroba zdravotnických prostředků</Hodnota><Poznamka>Z01039</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>40</Kod><Hodnota>Výroba a opravy zdrojů ionizujícího záření</Hodnota><Poznamka>Z01040</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>41</Kod><Hodnota>Výroba školních a kancelářských potřeb, kromě výrobků z papíru, výroba bižuterie, kartáčnického a konfekčního zboží, deštníků, upomínkových předmětů</Hodnota><Poznamka>Z01041</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>42</Kod><Hodnota>Výroba dalších výrobků zpracovatelského průmyslu</Hodnota><Poznamka>Z01042</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>43</Kod><Hodnota>Provozování vodovodů a kanalizací a úprava a rozvod vody</Hodnota><Poznamka>Z01043</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>44</Kod><Hodnota>Nakládání s odpady (vyjma nebezpečných)</Hodnota><Poznamka>Z01044</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>45</Kod><Hodnota>Přípravné a dokončovací stavební práce, specializované stavební činnosti</Hodnota><Poznamka>Z01045</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>46</Kod><Hodnota>Sklenářské práce, rámování a paspartování</Hodnota><Poznamka>Z01046</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>47</Kod><Hodnota>Zprostředkování obchodu a služeb</Hodnota><Poznamka>Z01047</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>48</Kod><Hodnota>Velkoobchod a maloobchod</Hodnota><Poznamka>Z01048</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>49</Kod><Hodnota>Zastavárenská činnost a maloobchod s použitým zbožím</Hodnota><Poznamka>Z01049</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>50</Kod><Hodnota>Údržba motorových vozidel a jejich příslušenství</Hodnota><Poznamka>Z01050</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>51</Kod><Hodnota>Potrubní a pozemní doprava (vyjma železniční a silniční motorové dopravy)</Hodnota><Poznamka>Z01051</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>52</Kod><Hodnota>Skladování, balení zboží, manipulace s nákladem a technické činnosti v dopravě</Hodnota><Poznamka>Z01052</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>53</Kod><Hodnota>Zasilatelství a zastupování v celním řízení</Hodnota><Poznamka>Z01053</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>55</Kod><Hodnota>Ubytovací služby</Hodnota><Poznamka>Z01055</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>56</Kod><Hodnota>Poskytování software, poradenství v oblasti informačních technologií, zpracování dat, hostingové a související činnosti a webové portály</Hodnota><Poznamka>Z01056</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>57</Kod><Hodnota>Činnost informačních a zpravodajských kanceláří</Hodnota><Poznamka>Z01057</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>58</Kod><Hodnota>Realitní činnost, správa a údržba nemovitostí</Hodnota><Poznamka>Z01058</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>59</Kod><Hodnota>Pronájem a půjčování věcí movitých</Hodnota><Poznamka>Z01059</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>60</Kod><Hodnota>Poradenská a konzultační činnost, zpracování odborných studií a posudků</Hodnota><Poznamka>Z01060</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>61</Kod><Hodnota>Projektování pozemkových úprav</Hodnota><Poznamka>Z01061</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>62</Kod><Hodnota>Příprava a vypracování technických návrhů, grafické a kresličské práce</Hodnota><Poznamka>Z01062</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>63</Kod><Hodnota>Projektování elektrických zařízení</Hodnota><Poznamka>Z01063</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>64</Kod><Hodnota>Výzkum a vývoj v oblasti přírodních a technických věd nebo společenských věd</Hodnota><Poznamka>Z01064</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>65</Kod><Hodnota>Testování, měření, analýzy a kontroly</Hodnota><Poznamka>Z01065</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>66</Kod><Hodnota>Reklamní činnost, marketing, mediální zastoupení</Hodnota><Poznamka>Z01066</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>67</Kod><Hodnota>Návrhářská, designérská, aranžérská činnost a modeling</Hodnota><Poznamka>Z01067</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>68</Kod><Hodnota>Fotografické služby</Hodnota><Poznamka>Z01068</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>69</Kod><Hodnota>Překladatelská a tlumočnická činnost</Hodnota><Poznamka>Z01069</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>70</Kod><Hodnota>Služby v oblasti administrativní správy a služby organizačně hospodářské povahy</Hodnota><Poznamka>Z01070</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>71</Kod><Hodnota>Provozování cestovní agentury a průvodcovská činnost v oblasti cestovního ruchu</Hodnota><Poznamka>Z01071</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>72</Kod><Hodnota>Mimoškolní výchova a vzdělávání, pořádání kurzů, školení, včetně lektorské činnosti</Hodnota><Poznamka>Z01072</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>73</Kod><Hodnota>Provozování kulturních, kulturně-vzdělávacích a zábavních zařízení, pořádání kulturních produkcí, zábav, výstav, veletrhů, přehlídek, prodejních a obdobných akcí</Hodnota><Poznamka>Z01073</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>74</Kod><Hodnota>Provozování tělovýchovných a sportovních zařízení a organizování sportovní činnosti</Hodnota><Poznamka>Z01074</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>75</Kod><Hodnota>Praní pro domácnost, žehlení, opravy a údržba oděvů, bytového textilu a osobního zboží</Hodnota><Poznamka>Z01075</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>76</Kod><Hodnota>Poskytování technických služeb</Hodnota><Poznamka>Z01076</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>77</Kod><Hodnota>Opravy a údržba potřeb pro domácnost, předmětů kulturní povahy, výrobků jemné mechaniky, optických přístrojů a měřidel</Hodnota><Poznamka>Z01077</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>78</Kod><Hodnota>Poskytování služeb osobního charakteru a pro osobní hygienu</Hodnota><Poznamka>Z01078</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>79</Kod><Hodnota>Poskytování služeb pro rodinu a domácnost</Hodnota><Poznamka>Z01079</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>80</Kod><Hodnota>Výroba, obchod a služby jinde nezařazené</Hodnota><Poznamka>Z01080</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+</Ciselnik> 

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  CISELNIK sta,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="sta"> 
+   <Polozka><Kod>AF</Kod><Hodnota>Afghánská islámská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AL</Kod><Hodnota>Albánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DZ</Kod><Hodnota>Alžírská demokratická a lidová republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VI</Kod><Hodnota>Americké Panenské ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AD</Kod><Hodnota>Andorrské knížectví</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AO</Kod><Hodnota>Angolská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AI</Kod><Hodnota>Anguilla</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AQ</Kod><Hodnota>Antarktida</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AG</Kod><Hodnota>Antigua a Barbuda</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AR</Kod><Hodnota>Argentinská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AM</Kod><Hodnota>Arménská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AW</Kod><Hodnota>Aruba</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AU</Kod><Hodnota>Australské společenství</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AZ</Kod><Hodnota>Ázerbájdžánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BS</Kod><Hodnota>Bahamské společenství</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GG</Kod><Hodnota>Bailiwick Guernsey</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>JE</Kod><Hodnota>Bailiwick Jersey</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BD</Kod><Hodnota>Bangladéšská lidová republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BB</Kod><Hodnota>Barbados</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BE</Kod><Hodnota>Belgické království</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>BZ</Kod><Hodnota>Belize</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BY</Kod><Hodnota>Běloruská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BJ</Kod><Hodnota>Beninská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BM</Kod><Hodnota>Bermudy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BT</Kod><Hodnota>Bhútánské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VE</Kod><Hodnota>Bolívarovská republika Venezuela</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BQ</Kod><Hodnota>Bonaire, Svatý Eustach a Saba</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BA</Kod><Hodnota>Bosna a Hercegovina</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BW</Kod><Hodnota>Botswanská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BV</Kod><Hodnota>Bouvetův ostrov</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BR</Kod><Hodnota>Brazilská federativní republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VG</Kod><Hodnota>Britské Panenské ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IO</Kod><Hodnota>Britské území v Indickém oceánu</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BG</Kod><Hodnota>Bulharská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>BF</Kod><Hodnota>Burkina Faso</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BI</Kod><Hodnota>Burundská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MK</Kod><Hodnota>Bývalá jugoslávská republika Makedonie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CK</Kod><Hodnota>Cookovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CW</Kod><Hodnota>Curacao</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TD</Kod><Hodnota>Čadská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ME</Kod><Hodnota>Černá Hora</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CZ</Kod><Hodnota>Česká republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>CN</Kod><Hodnota>Čínská lidová republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TW</Kod><Hodnota>Čínská republika (Tchaj-wan)</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DK</Kod><Hodnota>Dánské království</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>CD</Kod><Hodnota>Demokratická republika Kongo</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ST</Kod><Hodnota>Demokratická republika Svatý Tomáš a Princův ostrov</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TL</Kod><Hodnota>Demokratická republika Východní Timor</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DM</Kod><Hodnota>Dominické společenství</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DO</Kod><Hodnota>Dominikánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DJ</Kod><Hodnota>Džibutská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>EG</Kod><Hodnota>Egyptská arabská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>EC</Kod><Hodnota>Ekvádorská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>EE</Kod><Hodnota>Estonská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>ET</Kod><Hodnota>Etiopská federativní demokratická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FO</Kod><Hodnota>Faerské ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FK</Kod><Hodnota>Falklandské ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KN</Kod><Hodnota>Federace Svatý Kryštof a Nevis</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FM</Kod><Hodnota>Federativní státy Mikronésie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FJ</Kod><Hodnota>Fidžijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PH</Kod><Hodnota>Filipínská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FI</Kod><Hodnota>Finská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>PF</Kod><Hodnota>Francouzská Polynésie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>FR</Kod><Hodnota>Francouzská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>GA</Kod><Hodnota>Gabonská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GM</Kod><Hodnota>Gambijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GH</Kod><Hodnota>Ghanská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GI</Kod><Hodnota>Gibraltar</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GD</Kod><Hodnota>Grenadský stát</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GL</Kod><Hodnota>Grónsko</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GE</Kod><Hodnota>Gruzie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GT</Kod><Hodnota>Guatemalská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GN</Kod><Hodnota>Guinejská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GY</Kod><Hodnota>Guyanská kooperativní republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HM</Kod><Hodnota>Heardův ostrov a MacDonaldovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HN</Kod><Hodnota>Honduraská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CL</Kod><Hodnota>Chilská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HR</Kod><Hodnota>Chorvatská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>IN</Kod><Hodnota>Indická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ID</Kod><Hodnota>Indonéská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IQ</Kod><Hodnota>Irácká republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IR</Kod><Hodnota>Íránská islámská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IE</Kod><Hodnota>Irsko</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>IS</Kod><Hodnota>Islandská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>IT</Kod><Hodnota>Italská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>JM</Kod><Hodnota>Jamajka</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>JP</Kod><Hodnota>Japonsko</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>YE</Kod><Hodnota>Jemenská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ZA</Kod><Hodnota>Jihoafrická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SS</Kod><Hodnota>Jihosúdánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GS</Kod><Hodnota>Jižní Georgie a Jižní Sandwichovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>JO</Kod><Hodnota>Jordánské hášimovské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KY</Kod><Hodnota>Kajmanské ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KH</Kod><Hodnota>Kambodžské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CM</Kod><Hodnota>Kamerunská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CA</Kod><Hodnota>Kanada</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CV</Kod><Hodnota>Kapverdská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KE</Kod><Hodnota>Keňská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CO</Kod><Hodnota>Kolumbijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KM</Kod><Hodnota>Komorský svaz</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CG</Kod><Hodnota>Konžská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KP</Kod><Hodnota>Korejská lidově demokratická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KR</Kod><Hodnota>Korejská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>XK</Kod><Hodnota>Kosovská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CR</Kod><Hodnota>Kostarická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BH</Kod><Hodnota>Království Bahrajn</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SA</Kod><Hodnota>Království Saúdská Arábie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TO</Kod><Hodnota>Království Tonga</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CU</Kod><Hodnota>Kubánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KW</Kod><Hodnota>Kuvajtský stát</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CY</Kod><Hodnota>Kyperská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>KG</Kod><Hodnota>Kyrgyzská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LA</Kod><Hodnota>Laoská lidově demokratická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LS</Kod><Hodnota>Lesothské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LB</Kod><Hodnota>Libanonská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LR</Kod><Hodnota>Liberijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LY</Kod><Hodnota>Libyjský stát</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LI</Kod><Hodnota>Lichtenštejnské knížectví</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>LT</Kod><Hodnota>Litevská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>LV</Kod><Hodnota>Lotyšská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>LU</Kod><Hodnota>Lucemburské velkovévodství</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>MG</Kod><Hodnota>Madagaskarská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HU</Kod><Hodnota>Maďarsko</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>MY</Kod><Hodnota>Malajsie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MW</Kod><Hodnota>Malawiská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MV</Kod><Hodnota>Maledivská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MT</Kod><Hodnota>Maltská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>MA</Kod><Hodnota>Marocké království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MU</Kod><Hodnota>Mauricijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MR</Kod><Hodnota>Mauritánská islámská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>YT</Kod><Hodnota>Mayotte</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>UM</Kod><Hodnota>Menší odlehlé ostrovy USA</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BO</Kod><Hodnota>Mnohonárodní stát Bolívie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MD</Kod><Hodnota>Moldavská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MC</Kod><Hodnota>Monacké knížectví</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MN</Kod><Hodnota>Mongolsko</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MS</Kod><Hodnota>Montserrat</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MZ</Kod><Hodnota>Mosambická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NA</Kod><Hodnota>Namibijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NP</Kod><Hodnota>Nepálská federativní demokratická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PG</Kod><Hodnota>Nezávislý stát Papua Nová Guinea</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>WS</Kod><Hodnota>Nezávislý stát Samoa</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NG</Kod><Hodnota>Nigérijská federativní republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NE</Kod><Hodnota>Nigerská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NI</Kod><Hodnota>Nikaragujská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NU</Kod><Hodnota>Niue</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NL</Kod><Hodnota>Nizozemsko</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>NO</Kod><Hodnota>Norské království</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>NC</Kod><Hodnota>Nová Kaledonie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NZ</Kod><Hodnota>Nový Zéland</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IM</Kod><Hodnota>Ostrov Man</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TC</Kod><Hodnota>Ostrovy Turks a Caicos</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PK</Kod><Hodnota>Pákistánská islámská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PS</Kod><Hodnota>Palestinské autonomní území</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PA</Kod><Hodnota>Panamská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PY</Kod><Hodnota>Paraguayská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PE</Kod><Hodnota>Peruánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PN</Kod><Hodnota>Pitcairnovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PL</Kod><Hodnota>Polská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>PR</Kod><Hodnota>Portorické společenství</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PT</Kod><Hodnota>Portugalská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>AX</Kod><Hodnota>Provincie Alandy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AT</Kod><Hodnota>Rakouská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>GF</Kod><Hodnota>Region Francouzská Guyana</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GP</Kod><Hodnota>Region Guadeloupe</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MQ</Kod><Hodnota>Region Martinik</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>RE</Kod><Hodnota>Region Réunion</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GW</Kod><Hodnota>Republika Guinea-Bissau</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HT</Kod><Hodnota>Republika Haiti</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KZ</Kod><Hodnota>Republika Kazachstán</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>KI</Kod><Hodnota>Republika Kiribati</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ML</Kod><Hodnota>Republika Mali</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MH</Kod><Hodnota>Republika Marshallovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MM</Kod><Hodnota>Republika Myanmarský svaz</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NR</Kod><Hodnota>Republika Nauru</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PW</Kod><Hodnota>Republika Palau</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CI</Kod><Hodnota>Republika Pobřeží slonoviny</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GQ</Kod><Hodnota>Republika Rovníková Guinea</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SM</Kod><Hodnota>Republika San Marino</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SL</Kod><Hodnota>Republika Sierra Leone</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TJ</Kod><Hodnota>Republika Tádžikistán</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TT</Kod><Hodnota>Republika Trinidad a Tobago</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>UZ</Kod><Hodnota>Republika Uzbekistán</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VU</Kod><Hodnota>Republika Vanuatu</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>RO</Kod><Hodnota>Rumunsko</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>RU</Kod><Hodnota>Ruská federace</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>RW</Kod><Hodnota>Rwandská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GR</Kod><Hodnota>Řecká republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>EH</Kod><Hodnota>Saharská arabská demokratická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SV</Kod><Hodnota>Salvadorská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SN</Kod><Hodnota>Senegalská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SC</Kod><Hodnota>Seychelská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SG</Kod><Hodnota>Singapurská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SK</Kod><Hodnota>Slovenská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>SI</Kod><Hodnota>Slovinská republika</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>SO</Kod><Hodnota>Somálská federativní republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GB</Kod><Hodnota>Spojené království Velké Británie a Severního Irska</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>US</Kod><Hodnota>Spojené státy americké</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MX</Kod><Hodnota>Spojené státy mexické</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MP</Kod><Hodnota>Společenství Severní Mariany</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BL</Kod><Hodnota>Společenství Svatý Bartoloměj</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MF</Kod><Hodnota>Společenství Svatý Martin</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>DE</Kod><Hodnota>Spolková republika Německo</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>RS</Kod><Hodnota>Srbská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>BN</Kod><Hodnota>Stát Brunej Darussalam</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ER</Kod><Hodnota>Stát Eritrea</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>IL</Kod><Hodnota>Stát Izrael</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>QA</Kod><Hodnota>Stát Katar</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AE</Kod><Hodnota>Stát Spojené arabské emiráty</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CF</Kod><Hodnota>Středoafrická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SD</Kod><Hodnota>Súdánská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>OM</Kod><Hodnota>Sultanát Omán</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SR</Kod><Hodnota>Surinamská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SH</Kod><Hodnota>Svatá Helena, Ascension a Tristan da Cunha</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LC</Kod><Hodnota>Svatá Lucie</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SX</Kod><Hodnota>Svatý Martin (NL)</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VC</Kod><Hodnota>Svatý Vincenc a Grenadiny</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SZ</Kod><Hodnota>Svazijské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SY</Kod><Hodnota>Syrská arabská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SB</Kod><Hodnota>Šalamounovy ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ES</Kod><Hodnota>Španělské království</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>SJ</Kod><Hodnota>Špicberky a Jan Mayen</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>LK</Kod><Hodnota>Šrílanská demokratická socialistická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>SE</Kod><Hodnota>Švédské království</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>CH</Kod><Hodnota>Švýcarská konfederace</Hodnota><Poznamka>A</Poznamka></Polozka>
+   <Polozka><Kod>TZ</Kod><Hodnota>Tanzanská sjednocená republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TF</Kod><Hodnota>Teritorium Francouzská jižní a antarktická území</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>GU</Kod><Hodnota>Teritorium Guam</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>WF</Kod><Hodnota>Teritorium Wallisovy ostrovy a Futuna</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TH</Kod><Hodnota>Thajské království</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TK</Kod><Hodnota>Tokelau</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TG</Kod><Hodnota>Tožská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TN</Kod><Hodnota>Tuniská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TR</Kod><Hodnota>Turecká republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TM</Kod><Hodnota>Turkmenistán</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>TV</Kod><Hodnota>Tuvalu</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>UG</Kod><Hodnota>Ugandská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>UA</Kod><Hodnota>Ukrajina</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>UY</Kod><Hodnota>Uruguayská východní republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>AS</Kod><Hodnota>Území Americká Samoa</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CC</Kod><Hodnota>Území Kokosové (Keelingovy) ostrovy</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>NF</Kod><Hodnota>Území Norfolk</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>CX</Kod><Hodnota>Území Vánoční ostrov</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>PM</Kod><Hodnota>Územní společenství Saint Pierre a Miquelon</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VA</Kod><Hodnota>Vatikánský městský stát</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>VN</Kod><Hodnota>Vietnamská socialistická republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ZM</Kod><Hodnota>Zambijská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>ZW</Kod><Hodnota>Zimbabwská republika</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>HK</Kod><Hodnota>Zvláštní administrativní oblast Čínské lidové republiky</Hodnota><Poznamka>N</Poznamka></Polozka>
+   <Polozka><Kod>MO</Kod><Hodnota>Zvláštní administrativní oblast Čínské lidové republiky</Hodnota><Poznamka>N</Poznamka></Polozka>
+</Ciselnik> 

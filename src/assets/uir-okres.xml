@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  CISELNIK uir-okres,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="uir-okres"> 
+   <Polozka><Kod>3201</Kod><Hodnota>Benešov</Hodnota><Poznamka>Benešov</Poznamka></Polozka>
+   <Polozka><Kod>3202</Kod><Hodnota>Beroun</Hodnota><Poznamka>Beroun</Poznamka></Polozka>
+   <Polozka><Kod>3701</Kod><Hodnota>Blansko</Hodnota><Poznamka>Blansko</Poznamka></Polozka>
+   <Polozka><Kod>3702</Kod><Hodnota>Brno-město</Hodnota><Poznamka>Brno-město</Poznamka></Polozka>
+   <Polozka><Kod>3703</Kod><Hodnota>Brno-venkov</Hodnota><Poznamka>Brno-venkov</Poznamka></Polozka>
+   <Polozka><Kod>3801</Kod><Hodnota>Bruntál</Hodnota><Poznamka>Bruntál</Poznamka></Polozka>
+   <Polozka><Kod>3704</Kod><Hodnota>Břeclav</Hodnota><Poznamka>Břeclav</Poznamka></Polozka>
+   <Polozka><Kod>3501</Kod><Hodnota>Česká Lípa</Hodnota><Poznamka>Česká Lípa</Poznamka></Polozka>
+   <Polozka><Kod>3301</Kod><Hodnota>České Budějovice</Hodnota><Poznamka>České Budějovice</Poznamka></Polozka>
+   <Polozka><Kod>3302</Kod><Hodnota>Český Krumlov</Hodnota><Poznamka>Český Krumlov</Poznamka></Polozka>
+   <Polozka><Kod>3502</Kod><Hodnota>Děčín</Hodnota><Poznamka>Děčín</Poznamka></Polozka>
+   <Polozka><Kod>3401</Kod><Hodnota>Domažlice</Hodnota><Poznamka>Domažlice</Poznamka></Polozka>
+   <Polozka><Kod>3802</Kod><Hodnota>Frýdek-Místek</Hodnota><Poznamka>Frýdek-Místek</Poznamka></Polozka>
+   <Polozka><Kod>3601</Kod><Hodnota>Havlíčkův Brod</Hodnota><Poznamka>Havlíčkův Brod</Poznamka></Polozka>
+   <Polozka><Kod>3100</Kod><Hodnota>Hlavní město Praha</Hodnota><Poznamka>Hlavní město Praha</Poznamka></Polozka>
+   <Polozka><Kod>3706</Kod><Hodnota>Hodonín</Hodnota><Poznamka>Hodonín</Poznamka></Polozka>
+   <Polozka><Kod>3602</Kod><Hodnota>Hradec Králové</Hodnota><Poznamka>Hradec Králové</Poznamka></Polozka>
+   <Polozka><Kod>3402</Kod><Hodnota>Cheb</Hodnota><Poznamka>Cheb</Poznamka></Polozka>
+   <Polozka><Kod>3503</Kod><Hodnota>Chomutov</Hodnota><Poznamka>Chomutov</Poznamka></Polozka>
+   <Polozka><Kod>3603</Kod><Hodnota>Chrudim</Hodnota><Poznamka>Chrudim</Poznamka></Polozka>
+   <Polozka><Kod>3504</Kod><Hodnota>Jablonec nad Nisou</Hodnota><Poznamka>Jablonec nad Nisou</Poznamka></Polozka>
+   <Polozka><Kod>3811</Kod><Hodnota>Jeseník</Hodnota><Poznamka>Jeseník</Poznamka></Polozka>
+   <Polozka><Kod>3604</Kod><Hodnota>Jičín</Hodnota><Poznamka>Jičín</Poznamka></Polozka>
+   <Polozka><Kod>3707</Kod><Hodnota>Jihlava</Hodnota><Poznamka>Jihlava</Poznamka></Polozka>
+   <Polozka><Kod>3303</Kod><Hodnota>Jindřichův Hradec</Hodnota><Poznamka>Jindřichův Hradec</Poznamka></Polozka>
+   <Polozka><Kod>3403</Kod><Hodnota>Karlovy Vary</Hodnota><Poznamka>Karlovy Vary</Poznamka></Polozka>
+   <Polozka><Kod>3803</Kod><Hodnota>Karviná</Hodnota><Poznamka>Karviná</Poznamka></Polozka>
+   <Polozka><Kod>3203</Kod><Hodnota>Kladno</Hodnota><Poznamka>Kladno</Poznamka></Polozka>
+   <Polozka><Kod>3404</Kod><Hodnota>Klatovy</Hodnota><Poznamka>Klatovy</Poznamka></Polozka>
+   <Polozka><Kod>3204</Kod><Hodnota>Kolín</Hodnota><Poznamka>Kolín</Poznamka></Polozka>
+   <Polozka><Kod>3708</Kod><Hodnota>Kroměříž</Hodnota><Poznamka>Kroměříž</Poznamka></Polozka>
+   <Polozka><Kod>3205</Kod><Hodnota>Kutná Hora</Hodnota><Poznamka>Kutná Hora</Poznamka></Polozka>
+   <Polozka><Kod>3505</Kod><Hodnota>Liberec</Hodnota><Poznamka>Liberec</Poznamka></Polozka>
+   <Polozka><Kod>3506</Kod><Hodnota>Litoměřice</Hodnota><Poznamka>Litoměřice</Poznamka></Polozka>
+   <Polozka><Kod>3507</Kod><Hodnota>Louny</Hodnota><Poznamka>Louny</Poznamka></Polozka>
+   <Polozka><Kod>3206</Kod><Hodnota>Mělník</Hodnota><Poznamka>Mělník</Poznamka></Polozka>
+   <Polozka><Kod>3207</Kod><Hodnota>Mladá Boleslav</Hodnota><Poznamka>Mladá Boleslav</Poznamka></Polozka>
+   <Polozka><Kod>3508</Kod><Hodnota>Most</Hodnota><Poznamka>Most</Poznamka></Polozka>
+   <Polozka><Kod>3605</Kod><Hodnota>Náchod</Hodnota><Poznamka>Náchod</Poznamka></Polozka>
+   <Polozka><Kod>3804</Kod><Hodnota>Nový Jičín</Hodnota><Poznamka>Nový Jičín</Poznamka></Polozka>
+   <Polozka><Kod>3208</Kod><Hodnota>Nymburk</Hodnota><Poznamka>Nymburk</Poznamka></Polozka>
+   <Polozka><Kod>3805</Kod><Hodnota>Olomouc</Hodnota><Poznamka>Olomouc</Poznamka></Polozka>
+   <Polozka><Kod>3806</Kod><Hodnota>Opava</Hodnota><Poznamka>Opava</Poznamka></Polozka>
+   <Polozka><Kod>3807</Kod><Hodnota>Ostrava-město</Hodnota><Poznamka>Ostrava-město</Poznamka></Polozka>
+   <Polozka><Kod>3606</Kod><Hodnota>Pardubice</Hodnota><Poznamka>Pardubice</Poznamka></Polozka>
+   <Polozka><Kod>3304</Kod><Hodnota>Pelhřimov</Hodnota><Poznamka>Pelhřimov</Poznamka></Polozka>
+   <Polozka><Kod>3305</Kod><Hodnota>Písek</Hodnota><Poznamka>Písek</Poznamka></Polozka>
+   <Polozka><Kod>3406</Kod><Hodnota>Plzeň-jih</Hodnota><Poznamka>Plzeň-jih</Poznamka></Polozka>
+   <Polozka><Kod>3405</Kod><Hodnota>Plzeň-město</Hodnota><Poznamka>Plzeň-město</Poznamka></Polozka>
+   <Polozka><Kod>3407</Kod><Hodnota>Plzeň-sever</Hodnota><Poznamka>Plzeň-sever</Poznamka></Polozka>
+   <Polozka><Kod>3209</Kod><Hodnota>Praha-východ</Hodnota><Poznamka>Praha-východ</Poznamka></Polozka>
+   <Polozka><Kod>3210</Kod><Hodnota>Praha-západ</Hodnota><Poznamka>Praha-západ</Poznamka></Polozka>
+   <Polozka><Kod>3306</Kod><Hodnota>Prachatice</Hodnota><Poznamka>Prachatice</Poznamka></Polozka>
+   <Polozka><Kod>3709</Kod><Hodnota>Prostějov</Hodnota><Poznamka>Prostějov</Poznamka></Polozka>
+   <Polozka><Kod>3808</Kod><Hodnota>Přerov</Hodnota><Poznamka>Přerov</Poznamka></Polozka>
+   <Polozka><Kod>3211</Kod><Hodnota>Příbram</Hodnota><Poznamka>Příbram</Poznamka></Polozka>
+   <Polozka><Kod>3212</Kod><Hodnota>Rakovník</Hodnota><Poznamka>Rakovník</Poznamka></Polozka>
+   <Polozka><Kod>3408</Kod><Hodnota>Rokycany</Hodnota><Poznamka>Rokycany</Poznamka></Polozka>
+   <Polozka><Kod>3607</Kod><Hodnota>Rychnov nad Kněžnou</Hodnota><Poznamka>Rychnov nad Kněžnou</Poznamka></Polozka>
+   <Polozka><Kod>3608</Kod><Hodnota>Semily</Hodnota><Poznamka>Semily</Poznamka></Polozka>
+   <Polozka><Kod>3409</Kod><Hodnota>Sokolov</Hodnota><Poznamka>Sokolov</Poznamka></Polozka>
+   <Polozka><Kod>3307</Kod><Hodnota>Strakonice</Hodnota><Poznamka>Strakonice</Poznamka></Polozka>
+   <Polozka><Kod>3609</Kod><Hodnota>Svitavy</Hodnota><Poznamka>Svitavy</Poznamka></Polozka>
+   <Polozka><Kod>3809</Kod><Hodnota>Šumperk</Hodnota><Poznamka>Šumperk</Poznamka></Polozka>
+   <Polozka><Kod>3308</Kod><Hodnota>Tábor</Hodnota><Poznamka>Tábor</Poznamka></Polozka>
+   <Polozka><Kod>3410</Kod><Hodnota>Tachov</Hodnota><Poznamka>Tachov</Poznamka></Polozka>
+   <Polozka><Kod>3509</Kod><Hodnota>Teplice</Hodnota><Poznamka>Teplice</Poznamka></Polozka>
+   <Polozka><Kod>3610</Kod><Hodnota>Trutnov</Hodnota><Poznamka>Trutnov</Poznamka></Polozka>
+   <Polozka><Kod>3710</Kod><Hodnota>Třebíč</Hodnota><Poznamka>Třebíč</Poznamka></Polozka>
+   <Polozka><Kod>3711</Kod><Hodnota>Uherské Hradiště</Hodnota><Poznamka>Uherské Hradiště</Poznamka></Polozka>
+   <Polozka><Kod>3510</Kod><Hodnota>Ústí nad Labem</Hodnota><Poznamka>Ústí nad Labem</Poznamka></Polozka>
+   <Polozka><Kod>3611</Kod><Hodnota>Ústí nad Orlicí</Hodnota><Poznamka>Ústí nad Orlicí</Poznamka></Polozka>
+   <Polozka><Kod>3810</Kod><Hodnota>Vsetín</Hodnota><Poznamka>Vsetín</Poznamka></Polozka>
+   <Polozka><Kod>3712</Kod><Hodnota>Vyškov</Hodnota><Poznamka>Vyškov</Poznamka></Polozka>
+   <Polozka><Kod>3705</Kod><Hodnota>Zlín</Hodnota><Poznamka>Zlín</Poznamka></Polozka>
+   <Polozka><Kod>3713</Kod><Hodnota>Znojmo</Hodnota><Poznamka>Znojmo</Poznamka></Polozka>
+   <Polozka><Kod>3714</Kod><Hodnota>Žďár nad Sázavou</Hodnota><Poznamka>Žďár nad Sázavou</Poznamka></Polozka>
+</Ciselnik> 

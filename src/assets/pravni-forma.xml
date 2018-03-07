@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  CISELNIK prf,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="prf"> 
+   <Polozka><Kod>121</Kod><Hodnota>Akciová společnost</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>721</Kod><Hodnota>Církve a náboženské společnosti</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>313</Kod><Hodnota>Česká národní banka</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>362</Kod><Hodnota>Česká tisková kancelář</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>771</Kod><Hodnota>Dobrovolný svazek obcí</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>205</Kod><Hodnota>Družstvo</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>722</Kod><Hodnota>Evidované církevní právnické osoby</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>933</Kod><Hodnota>Evropská družstevní společnost</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>932</Kod><Hodnota>Evropská společnost</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>931</Kod><Hodnota>Evropské hospodářské zájmové sdružení</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>761</Kod><Hodnota>Honební společenstvo</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>151</Kod><Hodnota>Komoditní burza</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>745</Kod><Hodnota>Komora (hospodářská, agrární)</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>804</Kod><Hodnota>Kraj</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>811</Kod><Hodnota>Městská část hlavního města Prahy</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>921</Kod><Hodnota>Mezinárodní nevládní organizace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>907</Kod><Hodnota>Mezinárodní odborová organizace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>908</Kod><Hodnota>Mezinárodní organizace zaměstnavatelů</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>117</Kod><Hodnota>Nadace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>118</Kod><Hodnota>Nadační fond</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>302</Kod><Hodnota>Národní podnik</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>801</Kod><Hodnota>Obec</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>141</Kod><Hodnota>Obecně prospěšná společnost</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>703</Kod><Hodnota>Odborová organizace a organizace zaměstnavatelů</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>501</Kod><Hodnota>Odštěpný závod</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>421</Kod><Hodnota>Odštěpný závod zahraniční právnické osoby</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>922</Kod><Hodnota>Organizační jednotka mezinárodní nevládní organizace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>732</Kod><Hodnota>Organizační jednotka politické strany, politického hnutí</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>325</Kod><Hodnota>Organizační složka státu</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>937</Kod><Hodnota>Pobočná mezinárodní odborová organizace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>938</Kod><Hodnota>Pobočná mezinárodní organizace zaměstnavatelů</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>733</Kod><Hodnota>Pobočná odborová organizace a organizace zaměstnavatelů</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>736</Kod><Hodnota>Pobočný spolek</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>541</Kod><Hodnota>Podílový fond</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>711</Kod><Hodnota>Politická strana, politické hnutí</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>631</Kod><Hodnota>Předškolní zařízení</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>331</Kod><Hodnota>Příspěvková organizace zřízená územním samosprávným celkem</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>741</Kod><Hodnota>Samosprávná stavovská organizace (profesní komora)</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>521</Kod><Hodnota>Samostatná drobná provozovna (obecního úřadu)</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>145</Kod><Hodnota>Společenství vlastníků jednotek</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>113</Kod><Hodnota>Společnost komanditní</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>112</Kod><Hodnota>Společnost s ručením omezeným</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>706</Kod><Hodnota>Spolek</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>352</Kod><Hodnota>Správa železniční dopravní cesty, státní organizace</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>381</Kod><Hodnota>Státní fond ze zákona</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>301</Kod><Hodnota>Státní podnik</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>332</Kod><Hodnota>Státní příspěvková organizace ze zákona</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>611</Kod><Hodnota>Střední škola</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>641</Kod><Hodnota>Školská právnická osoba</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>625</Kod><Hodnota>Školské zařízení</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>161</Kod><Hodnota>Ústav</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>111</Kod><Hodnota>Veřejná obchodní společnost</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>661</Kod><Hodnota>Veřejná výzkumná instituce</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>361</Kod><Hodnota>Veřejnoprávní instituce</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>392</Kod><Hodnota>Všeobecná zdravotní pojišťovna</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>601</Kod><Hodnota>Vysoká škola (veřejná, státní)</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>911</Kod><Hodnota>Zahraniční kulturní, informační středisko, rozhlasová, tisková a televizní agentura</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>936</Kod><Hodnota>Zahraniční pobočný spolek</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>906</Kod><Hodnota>Zahraniční spolek</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>751</Kod><Hodnota>Zájmové sdružení právnických osob</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>621</Kod><Hodnota>Základní škola</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>901</Kod><Hodnota>Zastupitelský orgán jiných států</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>391</Kod><Hodnota>Zdravotní pojišťovna (mimo VZP)</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>651</Kod><Hodnota>Zdravotnické zařízení</Hodnota><Poznamka>P</Poznamka></Polozka>
+   <Polozka><Kod>704</Kod><Hodnota>Zvláštní organizace pro zastoupení českých zájmů v mezinárodních nevládních organizacích</Hodnota><Poznamka>P</Poznamka></Polozka>
+</Ciselnik> 

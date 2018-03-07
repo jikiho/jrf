@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
-                        <input type="text" name="ObchodniJmeno" ngModel #accesskey1>
+                        <input type="text" name="nazev" ngModel #accesskey1>
                     </label>
                 </div>
             </div>
@@ -31,21 +31,22 @@
                 <div class="col-9">
                     <label>
                         <dfn>b) právní forma</dfn>
-                        <select name="PravniForma" ngModel>
+                        <select name="pravniForma" ngModel>
                             <option value=""></option>
+                            <option *ngFor="let item of (data.pravniForma$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         <dfn>c) <abbr title="identifikační číslo osoby">IČO</abbr></dfn>
-                        <input type="text" name="ICO" ngModel>
+                        <input type="text" name="ico" ngModel>
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="void"><i class="fa fa-search"></i> Doplnit podnikatele</button>
+                    <button type="button" (click)="void" [disabled]="true"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
                 </div>
             </div>
             <div class="row">
@@ -57,25 +58,25 @@
                 <div class="col-6">
                     <label>
                         <dfn>a) název ulice</dfn>
-                        <input type="text" name="UliceNazev" ngModel #accesskey2>
+                        <input type="text" name="ulice" ngModel #accesskey2>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>b) <abbr title="číslo domovní (popisné / evidenční)">č.p. / č.ev.</abbr></dfn>
-                        <input type="text" name="CisloDomovni" ngModel>
+                        <input type="text" name="cislo" ngModel>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>c) <abbr title="číslo orientační">č. or.</abbr></dfn>
-                        <input type="text" name="CisloOrientacni" ngModel>
+                        <input type="text" name="orientacni" ngModel>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>d) <abbr title="poštovní směrovací číslo">PSČ</abbr></dfn>
-                        <input type="text" name="PSC" ngModel>
+                        <input type="text" name="psc" ngModel>
                     </label>
                 </div>
             </div>
@@ -83,13 +84,13 @@
                 <div class="col-6">
                     <label>
                         <dfn>e) název obce</dfn>
-                        <input type="text" name="ObecNazev" ngModel>
+                        <input type="text" name="obec" ngModel>
                     </label>
                 </div>
                 <div class="col-6">
                     <label>
                         <dfn>f) část obce</dfn>
-                        <input type="text" name="CastObceNazev" ngModel>
+                        <input type="text" name="cast" ngModel>
                     </label>
                 </div>
             </div>
@@ -97,23 +98,25 @@
                 <div class="col-6">
                     <label>
                         <dfn>g) okres</dfn>
-                        <select name="OkresNazev" ngModel>
+                        <select name="okres" ngModel>
                             <option value=""></option>
+                            <option *ngFor="let item of (data.okres$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
                 <div class="col-6">
                     <label>
                         <dfn>h) stát</dfn>
-                        <select name="StatNazev" ngModel>
+                        <select name="stat" ngModel>
                             <option value=""></option>
+                            <option *ngFor="let item of (data.stat$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="void"><i class="fa fa-search"></i> Doplnit adresu</button>
+                    <button type="button" (click)="void" [disabled]="true"><i class="fa fa-fw fa-search"></i>Doplnit adresu</button>
                 </div>
             </div>
         </div>

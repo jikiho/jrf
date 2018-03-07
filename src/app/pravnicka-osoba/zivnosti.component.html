@@ -26,7 +26,7 @@
                                 <td>{{item.kod}}</td>
                                 <td>{{item.nazev}}</td>
                                 <td>
-                                    <button type="button" (click)="void" title="Odebrat živnost" class="compact"><i class="fa fa-remove"></i></button>
+                                    <button type="button" (click)="void" title="Odebrat živnost" class="compact"><i class="fa fa-fw fa-remove"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -35,7 +35,7 @@
             </div>
             <div class="row">
                 <div class="col-10">
-                    <button type="button" (click)="void" title="Přidat živnost"><i class="fa fa-plus"></i> Nová živnost</button>
+                    <button type="button" (click)="void" title="Přidat živnost"><i class="fa fa-fw fa-plus"></i>Nová živnost</button>
                 </div>
                 <div class="col-2 col-middle right">
                     <output title="Vybraná živnost">0 / 0</output>
@@ -57,9 +57,18 @@
             <div class="row">
                 <div class="col-12">
                     <label>
-                        <dfn>druh živnosti</dfn>
-                        <select name="DruhZivnosti" ngModel #accesskey5>
+                        <dfn>a) předmět podnikání</dfn>
+                        <textarea rows="3" readonly title="Předmět podnikání">{{(data.zivnost$ | async | filter:{Kod: (zivnost$ | async)} | pluck:'Hodnota') | join:'\n'}}</textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>
+                        <dfn>Druh živnosti</dfn>
+                        <select name="druhZivnosti" ngModel #accesskey5>
                             <option value=""></option>
+                            <option *ngFor="let item of (data.druhZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -67,9 +76,21 @@
             <div class="row">
                 <div class="col-12">
                     <label>
-                        <dfn>a) předmět podnikání</dfn>
-                        <select name="PredmetPodnikani" ngModel>
+                        <dfn>Skupina předmětu podnikání</dfn>
+                        <select name="skupinaZivnosti" ngModel [disabled]="!(druhZivnosti$ | async)">
                             <option value=""></option>
+                            <option *ngFor="let item of (data.skupinaZivnosti$ | async)" [hidden]="item.Druh != (druhZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>
+                        <dfn>Předmět podnikání</dfn>
+                        <select name="zivnost" ngModel [disabled]="!(skupinaZivnosti$ | async)">
+                            <option value=""></option>
+                            <option *ngFor="let item of (data.zivnost$ | async)" [hidden]="item.Skupina != (skupinaZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>

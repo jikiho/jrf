@@ -5,6 +5,7 @@ import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener}
 import {NgForm} from '@angular/forms';
 
 import {AppService} from '../app.service';
+import {DataService} from './data.service';
 
 @Component({
     templateUrl: './odpovedni-zastupci.component.html',
@@ -20,17 +21,7 @@ export class OdpovedniZastupciComponent {
     @ViewChild('accesskey2')
     private accesskey2: ElementRef;
 
-    constructor( private app: AppService) {
-    }
-
-    @HostListener('document:keydown.alt.PageUp')
-    private previousRouteOnKey() {
-        this.app.navigate(['pravnicka-osoba', 'zivnosti']);
-    }
-
-    @HostListener('document:keydown.alt.PageDown')
-    private nextRouteOnKey() {
-        this.app.navigate(['/pravnicka-osoba', 'ostatni']);
+    constructor(private app: AppService, private data: DataService) {
     }
 
     @HostListener('document:keydown.alt.8')

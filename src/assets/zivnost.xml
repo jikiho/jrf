@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-2" ?>
+<!--  CISELNIK ziv,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="ziv"> 
+   <Polozka><Kod>R11412</Kod><Hodnota>Aplikace, výroba a opravy ortopedické obuvi</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10901</Kod><Hodnota>Barvení a chemická úprava textilií</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10601</Kod><Hodnota>Broušení a leptání skla</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21429</Kod><Hodnota>Činnost účetních poradců, vedení účetnictví, vedení daňové evidence</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21431</Kod><Hodnota>Činnosti, při kterých je porušována integrita lidské kůže</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11406</Kod><Hodnota>Čištění a praní textilu a oděvů</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21440</Kod><Hodnota>Drezúra zvířat</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R111*</Kod><Hodnota>Dřevařská výroba, výroba nábytku, hudebních nástrojů a ostatních výrobků</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R105*</Kod><Hodnota>Elektrické stroje a přístroje</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10113</Kod><Hodnota>Galvanizérství, smaltérství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21425</Kod><Hodnota>Geologické práce</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R10405</Kod><Hodnota>Hodinářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11408</Kod><Hodnota>Holičství, kadeřnictví</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11410</Kod><Hodnota>Hostinská činnost</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V207*</Kod><Hodnota>Chemická výroba</Hodnota><Poznamka>1</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11312</Kod><Hodnota>Izolatérství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11317</Kod><Hodnota>Kamnářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10306</Kod><Hodnota>Klempířství a oprava karoserií</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11313</Kod><Hodnota>Kominictví</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K31435</Kod><Hodnota>Kontrolní testování profesionálních zařízení pro aplikaci přípravků</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R11404</Kod><Hodnota>Kosmetické služby</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10111</Kod><Hodnota>Kovářství, podkovářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R101*</Kod><Hodnota>Kovy a kovové výrobky</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R110*</Kod><Hodnota>Kůže, kožené výrobky, pryžové výrobky a výrobky z plastických hmot</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11318</Kod><Hodnota>Malířství, lakýrnictví, natěračství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21433</Kod><Hodnota>Masérské, rekondiční a regenerační služby</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R10804</Kod><Hodnota>Mlékárenství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10802</Kod><Hodnota>Mlynářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10503</Kod><Hodnota>Montáž, opravy a rekonstrukce chladících zařízení a tepelných čerpadel</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10203</Kod><Hodnota>Montáž, opravy, revize a zkoušky  zdvihacích zařízení</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10505</Kod><Hodnota>Montáž, opravy, revize a zkoušky elektrických zařízení</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10204</Kod><Hodnota>Montáž, opravy, revize a zkoušky plynových zařízení a  plnění nádob plyny</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10202</Kod><Hodnota>Montáž, opravy, revize a zkoušky tlakových zařízení a nádob na plyny</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R103*</Kod><Hodnota>Motorové a ostatní dopravní prostředky</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V203*</Kod><Hodnota>Motorové a ostatní dopravní prostředky</Hodnota><Poznamka>1</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21437</Kod><Hodnota>Nákup a prodej kulturních památek nebo předmětů kulturní hodnoty</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K30207</Kod><Hodnota>Nákup a prodej, půjčování, vývoj, výroba, opravy, úpravy, uschovávání, skladování, přeprava, znehodnocování a ničení bezpečnostního materiálu</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21314</Kod><Hodnota>Nákup, prodej, ničení a zneškodňování pyrotechnických výrobků kategorie P2, T2 a F4 a provádění ohňostrojných prací</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21439</Kod><Hodnota>Obchod se zvířaty určenými pro zájmové chovy</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R10105</Kod><Hodnota>Obráběčství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21460</Kod><Hodnota>Oceňování majetku pro - věci movité, - věci nemovité, - nehmotný majetek, - finanční majetek, - obchodní závod</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21416</Kod><Hodnota>Oční optika</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R10307</Kod><Hodnota>Opravy ostatních dopravních prostředků a pracovních strojů</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10301</Kod><Hodnota>Opravy silničních vozidel</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K314*</Kod><Hodnota>Ostatní</Hodnota><Poznamka>1</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R114*</Kod><Hodnota>Ostatní</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V214*</Kod><Hodnota>Ostatní</Hodnota><Poznamka>1</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31449</Kod><Hodnota>Ostraha majetku a osob</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21432</Kod><Hodnota>Péče o dítě do tří let věku v denním režimu</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11409</Kod><Hodnota>Pedikúra, manikúra</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10805</Kod><Hodnota>Pekařství, cukrářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10803</Kod><Hodnota>Pivovarnictví a sladovnictví</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21455</Kod><Hodnota>Podnikání v oblasti nakládání s nebezpečnými odpady</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11319</Kod><Hodnota>Pokrývačství, tesařství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21461</Kod><Hodnota>Pořádání kurzů k získání znalostí k výkonu speciální ochranné dezinfekce, dezinsekce a deratizace</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21438</Kod><Hodnota>Poskytování služeb v oblasti bezpečnosti a ochrany zdraví při práci</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31434</Kod><Hodnota>Poskytování technických služeb k ochraně majetku a osob</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21426</Kod><Hodnota>Poskytování tělovýchovných a sportovních služeb v oblasti</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R108*</Kod><Hodnota>Potraviny a nápoje</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21301</Kod><Hodnota>Projektová činnost ve výstavbě</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31442</Kod><Hodnota>Provádění balzamace a konzervace</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21442</Kod><Hodnota>Provádění dobrovolných dražeb movitých věcí podle zákona o veřejných dražbách</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K30206</Kod><Hodnota>Provádění pyrotechnického průzkumu</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21311</Kod><Hodnota>Provádění staveb, jejich změn a odstraňování</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31440</Kod><Hodnota>Provádění veřejných dražeb - dobrovolných, - nedobrovolných</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21403</Kod><Hodnota>Provozování autoškoly</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31439</Kod><Hodnota>Provozování cestovní kanceláře</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K31404</Kod><Hodnota>Provozování krematoria</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K31403</Kod><Hodnota>Provozování pohřební služby</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21434</Kod><Hodnota>Provozování solárií</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31446</Kod><Hodnota>Provozování střelnic a výuka a výcvik ve střelbě se zbraní</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21462</Kod><Hodnota>Průvodcovská činnost horská</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21422</Kod><Hodnota>Psychologické poradenství a diagnostika</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21436</Kod><Hodnota>Restaurování děl z oboru výtvarných umění, která nejsou kulturními památkami nebo jejich částmi, ale jsou uložena ve sbírkách muzeí a galerií nebo se jedná o předměty kulturní hodnoty</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V20306</Kod><Hodnota>Revize, prohlídky a zkoušky určených technických zařízení v provozu</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R10801</Kod><Hodnota>Řeznictví a uzenářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K31451</Kod><Hodnota>Silniční motorová doprava - nákladní provozovaná vozidly nebo jízdními soupravami o největší povolené hmotnosti přesahující 3,5 tuny, jsou-li určeny k přepravě zvířat nebo věcí, - osobní provozovaná vozidly určenými pro přepravu více než 9 osob včetně řidiče, - nákladní provozovaná vozidly nebo jízdními soupravami o největší povolené hmotnosti nepřesahující 3,5 tuny, jsou-li určeny k přepravě zvířat nebo věcí, - osobní provozovaná vozidly určenými pro přepravu nejvýše 9 osob včetně řidiče</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R10114</Kod><Hodnota>Slévárenství, modelářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K31450</Kod><Hodnota>Služby soukromých detektivů</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>T00000</Kod><Hodnota>Speciální ochranná  dezinfekce, dezinsekce a deratizace -  bez použití nebezpečných chemických látek nebo chemických směsí klasifikovaných jako toxické nebo vysoce toxické s výjimkou speciální ochranné dezinfekce, dezinsekce a deratizace v potravinářských a zemědělských provozech, - v potravinářských nebo zemědělských provozech, - nebezpečnými chemickými látkaminebo chemickými směsmi klasifikovanými jako toxické nebo vysoce toxické, s výjimkou speciální ochranné dezinsekce a deratizace v potravinářských nebo zemědělských provozech</Hodnota><Poznamka>0</Poznamka><Poznamka2>T</Poznamka2></Polozka>
+   <Polozka><Kod>V21459</Kod><Hodnota>Speciální ochranná dezinfekce, dezinsekce a deratizace - bez použití nebezpečných chemických látek nebo chemických směsí klasifikovaných jako toxické nebo vysoce toxické, s výjimkou speciální ochranné dezinfekce, dezinsekce a deratizace v potravinářských a zemědělských provozech, - v potravinářských nebo zemědělských provozech, - nebezpečnými chemickými látkami nebo chemickými směsmi klasifikovanými jako toxické nebo vysoce toxické s výjimkou speciální ochranné dezinsekce a deratizace v potravinářských nebo zemědělských provozech</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R113*</Kod><Hodnota>Stavebnictví</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V213*</Kod><Hodnota>Stavebnictví</Hodnota><Poznamka>1</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>V21419</Kod><Hodnota>Technicko-organizační činnost v oblasti požární ochrany</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R109*</Kod><Hodnota>Textilie a oděvy</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11105</Kod><Hodnota>Truhlářství, podlahářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K31445</Kod><Hodnota>Vedení spisovny</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K31416</Kod><Hodnota>Vnitrozemská vodní doprava</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V21428</Kod><Hodnota>Vodní záchranářská služba</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11315</Kod><Hodnota>Vodoinstalatérství, topenářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21415</Kod><Hodnota>Výkon zeměměřických činností</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>R11106</Kod><Hodnota>Výroba a opravy hudebních nástrojů</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21435</Kod><Hodnota>Výroba a opravy sériově zhotovovaných - protéz, - trupových ortéz, - končetinových ortéz, - měkkých bandáží</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K31436</Kod><Hodnota>Výroba a úprava kvasného lihu, konzumního lihu, lihovin a ostatních alkoholických nápojů (s výjimkou piva, ovocných vín, ostatních vín a medoviny a ovocných destilátů získaných pěstitelským pálením) a prodej kvasného lihu, konzumního lihu a lihovin</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K31437</Kod><Hodnota>Výroba a úprava lihu sulfitového nebo lihu syntetického</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K30209</Kod><Hodnota>Výroba a zpracování paliv a maziv a distribuce pohonných hmot</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K307*</Kod><Hodnota>Výroba chemických výrobků</Hodnota><Poznamka>1</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>V20707</Kod><Hodnota>Výroba nebezpečných chemických látek a nebezpečných chemických směsí a prodej  chemických látek a chemických směsí klasifikovaných jako vysoce toxické a toxické</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+   <Polozka><Kod>K302*</Kod><Hodnota>Výroba strojů a přístrojů všeobecná a pro určitá hospodářská odvětví</Hodnota><Poznamka>1</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R102*</Kod><Hodnota>Výroba strojů a přístrojů všeobecná a pro určitá hospodářská odvětví</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>K31443</Kod><Hodnota>Výroba tepelné energie a rozvod tepelné energie, nepodléhající licenci realizovaná ze zdrojů tepelné energie s instalovaným výkonem jednoho zdroje nad 50 kW</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R10504</Kod><Hodnota>Výroba, instalace, opravy elektrických strojů a přístrojů, elektronických a telekomunikačních zařízení</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>Z01000</Kod><Hodnota>Výroba, obchod a služby neuvedené v přílohách 1 až 3 živnostenského zákona</Hodnota><Poznamka>0</Poznamka><Poznamka2>O</Poznamka2></Polozka>
+   <Polozka><Kod>K30208</Kod><Hodnota>Vývoj, výroba, opravy, úpravy, přeprava, nákup, prodej, půjčování, uschovávání, znehodnocování a ničení zbraní a střeliva</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>K30702</Kod><Hodnota>Výzkum, vývoj, výroba, ničení, nákup, prodej a skladování výbušnin a munice, zpracování a zneškodňování výbušnin, znehodnocování a delaborace munice a provádění trhacích prací</Hodnota><Poznamka>0</Poznamka><Poznamka2>K</Poznamka2></Polozka>
+   <Polozka><Kod>R10112</Kod><Hodnota>Zámečnictví, nástrojářství</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R104*</Kod><Hodnota>Zdravotnické výrobky a výrobky jemné mechaniky</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11301</Kod><Hodnota>Zednictví</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11103</Kod><Hodnota>Zlatnictví a klenotnictví</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11006</Kod><Hodnota>Zpracování gumárenských směsí</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R10603</Kod><Hodnota>Zpracování kamene</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R106*</Kod><Hodnota>Zpracování kameniva a zemin, keramika</Hodnota><Poznamka>1</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>R11008</Kod><Hodnota>Zpracování kůží a kožešin</Hodnota><Poznamka>0</Poznamka><Poznamka2>R</Poznamka2></Polozka>
+   <Polozka><Kod>V21454</Kod><Hodnota>Zpracování tabáku a výroba tabákových výrobků</Hodnota><Poznamka>0</Poznamka><Poznamka2>V</Poznamka2></Polozka>
+</Ciselnik> 

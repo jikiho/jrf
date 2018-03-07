@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  CISELNIK zid,Fri Sep 22 09:52:45 GMT+02:00 2017 -->
+<Ciselnik xmlns="urn:cz:isvs:rzp:schemas:Podani:v1" ciselnikNazev="zid"> 
+   <Polozka><Kod>K</Kod><Hodnota>Koncesovaná</Hodnota><Poznamka></Poznamka></Polozka>
+   <Polozka><Kod>O</Kod><Hodnota>Ohlašovací volná</Hodnota><Poznamka></Poznamka></Polozka>
+   <Polozka><Kod>V</Kod><Hodnota>Ohlašovací vázaná</Hodnota><Poznamka></Poznamka></Polozka>
+   <Polozka><Kod>R</Kod><Hodnota>Ohlašovací řemeslná</Hodnota><Poznamka></Poznamka></Polozka>
+</Ciselnik> 

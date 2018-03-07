@@ -28,7 +28,7 @@
                                 <td>{{item.prijmeni}}</td>
                                 <td>{{item.datumNarozeni}}</td>
                                 <td>
-                                    <button type="button" (click)="void" title="Odebrat odpovědného zástupce" class="compact"><i class="fa fa-remove"></i></button>
+                                    <button type="button" (click)="void" title="Odebrat odpovědného zástupce" class="compact"><i class="fa fa-fw fa-remove"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div class="col-10">
-                    <button type="button" (click)="void" title="Přidat odpovědného zástupce"><i class="fa fa-plus"></i> Nový zástupce</button>
+                    <button type="button" (click)="void" title="Přidat odpovědného zástupce"><i class="fa fa-fw fa-plus"></i>Nový zástupce</button>
                 </div>
                 <div class="col-2 col-middle right">
                     <output title="Vybraný odpovědný zástupce">0 / 0</output>
@@ -59,25 +59,25 @@
                 <div class="col-1">
                     <label>
                         <dfn>a) titul</dfn>
-                        <input type="text" name="TitulPred" ngModel #accesskey8>
+                        <input type="text" name="titulPred" ngModel disabled>
                     </label>
                 </div>
                 <div class="col-5">
                     <label>
                         <dfn>b) jméno</dfn>
-                        <input type="text" name="Jmeno" ngModel>
+                        <input type="text" name="jmeno" ngModel #accesskey8>
                     </label>
                 </div>
                 <div class="col-5">
                     <label>
                         <dfn>c) příjmení</dfn>
-                        <input type="text" name="Prijmeni" ngModel>
+                        <input type="text" name="prijmeni" ngModel>
                     </label>
                 </div>
                 <div class="col-1">
                     <label>
                         <dfn>d) titul</dfn>
-                        <input type="text" name="TitulZa" ngModel>
+                        <input type="text" name="titulZa" ngModel disabled>
                     </label>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <div class="col-4">
                     <label>
                         <dfn>e) státní občanství</dfn>
-                        <select name="StatniObcanstvi" ngModel disabled>
+                        <select name="statniObcanstvi" ngModel disabled>
                             <option value=""></option>
                         </select>
                     </label>
@@ -93,19 +93,19 @@
                 <div class="col-4">
                     <label>
                         <dfn>f) rodné příjmení</dfn>
-                        <input type="text" name="RodnePrijmeni" ngModel disabled>
+                        <input type="text" name="rodnePrijmeni" ngModel disabled>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>g) <abbr title="datum narození">narození</abbr></dfn>
-                        <input type="text" name="DatumNarozeni" ngModel>
+                        <input type="text" name="datumNarozeni" ngModel>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>h) rodné číslo</dfn>
-                        <input type="text" name="RodneCislo" ngModel>
+                        <input type="text" name="rodneCislo" ngModel disabled>
                     </label>
                 </div>
             </div>
@@ -121,9 +121,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <select multiple readonly title="Seznam předmětů podnikání" #accesskey2>
-                        <!-- seznam predmetu podnikani -->
-                    </select>
+                    <textarea rows="3" readonly title="Seznam předmětů podnikání">{{zivnosti}}</textarea>
                 </div>
             </div>
             <div class="row">
@@ -132,7 +130,7 @@
                         <thead>
                             <tr>
                                 <th><abbr title="Číslo">č.</abbr></th>
-                                <th><input type="checkbox" title="Výběr předmětů podnikání"></th>
+                                <th><input type="checkbox" title="Výběr předmětů podnikání" #accesskey2></th>
                                 <th width="25%">kód živnosti</th>
                                 <th width="75%">předmět podnikání</th>
                             </tr>
