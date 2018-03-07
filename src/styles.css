@@ -106,12 +106,17 @@
     a:hover {
     }
 
-    a:active, a.active {
+    /*
+    a:active {
         outline: none;
+    }
+    */
+
+    a:active, a.active {
         color: #c00;
     }
 
-    a:focus {
+    a:focus, details summary:focus {
         outline: 1px dotted #999;
     }
 
@@ -120,7 +125,7 @@
     }
 
     details summary:focus {
-        outline: none;
+        border: none;
     }
 
     table, button, input[type="text"], input[type="password"], select, textarea {
@@ -141,7 +146,7 @@
     /*
     input[type="number"],
     */
-    button, input[type="text"], input[type="password"], select:not([multiple]) {
+    button, input[type="text"], input[type="password"], select:not([multiple]):not([size]) {
         overflow: visible;
     }
 
@@ -156,6 +161,10 @@
         background: #f3f3f3;
         background-image: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
         cursor: pointer;
+    }
+
+    button.minor {
+        background: #d4dfe9;
     }
 
     button.compact {
@@ -181,6 +190,10 @@
     button:hover:not([disabled]) {
         background: #f9f9f9;
         background-image: linear-gradient(to bottom, #ffffff, #f6f6f6);
+    }
+
+    button.minor:hover:not([disabled]) {
+        background: #dde8f2;
     }
 
     /*
@@ -214,13 +227,13 @@
     /*
     input[type="number"],
     */
-    input[type="text"], input[type="password"], select:not([multiple]) {
+    input[type="text"], input[type="password"], select:not([multiple]):not([size]) {
         height: 2rem;
         line-height: 1rem;
         padding: 0 0.5rem;
     }
 
-    select[multiple] {
+    select[multiple], select[size] {
         min-height: 3.5rem;
     }
 
@@ -228,6 +241,11 @@
         min-height: 3.5rem;
         padding: 0.25rem 0.5rem;
         resize: vertical;
+        overflow-y: scroll;
+    }
+
+    textarea[rows] {
+        resize: none;
     }
 
     textarea:not([rows]) {
@@ -288,18 +306,33 @@
         background: #fff;
     }
 
-    select[multiple] option {
+    select[multiple] option, select[size] option {
         padding: 0.25rem 0.5rem;
-        white-space: nowrap; 
-        overflow: hidden;
-        text-overflow: ellipsis;
+    }
+
+    select.check option:before {
+        content: "\f096";
+        width: 1rem;
+        margin-right: 0.25rem;
+        font-family: FontAwesome;
+        text-align: center;
+        display: inline-block;
     }
 
     /*
-    .wrap, select.wrap option {
+    select.check[size="5"] {
+        height: 8.75rem;
+    }
+
+    select.check[size="5"] option {
         white-space: normal;
     }
     */
+
+    select.check option:first-of-type:before,
+    select.check option.checked:before {
+        content: "\f046";
+    }
 
     button:focus, input:focus, select:focus, textarea:focus {
         box-shadow: 0 0 1.5px 0 #ccc;

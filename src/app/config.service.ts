@@ -37,6 +37,11 @@ export class ConfigService {
             environment.build;
 
     /**
+     * Request standard window unload confirmation.
+     */
+    confirmWindowUnload: boolean = false;
+
+    /**
      * Allow request canceling.
      */
     requestCancel: boolean = true;

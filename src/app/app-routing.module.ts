@@ -52,7 +52,7 @@ const routes: Routes = [
 export class AppRoutingModule {
     constructor(private router: Router, private route: ActivatedRoute,
             private app: AppService, private config: ConfigService) {
-        this.router.events.subscribe((event: RouterEvent) => this.onRouterEvent(event));
+        //this.router.events.subscribe((event: RouterEvent) => this.onRouterEvent(event));
     }
 
     /**

@@ -5,12 +5,47 @@
  *      import {UtilsModule as utils} from './common/utils.module';
  */
 import {NgModule} from '@angular/core';
+import {ControlContainer} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
-import {Observable} from 'rxjs/Rx';
 
 @NgModule({
 })
 export class UtilsModule {
+    /**
+     * Executes a functon when the requested form control is or becomes available.
+     * 
+     * @example
+     *      this.onFormControl(this.form, 'group.name', (control) => {
+     *          control.valueChanges.subscribe(value => console.log("group.name is", value);
+     *      });
+     */
+    static onFormControl(parent: ControlContainer, path: string|string[], callback: Function) {
+        const control = parent.control.get(path);
+
+        if (!control) {
+            const changes: Subscription = parent.valueChanges.subscribe(() => {
+                if (parent.control.get(path)) {
+                    changes.unsubscribe(); //available
+                    this.onFormControl(parent, path, callback);
+                }
+            });
+        }
+        else {
+            callback(control);
+        }
+    }
+
+    static controlValueChanges(parent: ControlContainer, path: string|string[]): Observable<any> {
+        return new Observable((observer) => {
+            UtilsModule.onFormControl(parent, path, (control) => {
+                const changes = control.valueChanges.map((value) => value || '')
+                        .distinctUntilChanged().subscribe((value) => observer.next(value));
+//TODO: on observer complete => changes.unsubscribe());
+            });
+        });
+    }
+
     /**
      * Freezes script execution for a specific time (milliseconds).
      */
@@ -23,8 +58,33 @@ export class UtilsModule {
     }
 
     /**
+     * Checks existance of a dirty (non-blank) argument.
+     */
+    static dirty(...args): boolean {
+        return args.reduce((acc, part) => acc || (part ? /\S/.test(part) : false), false);
+    }
+
+    /*
+     * Filters a list by value or properties.
+     * Accepts dot notation string for a nested property.
+     */
+    static filter(items: any[], value: any): any[] {
+        return typeof value !== 'object' ? items.filter((item) => item == value) :
+                items.filter((item) => Object.keys(value).reduce((acc, part) => acc &&
+                        UtilsModule.get(item, part) == value[part], true));
+    }
+
+    /*
+     * Plucks property from a list.
+     * Accepts dot notation string for a nested property.
+     */
+    static pluck(items: any[], name: string): any[] {
+        return items.map((item) => UtilsModule.get(item, name));
+    }
+
+    /**
      * Gets a property value by its name.
-     * Use dot notation string for a nested property.
+     * Accepts dot notation string for a nested property.
      */
     static get(obj: any, name: string): any {
         return name.split('.').reduce((acc, part) => acc && acc[part], obj);
@@ -32,7 +92,7 @@ export class UtilsModule {
 
     /**
      * Sets a property value by its name.
-     * Use dot notation string for a nested property.
+     * Accepts dot notation string for a nested property.
      */
     static set(obj: any, name: string, value?: any) {
         const parts = name.split('.');
@@ -245,7 +305,7 @@ export class UtilsModule {
     static readonly RELATIVE_PATHNAME = '/';
 
     static mergeUrl(arg, ...args): URL {
-        let url = new URL(arg);
+        const url = new URL(arg);
 
         for (arg of args) {
             const target = new URL(arg, `${UtilsModule.RELATIVE_ORIGIN}/${UtilsModule.RELATIVE_PATHNAME}`),

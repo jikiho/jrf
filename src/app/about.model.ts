@@ -53,6 +53,11 @@ export class AboutModel extends Model<AboutModel> {
     navigator: Navigator;
 
     /**
+     * Visual viewport property (window).
+     */
+    viewport: any;
+
+    /**
      * Last response timestamp.
      */
     responsed: Date;

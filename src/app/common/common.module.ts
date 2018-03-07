@@ -11,11 +11,14 @@ import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
 import {EnabledDirective} from './enabled.directive';
+import {FilterPipe} from './filter.pipe';
 import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
 import {InputFileDirective} from './input-file.directive';
+import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
 import {OutputForDirective} from './output-for.directive';
+import {PluckPipe} from './pluck.pipe';
 import {ProvideControlDirective} from './provide-control.directive';
 import {RouterLinkActiveDirective} from './router-link-active.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
@@ -36,9 +39,12 @@ import {UnavailablePipe} from './unavailable.pipe';
         DatericPipe,
         DialogDirective,
         EnabledDirective,
+        FilterPipe,
         FormResetDirective,
         FormValidateDirective,
         InputFileDirective,
+        JoinPipe,
+        PluckPipe,
         RouterLinkActiveDirective,
         NumericPipe,
         OutputForDirective,
@@ -55,15 +61,18 @@ import {UnavailablePipe} from './unavailable.pipe';
         DatericPipe,
         DialogDirective,
         EnabledDirective,
+        FilterPipe,
         FormResetDirective,
         FormValidateDirective,
         InputFileDirective,
+        JoinPipe,
         RouterLinkActiveDirective,
         NgCommonModule,
         NgFormsModule,
         NgRouterModule,
         NumericPipe,
         OutputForDirective,
+        PluckPipe,
         ProvideControlDirective,
         SafeUrlPipe,
         StringifyPipe,

@@ -6,13 +6,11 @@
  */
 import {NgModule} from '@angular/core';
 
-@NgModule({
-})
-export class WindowModule {
-    /**
-     * Default circular-structure-safe value to JSON conversion.
-     */
-    static safeSringify(stringify: Function) {
+/**
+ * Default circular-structure-safe value to JSON conversion.
+ */
+Object.defineProperty(JSON, 'stringify', {
+    value: (function(stringify: Function) {
         return (value: any, replacer?: any, space: number = 4) => {
             const suffix: string = ' //object reference',
                 refs = new Map(),
@@ -67,40 +65,37 @@ export class WindowModule {
                 refs.clear();
                 parents.splice(0);
                 keys.splice(0);
-            }
+            };
         };
-    }
+    })(JSON.stringify)
+});
 
-    /**
-     * Window visual viewport property.
-     * @see https://github.com/WICG/visual-viewport
-     */
-    static windowVisualViewport(window: Window) {
-        return {
-            get width(): number {
-                return window.innerWidth;
-            },
-            get height(): number {
-                return window.innerHeight;
-            },
-            get pageTop(): number {
-                return window.pageYOffset;
-            },
-            get pageLeft(): number {
-                return window.pageXOffset;
-            }
-        };
-    }
+/**
+ * Window visual viewport property.
+ * @see https://github.com/WICG/visual-viewport
+ */
+if (!window.hasOwnProperty('visualViewport')) {
+    Object.defineProperty(window, 'visualViewport', {
+        value: (function(window: Window) {
+            return {
+                get width(): number {
+                    return window.innerWidth;
+                },
+                get height(): number {
+                    return window.innerHeight;
+                },
+                get pageTop(): number {
+                    return window.pageYOffset;
+                },
+                get pageLeft(): number {
+                    return window.pageXOffset;
+                }
+            };
+        })(window)
+    });
+}
 
-    constructor() {
-        Object.defineProperty(JSON, 'stringify', {
-            value: WindowModule.safeSringify(JSON.stringify)
-        });
-
-        if (!window.hasOwnProperty('visualViewport')) {
-            Object.defineProperty(window, 'visualViewport', {
-                value: WindowModule.windowVisualViewport(window)
-            });
-        }
-    }
+@NgModule({
+})
+export class WindowModule {
 }
