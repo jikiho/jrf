@@ -71,12 +71,12 @@
     }
 
     a[disabled], [disabled] a {
-        pointer-events: none;
         color: inherit !important;
         cursor: default;
     }
 
     [disabled] {
+        pointer-events: none;
         opacity: 0.45;
     }
 
@@ -167,9 +167,22 @@
         background: #d4dfe9;
     }
 
-    button.compact {
+    td.compact {
+        padding: 0.25rem;
+    }
+
+    td.compact button {
         height: auto;
-        padding: 0 0.25rem;
+        padding: 0.25rem;
+        margin: 0.25rem;
+    }
+
+    /*
+    tr:not(:hover) td.compact button.over,
+    */
+    td.compact button:not(.over):not(:hover) {
+        background: transparent;
+        border-color: transparent;
     }
 
     button::-moz-focus-inner {
@@ -329,7 +342,6 @@
     }
     */
 
-    select.check option:first-of-type:before,
     select.check option.checked:before {
         content: "\f046";
     }
@@ -379,6 +391,26 @@
 
     table.stripe tbody tr:nth-child(even) td {
         background: #f9f9f9;
+    }
+
+    table:not(.over) tbody tr.over th,
+    table.over tbody tr:hover th {
+        background: #f8f8d7;
+    }
+
+    table:not(.over) tbody tr.over td,
+    table.over tbody tr:hover td {
+        background: #ffd;
+    }
+
+    table.stripe:not(.over) tbody tr:nth-child(even).over th,
+    table.stripe.over tbody tr:nth-child(even):hover th {
+        background: #f5f5d3;
+    }
+
+    table.stripe:not(.over) tbody tr:nth-child(even).over td,
+    table.stripe.over tbody tr:nth-child(even):hover td {
+        background: #fbfbda;
     }
 
     table > * + * tr:first-child > *, tr + tr:not(.stuck) > * {
