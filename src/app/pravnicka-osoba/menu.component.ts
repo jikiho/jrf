@@ -44,7 +44,7 @@ export class MenuComponent {
     @HostListener('document:keydown.alt.PageDown', ['1'])
     private shiftOnKey(value: number) {
         if (!MenuComponent.suspended) {
-            //MenuComponent.suspended = true;
+            MenuComponent.suspended = true;
 
             this.shift(value);
         }

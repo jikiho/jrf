@@ -7,7 +7,7 @@
 </header>
 
 <section class="block">
-    <form>
+    <form *ngIf="entries$ | async as items">
         <div class="grid">
             <div class="row">
                 <div class="col-12">
@@ -20,13 +20,15 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="items$ | async as items">
-                            <tr *ngFor="let item of items; let index = index;">
-                                <td>{{index + 1}}</td>
-                                <td>{{item.kod}}</td>
+                        <tbody>
+                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="item.selected">
+                                <td class="compact">
+                                    <button type="button" (click)="select(index)" title="Vybrat živnost č. {{index + 1}}">{{index + 1}}</button>
+                                </td>
+                                <td>{{item.zivnost}}</td>
                                 <td>{{item.nazev}}</td>
-                                <td>
-                                    <button type="button" (click)="void" title="Odebrat živnost" class="compact"><i class="fa fa-fw fa-remove"></i></button>
+                                <td class="compact">
+                                    <button type="button" (click)="remove(index)" title="Odebrat živnost č. {{index + 1}}"><b class="fa fa-fw fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -35,10 +37,10 @@
             </div>
             <div class="row">
                 <div class="col-10">
-                    <button type="button" (click)="void" title="Přidat živnost"><i class="fa fa-fw fa-plus"></i>Nová živnost</button>
+                    <button type="button" (click)="add()" title="Přidat živnost"><i class="fa fa-fw fa-file-o"></i>Nová živnost</button>
                 </div>
                 <div class="col-2 col-middle right">
-                    <output title="Vybraná živnost">0 / 0</output>
+                    <output title="Vybraná živnost z celkového počtu živností">{{selectedIndex + 1}} / {{items.length}}</output>
                 </div>
             </div>
         </div>
