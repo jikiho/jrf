@@ -59,7 +59,7 @@ export class FeatureComponentBase implements OnInit, OnDestroy {
             }
         }
         else {
-            this.app.alert('Není možné přidat záznam, bylo dosaženo omezení počtu záznamů.');
+            this.app.alert('Omezení neumožňuje přidat nový záznam.');
         }
     }
 
@@ -93,12 +93,6 @@ export class FeatureComponentBase implements OnInit, OnDestroy {
         }
     }
 
-    protected confirmDirty(dirty: boolean = this.dirty): boolean {
-        const message = 'Neuložené údaje budou ztraceny, chcete pokračovat?';
-
-        return !dirty || this.app.confirm(message).result;
-    }
-
     protected confirmRemove(): boolean {
         const message = 'Dojde ke zrušení údajů, chcete pokračovat?';
 
@@ -125,5 +119,42 @@ console.log("RESET FORM", value);
             this.form.reset(value);
             this.synchronizing = false;
         }
+    }
+
+    private stopEvent(event: Event): boolean {
+        event.stopPropagation();
+        event.preventDefault();
+
+        return false;
+    }
+
+    @HostListener('document:keydown.alt.n')
+    private createOnKey() {
+        this.stopEvent(event);
+        this.create();
+    }
+
+    @HostListener('document:keydown.control.arrowup')
+    private previousOnKey() {
+        this.stopEvent(event);
+        this.previous();
+    }
+
+    @HostListener('document:keydown.control.arrowdown')
+    private nextOnKey() {
+        this.stopEvent(event);
+        this.next();
+    }
+
+    @HostListener('document:keydown.alt.r')
+    private removeOnKey() {
+        this.stopEvent(event);
+        this.remove();
+    }
+
+    @HostListener('document:keydown.alt.l')
+    private toggleOnKey() {
+        this.stopEvent(event);
+        this.content.toggle();
     }
 }

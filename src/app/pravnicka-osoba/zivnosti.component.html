@@ -17,7 +17,8 @@
                     </button>
                     <button type="button" (click)="next()" title="Následující živnost (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
                     <button type="button" (click)="create()" title="Přidání nové živnosti (Alt-N)"><i class="fa fa-fw fa-plus"></i>Přidat živnost</button>
-                    <button type="button" (click)="remove()" title="Odebrání živnosti (Alt-R)"><i class="fa fa-fw fa-remove"></i>Odebrat živnost</button>
+                    <button type="button" (click)="remove()" title="Smazání živnosti (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat živnost</button>
+                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
                 </div>
             </div>
             <div class="row gutterless" [hidden]="content.hidden">
@@ -39,7 +40,7 @@
                                 <td>{{item.zivnost?.Kod || item.skupinaZivnosti?.Kod || item.druhZivnosti?.Kod}}</td>
                                 <td>{{item.predmetPodnikani}}</td>
                                 <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Odebrání živnosti"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="remove(index)" title="Smazání živnosti"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -113,4 +114,5 @@
         </div>
     </form>
 </section>
+
 <pre>{{content.entry | json}}</pre>

@@ -11,10 +11,31 @@
         <div class="grid gutterless">
             <div class="row bar">
                 <div class="col-12">
-                    <button type="button" disabled>
+                    <button type="button" (click)="content.toggle()" title="Zobrazení souhrnných údajů (Alt-L)">
                         <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
                     </button>
-                    <output [hidden]="!dirty" title="Neuložené údaje"><b class="fa fa-fw fa-asterisk"></b></output>
+                    <button type="button" (click)="remove(content.index)" title="Smazání ostatních údajů (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat údaje</button>
+                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
+                </div>
+            </div>
+            <div class="row gutterless" [hidden]="content.hidden">
+                <div class="col-12">
+                    <table class="readonly">
+                        <thead>
+                            <tr>
+                                <th width="100%">ostatní údaje</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
+                                <td>{{item.ostatniUdaje}}</td>
+                                <td class="compact">
+                                    <button type="button" (click)="remove(index)" title="Smazání ostatních údajů"><b class="fa fa-remove"></b></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -44,7 +65,7 @@
                     <label>
                         a)
                         <dfn>Živnostenský úřad</dfn>
-                        <input type="checkbox" name="PodaniZU" ngModel #accesskeyC>
+                        <input type="checkbox" name="PodaniZU" ngModel>
                     </label>
                 </div>
                 <div class="col-3">
@@ -92,7 +113,7 @@
                                 <th><abbr title="Finanční úřad">FÚ</abbr></th>
                                 <th><abbr title="Úřad práce">ÚP</abbr></th>
                                 <th class="compact">
-                                    <button type="button" (click)="void" title="Přidání nové elektronické přílohy"><b class="fa fa-plus"></b></button>
+                                    <button type="button" title="Přidání nové elektronické přílohy"><b class="fa fa-plus"></b></button>
                                 </th>
                             </tr>
                         </thead>
@@ -111,7 +132,7 @@
                                     <input type="checkbox">
                                 </td>
                                 <td class="compact">
-                                    <button type="button" (click)="void" title="Zrušení elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="void" title="Smazání elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -130,4 +151,5 @@
         </div>
     </form>
 </section>
+
 <pre>{{content.entry | json}}</pre>

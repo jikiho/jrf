@@ -6,25 +6,24 @@
     -->
 </header>
 
-<section class="block">
+<section>
     <form *ngIf="content.entries$ | async as items">
         <div class="grid gutterless">
             <div class="row bar">
                 <div class="col-12">
-                    <button type="button" (click)="create()" title="Přidání nového změnového listu (Alt-N)"><i class="fa fa-fw fa-plus"></i>Přidat list</button>
-                    <button type="button" (click)="content.previous()" title="Předchozí změnový list (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
+                    <button type="button" (click)="previous()" title="Předchozí změnový list (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
                     <button type="button" (click)="content.toggle()" title="Zobrazení seznamu změnových listů (Alt-L)">
-                        <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
+                        <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
                     </button>
-                    <button type="button" (click)="content.next()" title="Následující změnový list (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
-                    <button type="button" (click)="remove(content.index)" title="Odebrání změnového listu (Alt-R)"><i class="fa fa-fw fa-remove"></i>Odebrat list</button>
-                    <button type="button" (click)="save()" title="Zápis údajů změnového listu (Alt-S)"><i class="fa fa-fw fa-check"></i>Zapsat údaje</button>
-                    <output [hidden]="!dirty" title="Neuložené údaje"><b class="fa fa-fw fa-asterisk"></b></output>
+                    <button type="button" (click)="next()" title="Následující změnový list (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
+                    <button type="button" (click)="create()" title="Přidání nového změnového listu (Alt-N)"><i class="fa fa-fw fa-plus"></i>Přidat list</button>
+                    <button type="button" (click)="remove()" title="Smazání změnového listu (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat list</button>
+                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
                 </div>
             </div>
             <div class="row gutterless" [hidden]="content.hidden">
                 <div class="col-12">
-                    <table>
+                    <table class="readonly">
                         <thead>
                             <tr>
                                 <th><abbr title="Číslo">č.</abbr></th>
@@ -39,7 +38,7 @@
                                 </td>
                                 <td>{{item.zmenovyList}}</td>
                                 <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Odebrání změnového listu"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="remove(index)" title="Smazání změnového listu"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -61,9 +60,10 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label>
-                        <dfn>01 Předměty podnikání, kterých se změna týká (u živnosti volné čísla oborů)</dfn>
-                    </label>
+                    <h4>
+                        01 Předměty podnikání, kterých se změna týká
+                        <small>(u živnosti volné čísla oborů)</small>
+                    </h4>
                 </div>
             </div>
             <div class="row">
@@ -74,7 +74,7 @@
                                 <th width="25%"><abbr title="Kód živnosti">kód</abbr> / <abbr title="Číslo oboru činnosti">č. oboru</abbr></th>
                                 <th width="75%">předmět podnikání / obor činnosti</th>
                                 <th class="compact">
-                                    <button type="button" (click)="zivnostiAdd()" title="Výběr živností nebo oborů činnosti"><b class="fa fa-bars"></b></button>
+                                    <button type="button" title="Výběr živností nebo oborů činnosti"><b class="fa fa-bars"></b></button>
                                 </th>
                             </tr>
                         </thead>
@@ -83,7 +83,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="compact">
-                                    <button type="button" (click)="zivnostiRemove(item.index)" title="Zrušení vybrané živnosti"><b class="fa fa-minus"></b></button>
+                                    <button type="button" title="Zrušení vybrané živnosti"><b class="fa fa-minus"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -92,18 +92,25 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label>
-                        <dfn>02 Původní údaj</dfn>
-                        <textarea name="puvodniUdaj" ngModel></textarea>
-                    </label>
+                    <h4>02 Původní údaj</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <label>
-                        <dfn>03 Nový údaj (je-li pro uvedení nového údaje samostatná kolonka, uveďte údaj tam)</dfn>
-                        <textarea name="novyUdaj" ngModel></textarea>
-                    </label>
+                    <textarea name="puvodniUdaj" #input.puvodniUdaj ngModel></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h4>
+                        03 Nový údaj
+                        <small>(je-li pro uvedení nového údaje samostatná kolonka, uveďte údaj tam)</small>
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <textarea name="novyUdaj" #input.novyUdaj ngModel></textarea>
                 </div>
             </div>
             <div class="row">
@@ -114,4 +121,5 @@
         </div>
     </form>
 </section>
+
 <pre>{{content.entry | json}}</pre>

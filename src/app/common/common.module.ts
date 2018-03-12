@@ -10,7 +10,6 @@ import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
-//import {EnabledDirective} from './enabled.directive';
 import {FilterPipe} from './filter.pipe';
 import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
@@ -39,7 +38,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        //EnabledDirective,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,
@@ -62,7 +60,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        //EnabledDirective,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,

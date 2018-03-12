@@ -9,19 +9,6 @@ import {ControlContainer} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
 
-/**
- * Decorator providing a property via a getter.
- */
-export function Getter(source: string): Function {
-    return (target: any, name: string, descriptor: PropertyDescriptor) => {
-        Object.defineProperty(target, name, {
-            get: function() {
-                return this[source] ? this[source][name] : undefined;
-            }
-        });
-    }
-}
-
 @NgModule({
 })
 export class UtilsModule {
