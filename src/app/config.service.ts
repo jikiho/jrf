@@ -18,10 +18,13 @@ export class ConfigService {
      * Flag to debug the application.
      */
     get debug(): boolean {
+        return false;
+        /*
         const debug = !this.production || this.queried('debug'),
             disabled = this.queried('debug', 'false');
 
         return debug && !disabled;
+        */
     }
 
     /**

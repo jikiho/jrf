@@ -1,0 +1,48 @@
+    private stopEvent(event: Event): boolean {
+        event.stopPropagation();
+        event.preventDefault();
+
+        return false;
+    }
+
+    @HostListener('document:keydown.alt.n')
+    private createOnKey() {
+        this.stopEvent(event);
+        this.create();
+    }
+
+    @HostListener('document:keydown.alt.backspace')
+    private resetOnKey() {
+        this.stopEvent(event);
+        this.select();
+    }
+
+    @HostListener('document:keydown.control.arrowup')
+    private previousOnKey() {
+        this.stopEvent(event);
+        this.previous();
+    }
+
+    @HostListener('document:keydown.control.arrowdown')
+    private nextOnKey() {
+        this.stopEvent(event);
+        this.next();
+    }
+
+    @HostListener('document:keydown.alt.r')
+    private removeOnKey() {
+        this.stopEvent(event);
+        this.remove();
+    }
+
+    @HostListener('document:keydown.alt.s', ['$event'])
+    private saveOnKey(event: Event) {
+        this.stopEvent(event);
+        this.save();
+    }
+
+    @HostListener('document:keydown.alt.l')
+    private toggleOnKey() {
+        this.stopEvent(event);
+        this.content.toggle();
+    }

@@ -9,17 +9,11 @@ import {NgForm} from '@angular/forms';
 })
 export class FormResetDirective implements OnInit {
     /**
-     * Form default value.
-     */
-    private defaultValue: any;
-
-    /**
      * Flag...
      */
     private clearing: boolean = false;
 
     constructor(private form: NgForm, private el: ElementRef) {
-        this.settleReset();
     }
 
     ngOnInit() {
@@ -30,10 +24,10 @@ export class FormResetDirective implements OnInit {
      * Resets form value on reset event.
      */
     @HostListener('reset', ['$event'])
-    resetOnEvent(event: Event) {
+    private resetOnEvent(event: Event) {
         event.preventDefault();
 
-        this.form.reset(this.clearing ? undefined : this.defaultValue);
+        this.form.reset();
 
         this.clearing = false;
     }
@@ -42,7 +36,7 @@ export class FormResetDirective implements OnInit {
      * Resets form element on keyboard event.
      */
     @HostListener('keyup.alt.Backspace', ['$event'])
-    resetOnKeyboard(event: KeyboardEvent) {
+    private resetOnKeyboard(event: KeyboardEvent) {
         event.preventDefault();
 
         this.el.nativeElement.reset();
@@ -52,29 +46,10 @@ export class FormResetDirective implements OnInit {
      * Clears form element on keyboard event.
      */
     @HostListener('keyup.alt.Delete', ['$event'])
-    clearOnKeyboard(event: KeyboardEvent) {
+    private clearOnKeyboard(event: KeyboardEvent) {
         event.preventDefault();
 
         this.el.nativeElement.clear();
-    }
-
-    /**
-     * Initializes and handles form reset.
-     * Enhances a form reset functionality to update a default value.
-     */
-    private settleReset() {
-        const form = this.form,
-            reset = form.reset;
-
-        Object.assign(form, {
-            reset: (value: any, ...args) => {
-                if (!this.clearing) {
-                    this.defaultValue = value;
-                }
-
-                return reset.call(form, value, ...args);
-            }
-        });
     }
 
     /**
@@ -82,11 +57,15 @@ export class FormResetDirective implements OnInit {
      * Adds a form element clear functionality.
      */
     private settleClear() {
-        this.el.nativeElement.clear = () => {
-            this.clearing = true;
+        const directive = this;
 
-            this.el.nativeElement.reset();
-        };
+        Object.defineProperty(this.el.nativeElement, 'clear', {
+            value: function() {
+                directive.clearing = true;
+
+                this.reset();
+            }
+        });
     }
 }
 

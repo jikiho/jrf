@@ -4,7 +4,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule as NgRouterModule, Routes} from '@angular/router';
 
-import {OdpovedniZastupciComponent} from './odpovedni-zastupci.component';
 import {OstatniComponent} from './ostatni.component';
 import {PodnikatelComponent} from './podnikatel.component';
 import {ZivnostiComponent} from './zivnosti.component';
@@ -21,10 +20,6 @@ export const PravnickaOsobaRoutes: Routes = [
     {
         path: 'zivnosti',
         component: ZivnostiComponent
-    },
-    {
-        path: 'odpovedni-zastupci',
-        component: OdpovedniZastupciComponent
     },
     {
         path: 'ostatni',

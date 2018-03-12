@@ -7,6 +7,43 @@
 </header>
 
 <section>
+    <form *ngIf="content.entries$ | async as items">
+        <div class="grid gutterless">
+            <div class="row bar">
+                <div class="col-12">
+                    <button type="button" (click)="content.toggle()" title="Zobrazení souhrnných údajů (Alt-L)">
+                        <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
+                    </button>
+                    <button type="button" (click)="remove(content.index)" title="Smazání údajů podnikatele (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat údaje</button>
+                </div>
+            </div>
+            <div class="row gutterless" [hidden]="content.hidden">
+                <div class="col-12">
+                    <table class="readonly">
+                        <thead>
+                            <tr>
+                                <th width="75%">obchodní firma / název právnické osoby</th>
+                                <th width="25%"><abbr title="identifikační číslo osoby">IČO</abbr></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
+                                <td>{{item.nazev}}</td>
+                                <td>{{item.ico}}</td>
+                                <td class="compact">
+                                    <button type="button" (click)="remove(index)" title="Smazání údajů podnikatele"><b class="fa fa-remove"></b></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section>
     <form #form="ngForm">
         <div class="grid gutterless">
             <div class="row">
@@ -16,14 +53,14 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h4>0<u>1</u> Podnikatel</h4>
+                    <h4>01 Podnikatel</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
-                        <input type="text" name="nazev" ngModel #accesskey1>
+                        <input type="text" name="nazev" #input.nazev ngModel>
                     </label>
                 </div>
             </div>
@@ -32,8 +69,8 @@
                     <label>
                         <dfn>b) právní forma</dfn>
                         <select name="pravniForma" ngModel>
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.pravniForma$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of (data.pravniForma$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -51,26 +88,26 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h4>0<u>2</u> Adresa sídla</h4>
+                    <h4>02 Adresa sídla</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <label>
                         <dfn>a) název ulice</dfn>
-                        <input type="text" name="ulice" ngModel #accesskey2>
+                        <input type="text" name="ulice" #input.ulice ngModel>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>b) <abbr title="číslo domovní (popisné / evidenční)">č.p. / č.ev.</abbr></dfn>
-                        <input type="text" name="cislo" ngModel>
+                        <input type="text" name="cisloDomovni" ngModel>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>c) <abbr title="číslo orientační">č. or.</abbr></dfn>
-                        <input type="text" name="orientacni" ngModel>
+                        <input type="text" name="cisloOrientacni" ngModel>
                     </label>
                 </div>
                 <div class="col-2">
@@ -90,7 +127,7 @@
                 <div class="col-6">
                     <label>
                         <dfn>f) část obce</dfn>
-                        <input type="text" name="cast" ngModel>
+                        <input type="text" name="castObce" ngModel>
                     </label>
                 </div>
             </div>
@@ -99,8 +136,8 @@
                     <label>
                         <dfn>g) okres</dfn>
                         <select name="okres" ngModel>
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.okres$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of (data.okres$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -108,8 +145,8 @@
                     <label>
                         <dfn>h) stát</dfn>
                         <select name="stat" ngModel>
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.stat$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of (data.stat$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -122,3 +159,4 @@
         </div>
     </form>
 </section>
+<pre>{{content.entry | json}}</pre>

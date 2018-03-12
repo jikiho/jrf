@@ -6,12 +6,23 @@
     -->
 </header>
 
-<section class="block">
-    <form *ngIf="entries$ | async as items">
-        <div class="grid">
-            <div class="row">
+<section>
+    <form *ngIf="content.entries$ | async as items">
+        <div class="grid gutterless">
+            <div class="row bar">
                 <div class="col-12">
-                    <table>
+                    <button type="button" (click)="previous()" title="Předchozí živnost (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
+                    <button type="button" (click)="content.toggle()" title="Zobrazení seznamu živností (Alt-L)">
+                        <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
+                    </button>
+                    <button type="button" (click)="next()" title="Následující živnost (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
+                    <button type="button" (click)="create()" title="Přidání nové živnosti (Alt-N)"><i class="fa fa-fw fa-plus"></i>Přidat živnost</button>
+                    <button type="button" (click)="remove()" title="Odebrání živnosti (Alt-R)"><i class="fa fa-fw fa-remove"></i>Odebrat živnost</button>
+                </div>
+            </div>
+            <div class="row gutterless" [hidden]="content.hidden">
+                <div class="col-12">
+                    <table class="readonly">
                         <thead>
                             <tr>
                                 <th><abbr title="Číslo">č.</abbr></th>
@@ -21,26 +32,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="item.selected">
+                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
                                 <td class="compact">
-                                    <button type="button" (click)="select(index)" title="Vybrat živnost č. {{index + 1}}">{{index + 1}}</button>
+                                    <button type="button" (click)="select(index)" title="Výběr živnosti a obnovení údajů">{{index + 1}}</button>
                                 </td>
-                                <td>{{item.zivnost}}</td>
-                                <td>{{item.nazev}}</td>
+                                <td>{{item.zivnost?.Kod || item.skupinaZivnosti?.Kod || item.druhZivnosti?.Kod}}</td>
+                                <td>{{item.predmetPodnikani}}</td>
                                 <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Odebrat živnost č. {{index + 1}}"><b class="fa fa-fw fa-remove"></b></button>
+                                    <button type="button" (click)="remove(index)" title="Odebrání živnosti"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-10">
-                    <button type="button" (click)="add()" title="Přidat živnost"><i class="fa fa-fw fa-file-o"></i>Nová živnost</button>
-                </div>
-                <div class="col-2 col-middle right">
-                    <output title="Vybraná živnost z celkového počtu živností">{{selectedIndex + 1}} / {{items.length}}</output>
                 </div>
             </div>
         </div>
@@ -52,7 +55,7 @@
         <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
-                    <h4>0<u>5</u> Předmět podnikání</h4>
+                    <h4>05 Předmět podnikání</h4>
                     <p>Ve smyslu § 45 resp. § 50 Živnostenského zákona ohlašuji resp. žádám o koncesi pro předmět podnikání.</p>
                 </div>
             </div>
@@ -60,39 +63,49 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) předmět podnikání</dfn>
-                        <textarea rows="3" readonly title="Předmět podnikání">{{(data.zivnost$ | async | filter:{Kod: (zivnost$ | async)} | pluck:'Hodnota') | join:'\n'}}</textarea>
+                        <textarea rows="3" readonly title="Předmět podnikání">{{content.entry.predmetPodnikani}}</textarea>
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.druhZivnosti$ | async as items">
                 <div class="col-12">
                     <label>
                         <dfn>Druh živnosti</dfn>
-                        <select name="druhZivnosti" ngModel #accesskey5>
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.druhZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                        <select name="druhZivnosti" #input.druhZivnosti ngModel>
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of items" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="content.entry.oboryCinnosti">
                 <div class="col-12">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
-                        <select name="skupinaZivnosti" ngModel [disabled]="!(druhZivnosti$ | async)">
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.skupinaZivnosti$ | async)" [hidden]="item.Druh != (druhZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                        <select name="skupinaZivnosti" ngModel [disabled]="!content.entry.druhZivnosti?.Kod">
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of items" [hidden]="item.Druh != content.entry.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.zivnost$ | async as items">
                 <div class="col-12">
                     <label>
                         <dfn>Předmět podnikání</dfn>
-                        <select name="zivnost" ngModel [disabled]="!(skupinaZivnosti$ | async)">
-                            <option value=""></option>
-                            <option *ngFor="let item of (data.zivnost$ | async)" [hidden]="item.Skupina != (skupinaZivnosti$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
+                        <select name="zivnost" ngModel [disabled]="!content.entry.oboryCinnosti && !content.entry.skupinaZivnosti?.Kod">
+                            <option [value]="null"></option>
+                            <option *ngFor="let item of items" [hidden]="item.Skupina != content.entry.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!content.entry.oboryCinnosti">
+                <div class="col-12">
+                    <label>
+                        <dfn>Obor činnosti</dfn>
+                        <select name="oborCinnosti" ngModel multiple [disabled]="!content.entry.zivnost?.Kod">
+                            <option *ngFor="let item of items" [hidden]="item.Zivnost != content.entry.zivnost?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -100,3 +113,4 @@
         </div>
     </form>
 </section>
+<pre>{{content.entry | json}}</pre>

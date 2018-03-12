@@ -7,7 +7,6 @@ import {CommonModule} from '../common/common.module';
 import {DataService} from './data.service';
 import {FeatureModule} from '../feature.module';
 import {MenuComponent} from './menu.component';
-import {OdpovedniZastupciComponent} from './odpovedni-zastupci.component';
 import {OstatniComponent} from './ostatni.component';
 import {PodnikatelComponent} from './podnikatel.component';
 //import {PravnickaOsobaRoutingModule} from './pravnicka-osoba-routing.module';
@@ -17,7 +16,6 @@ import {ZmenoveListyComponent} from './zmenove-listy.component';
 @NgModule({
     declarations: [
         MenuComponent,
-        OdpovedniZastupciComponent,
         OstatniComponent,
         PodnikatelComponent,
         ZivnostiComponent,

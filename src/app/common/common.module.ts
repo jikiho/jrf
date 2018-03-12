@@ -10,10 +10,11 @@ import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
-import {EnabledDirective} from './enabled.directive';
+//import {EnabledDirective} from './enabled.directive';
 import {FilterPipe} from './filter.pipe';
 import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
+import {HiddenDirective} from './hidden.directive';
 import {InputFileDirective} from './input-file.directive';
 import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
@@ -38,10 +39,11 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        EnabledDirective,
+        //EnabledDirective,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,
+        HiddenDirective,
         InputFileDirective,
         JoinPipe,
         PluckPipe,
@@ -60,10 +62,11 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
-        EnabledDirective,
+        //EnabledDirective,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,
+        HiddenDirective,
         InputFileDirective,
         JoinPipe,
         RouterLinkActiveDirective,

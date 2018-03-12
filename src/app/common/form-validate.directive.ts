@@ -9,14 +9,14 @@ import {UtilsModule as utils} from '../utils.module';
     selector: 'form'
 })
 export class FormValidateDirective {
+    @Input('novalidate')
+    private set _novalidate(value: boolean) {
+        this.novalidate = utils.booleric(value, '') || undefined;
+    }
+
     /**
      * Flag to disable a form validation (undefined to enable).
      */
     @HostBinding('attr.novalidate')
-    novalidate: boolean;
-
-    @Input('novalidate')
-    set _novalidate(value: boolean) {
-        this.novalidate = utils.booleric(value, '') || undefined;
-    }
+    private novalidate: boolean;
 }

@@ -9,43 +9,22 @@ import {ControlContainer} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
 
+/**
+ * Decorator providing a property via a getter.
+ */
+export function Getter(source: string): Function {
+    return (target: any, name: string, descriptor: PropertyDescriptor) => {
+        Object.defineProperty(target, name, {
+            get: function() {
+                return this[source] ? this[source][name] : undefined;
+            }
+        });
+    }
+}
+
 @NgModule({
 })
 export class UtilsModule {
-    /**
-     * Executes a functon when the requested form control is or becomes available.
-     * 
-     * @example
-     *      this.onFormControl(this.form, 'group.name', (control) => {
-     *          control.valueChanges.subscribe(value => console.log("group.name is", value);
-     *      });
-     */
-    static onFormControl(parent: ControlContainer, path: string|string[], callback: Function) {
-        const control = parent.control.get(path);
-
-        if (!control) {
-            const changes: Subscription = parent.valueChanges.subscribe(() => {
-                if (parent.control.get(path)) {
-                    changes.unsubscribe(); //available
-                    this.onFormControl(parent, path, callback);
-                }
-            });
-        }
-        else {
-            callback(control);
-        }
-    }
-
-    static controlValueChanges(parent: ControlContainer, path: string|string[]): Observable<any> {
-        return new Observable((observer) => {
-            UtilsModule.onFormControl(parent, path, (control) => {
-                const changes = control.valueChanges.map((value) => value || '')
-                        .distinctUntilChanged().subscribe((value) => observer.next(value));
-//TODO: on observer complete => changes.unsubscribe());
-            });
-        });
-    }
-
     /**
      * Freezes script execution for a specific time (milliseconds).
      */

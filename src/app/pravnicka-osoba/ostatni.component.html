@@ -7,11 +7,26 @@
 </header>
 
 <section>
+    <form *ngIf="content.entries$ | async as items">
+        <div class="grid gutterless">
+            <div class="row bar">
+                <div class="col-12">
+                    <button type="button" disabled>
+                        <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
+                    </button>
+                    <output [hidden]="!dirty" title="Neuložené údaje"><b class="fa fa-fw fa-asterisk"></b></output>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section>
     <form #form="ngForm">
         <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
-                    <h3>Část <u>B</u> - Oznámení pracovního místa</h3>
+                    <h3>Část B - Oznámení pracovního místa</h3>
                 </div>
             </div>
             <div class="row">
@@ -21,7 +36,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <h3>Část <u>C</u> - Vyberte úřady, vůči kterým je podání učiněno</h3>
+                    <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
                 </div>
             </div>
             <div class="row row-middle">
@@ -67,22 +82,22 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <table>
+                    <table class="readonly">
                         <thead>
                             <tr>
-                                <th><abbr title="Číslo">č.</abbr></th>
                                 <th width="60%">název přílohy</th>
                                 <th width="20%">typ</th>
                                 <th width="20%">velikost</th>
                                 <th><abbr title="Živnostenský úřad">ŽÚ</abbr></th>
                                 <th><abbr title="Finanční úřad">FÚ</abbr></th>
                                 <th><abbr title="Úřad práce">ÚP</abbr></th>
-                                <th></th>
+                                <th class="compact">
+                                    <button type="button" (click)="void" title="Přidání nové elektronické přílohy"><b class="fa fa-plus"></b></button>
+                                </th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="items$ | async as items">
+                        <tbody *ngIf="[{}] as items">
                             <tr *ngFor="let item of items; let index = index;">
-                                <td>{{index + 1}}</td>
                                 <td>{{item.nazev}}</td>
                                 <td>{{item.typ}}</td>
                                 <td>{{item.velikost}}</td>
@@ -95,8 +110,8 @@
                                 <td>
                                     <input type="checkbox">
                                 </td>
-                                <td>
-                                    <button type="button" (click)="void" title="Odebrat elektronickou přílohu" class="compact"><i class="fa fa-fw fa-remove"></i></button>
+                                <td class="compact">
+                                    <button type="button" (click)="void" title="Zrušení elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -105,7 +120,6 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="void" title="Přidat elektronickou přílohu"><i class="fa fa-fw fa-plus"></i>Nová příloha</button>
                 </div>
             </div>
             <div class="row">
@@ -116,3 +130,4 @@
         </div>
     </form>
 </section>
+<pre>{{content.entry | json}}</pre>

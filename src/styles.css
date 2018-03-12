@@ -34,12 +34,16 @@
         margin: 1.5rem auto;
     }
 
+    h1, h2, h3, h4 {
+        font-weight: bold;
+    }
+
     h1, h2, h3, h4, p, dt, ul {
         margin-top: 0.5rem;
     }
 
-    h1, h2, h3, h4 {
-        font-weight: bold;
+    *.grid.gutterless .row:not(.gutterless):not(:first-of-type) {
+        margin-top: 0.25rem;
     }
 
     hr {
@@ -140,7 +144,7 @@
     }
 
     input[type="text"][readonly], select[readonly], textarea[readonly] {
-        background: #eaeaea !important;
+        background: #f9f9f9;
     }
 
     /*
@@ -163,24 +167,24 @@
         cursor: pointer;
     }
 
+    /*
     button.minor {
         background: #d4dfe9;
     }
+    */
 
-    td.compact {
-        padding: 0.25rem;
+    tr > *.compact {
+        padding: 0.15rem 0.25rem;
+        font-size: 1rem;
     }
 
-    td.compact button {
+    *.compact button, button.compact {
         height: auto;
         padding: 0.25rem;
         margin: 0.25rem;
     }
 
-    /*
-    tr:not(:hover) td.compact button.over,
-    */
-    td.compact button:not(.over):not(:hover) {
+    *.over:not(:hover) *.compact button.over, *.compact button:not(.over):not(:hover) {
         background: transparent;
         border-color: transparent;
     }
@@ -251,7 +255,7 @@
     }
 
     textarea {
-        min-height: 3.5rem;
+        /* min-height: 2rem; */
         padding: 0.25rem 0.5rem;
         resize: vertical;
         overflow-y: scroll;
@@ -262,7 +266,8 @@
     }
 
     textarea:not([rows]) {
-        height: 3.5rem;
+        min-height: 5rem;
+        height: 5rem;
     }
 
     form label {
@@ -277,10 +282,6 @@
         width: 1.25rem;
         height: 1.25rem;
         vertical-align: middle;
-    }
-
-    .grid.gutterless .row {
-        margin-top: 0.25rem;
     }
 
     /*
@@ -389,11 +390,11 @@
         background: #ececec;
     }
 
+    table.readonly td,
     table.stripe tbody tr:nth-child(even) td {
         background: #f9f9f9;
     }
 
-    table:not(.over) tbody tr.over th,
     table.over tbody tr:hover th {
         background: #f8f8d7;
     }
@@ -483,23 +484,24 @@
     }
 
     section {
-        margin-top: 0.5rem;
+        margin-top: 0.75rem;
     }
 
-    section.block {
-        margin: 0.5rem -1rem;
-        padding: 1rem;
-        border: none;
+    *.row.bar {
+        padding: 0.25rem;
         border-radius: 0.25rem;
-        /* background: #ccc; */
         background: #7aa5cc;
-    }
-
-    section.block output {
-        color: #fff;
     }
 
     footer {
         margin-top: 1rem;
+    }
+
+    pre {
+        white-space: pre-wrap;
+    }
+
+    [hidden] {
+        display: none;
     }
 }

@@ -48,8 +48,9 @@ export class AppService {
     constructor(private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
             @Inject(LOCALE_ID) public readonly locale: string, //locale string
             private config: ConfigService, private process: ProcessService) {
+Object.assign(window, {app: this, utils});
         if (this.config.debug) {
-            Object.assign(window, {app: this, utils});
+            //Object.assign(window, {app: this, utils});
         }
 
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
