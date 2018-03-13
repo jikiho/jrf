@@ -32,14 +32,14 @@ export class ContentToolbarComponent {
     /**
      * Titles and labels.
      */
-    @Input() selectTitle: string = 'Výběr záznamu';
-    @Input() toggleTitle: string = 'Zobrazení seznamu záznamů';
-    @Input() previousTitle: string = 'Předchozí záznam';
-    @Input() nextTitle: string = 'Následující záznam';
-    @Input() addTitle: string = 'Přidání záznamu';
-    @Input() addLabel: string = 'Přidat záznam';
-    @Input() removeTitle: string = 'Smazání záznamu';
-    @Input() removeLabel: string = 'Smazat záznam';
+    @Input() selectTitle: string = 'Výběr údajů';
+    @Input() toggleTitle: string = 'Zobrazení souhrnných údajů';
+    @Input() previousTitle: string = 'Předchozí údaje';
+    @Input() nextTitle: string = 'Následující údaje';
+    @Input() addTitle: string = 'Přidání údajů';
+    @Input() addLabel: string = 'Přidat údaje';
+    @Input() removeTitle: string = 'Smazání údajů';
+    @Input() removeLabel: string = 'Smazat údaje';
     @Input() dirtyTitle: string = 'Upravené údaje...';
 
     /**
