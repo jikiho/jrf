@@ -29,7 +29,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     constructor(private cdr: ChangeDetectorRef,
             app: AppService, public data: DataService) {
         this.content = this.data.content.zivnosti = this.data.content.zivnosti ||
-                new ContentModel(app, ZivnostModel, 3);
+                new ContentModel(app, ZivnostModel, 0);
     }
 
     ngOnInit() {
