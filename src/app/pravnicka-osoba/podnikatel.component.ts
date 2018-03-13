@@ -1,50 +1,59 @@
 /**
  * "Pravnicka osoba - Podnikatel" feature component.
  */
-import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {BehaviorSubject, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
-import {FeatureComponentBase} from '../feature.component-base';
+import {PodnikatelModel} from './podnikatel.model';
 import {UtilsModule as utils} from '../utils.module';
-
-class PodnikatelModel {
-    completePodnikatel: boolean;
-    completeAdresa: boolean;
-    nazev: string;
-    pravniForma: any;
-    ico: string;
-    ulice: string;
-    cisloDomovni: string;
-    cisloOrientacni: string;
-    psc: string;
-    obec: string;
-    castObce: string;
-    okres: any;
-    stat: any
-}
 
 @Component({
     templateUrl: './podnikatel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PodnikatelComponent extends FeatureComponentBase {
-    constructor(app: AppService, public data: DataService) {
-        super(app);
+export class PodnikatelComponent implements OnInit, OnDestroy {
+    /**
+     * Feature content.
+     */
+    content: ContentModel<PodnikatelModel>;
 
+    @ViewChild('form')
+    private form: NgForm;
+
+    private synchronizer: Subscription | BehaviorSubject<PodnikatelModel[]>;
+
+    constructor(private cdr: ChangeDetectorRef,
+            app: AppService, public data: DataService) {
         this.content = this.data.content.podnikatel = this.data.content.podnikatel ||
-                new ContentModel(() => new PodnikatelModel());
+                new ContentModel(app, PodnikatelModel);
     }
 
-    update(value): any {
+    ngOnInit() {
+        this.synchronizer = this.content.init(this.form, (value) => this.update(value));
+            // checked due to content toolbar entries async pipe
+            //.subscribe(() => this.cdr.markForCheck());
+    }
+
+    ngOnDestroy() {
+        if (this.synchronizer) {
+            //this.synchronizer.unsubscribe();
+        }
+
+        this.content.destroy();
+    }
+
+    private update(value): any {
         const entry = this.content.entry;
 
         if (value.okres !== entry.okres) {
             const item = value.okres;
 
             if (item) {
-                this.form.control.patchValue({
+                this.content.patchValue({
                     stat: this.data.refs.stat.CZ
                 });
             }
@@ -54,7 +63,7 @@ export class PodnikatelComponent extends FeatureComponentBase {
             const item = value.stat;
 
             if (item && item.Kod !== this.data.refs.stat.CZ.Kod) {
-                this.form.control.patchValue({
+                this.content.patchValue({
                     okres: null
                 });
             }

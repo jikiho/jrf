@@ -6,41 +6,17 @@
     -->
 </header>
 
-<section>
-    <form *ngIf="content.entries$ | async as items">
-        <div class="grid gutterless">
-            <div class="row bar">
-                <div class="col-12">
-                    <button type="button" (click)="content.toggle()" title="Zobrazení souhrnných údajů (Alt-L)">
-                        <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
-                    </button>
-                    <button type="button" (click)="remove(content.index)" title="Smazání ostatních údajů (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat údaje</button>
-                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
-                </div>
-            </div>
-            <div class="row gutterless" [hidden]="content.hidden">
-                <div class="col-12">
-                    <table class="readonly">
-                        <thead>
-                            <tr>
-                                <th width="100%">ostatní údaje</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
-                                <td>{{item.ostatniUdaje}}</td>
-                                <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Smazání ostatních údajů"><b class="fa fa-remove"></b></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </form>
-</section>
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+    toggleTitle="Zobrazení souhrnných údajů"
+    removeTitle="Smazání ostatních údajů"
+    removeLabel="Smazat údaje"
+></content-toolbar-component>
+<ng-template #thead>
+    <th width="100%">ostatní údaje</th>
+</ng-template>
+<ng-template #tbody let-item>
+    <td>{{item.ostatniUdaje}}</td>
+</ng-template>
 
 <section>
     <form #form="ngForm">
@@ -132,7 +108,7 @@
                                     <input type="checkbox">
                                 </td>
                                 <td class="compact">
-                                    <button type="button" (click)="void" title="Smazání elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
+                                    <button type="button" title="Odebrání elektronické přílohy" class="compact"><b class="fa fa-minus"></b></button>
                                 </td>
                             </tr>
                         </tbody>

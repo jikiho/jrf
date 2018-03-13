@@ -6,48 +6,22 @@
     -->
 </header>
 
-<section>
-    <form *ngIf="content.entries$ | async as items">
-        <div class="grid gutterless">
-            <div class="row bar">
-                <div class="col-12">
-                    <button type="button" (click)="previous()" title="Předchozí změnový list (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
-                    <button type="button" (click)="content.toggle()" title="Zobrazení seznamu změnových listů (Alt-L)">
-                        <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
-                    </button>
-                    <button type="button" (click)="next()" title="Následující změnový list (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
-                    <button type="button" (click)="create()" title="Přidání nového změnového listu (Alt-N)"><i class="fa fa-fw fa-plus"></i>Přidat list</button>
-                    <button type="button" (click)="remove()" title="Smazání změnového listu (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat list</button>
-                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
-                </div>
-            </div>
-            <div class="row gutterless" [hidden]="content.hidden">
-                <div class="col-12">
-                    <table class="readonly">
-                        <thead>
-                            <tr>
-                                <th><abbr title="Číslo">č.</abbr></th>
-                                <th width="100%">změnový list</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
-                                <td class="compact">
-                                    <button type="button" (click)="select(index)" title="Výběr změnového listu a obnovení údajů">{{index + 1}}</button>
-                                </td>
-                                <td>{{item.zmenovyList}}</td>
-                                <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Smazání změnového listu"><b class="fa fa-remove"></b></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </form>
-</section>
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+    selectTitle="Výběr změnového listu"
+    toggleTitle="Zobrazení seznamu změnových listů"
+    previousTitle="Předchozí změnový list"
+    nextTitle="Následující změnový list"
+    addTitle="Přidání nového změnového listu"
+    addLabel="Přidat list"
+    removeTitle="Smazání změnového listu"
+    removeLabel="Smazat list"
+></content-toolbar-component>
+<ng-template #thead>
+    <th width="100%">změnový list</th>
+</ng-template>
+<ng-template #tbody let-item>
+    <td>{{item.zmenovyList}}</td>
+</ng-template>
 
 <section>
     <form #form="ngForm">
@@ -83,7 +57,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="compact">
-                                    <button type="button" title="Zrušení vybrané živnosti"><b class="fa fa-minus"></b></button>
+                                    <button type="button" title="Odebrání vybrané živnosti"><b class="fa fa-minus"></b></button>
                                 </td>
                             </tr>
                         </tbody>

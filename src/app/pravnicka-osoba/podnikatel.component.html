@@ -6,43 +6,19 @@
     -->
 </header>
 
-<section>
-    <form *ngIf="content.entries$ | async as items">
-        <div class="grid gutterless">
-            <div class="row bar">
-                <div class="col-12">
-                    <button type="button" (click)="content.toggle()" title="Zobrazení souhrnných údajů (Alt-L)">
-                        <output *ngIf="content.index > -1">{{content.index + 1}}/</output><output>{{items.length}}</output>
-                    </button>
-                    <button type="button" (click)="remove(content.index)" title="Smazání údajů podnikatele (Alt-R)"><i class="fa fa-fw fa-remove"></i>Smazat údaje</button>
-                    <output [hidden]="!dirty" title="Upravené údaje..."><b class="fa fa-fw fa-asterisk"></b></output>
-                </div>
-            </div>
-            <div class="row gutterless" [hidden]="content.hidden">
-                <div class="col-12">
-                    <table class="readonly">
-                        <thead>
-                            <tr>
-                                <th width="75%">obchodní firma / název právnické osoby</th>
-                                <th width="25%"><abbr title="identifikační číslo osoby">IČO</abbr></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of items; let index = index;" (dblclick)="select(index)" [class.over]="content.index === index">
-                                <td>{{item.nazev}}</td>
-                                <td>{{item.ico}}</td>
-                                <td class="compact">
-                                    <button type="button" (click)="remove(index)" title="Smazání údajů podnikatele"><b class="fa fa-remove"></b></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </form>
-</section>
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+    toggleTitle="Zobrazení souhrnných údajů"
+    removeTitle="Smazání údajů podnikatele"
+    removeLabel="Smazat údaje"
+></content-toolbar-component>
+<ng-template #thead>
+    <th width="75%">obchodní firma / název právnické osoby</th>
+    <th width="25%"><abbr title="identifikační číslo osoby">IČO</abbr></th>
+</ng-template>
+<ng-template #tbody let-item>
+    <td>{{item.nazev}}</td>
+    <td>{{item.ico}}</td>
+</ng-template>
 
 <section>
     <form #form="ngForm">

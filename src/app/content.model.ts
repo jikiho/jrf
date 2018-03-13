@@ -1,20 +1,32 @@
 /**
  * Feature content model.
  */
-import {BehaviorSubject} from 'rxjs/Rx';
+import {NgForm} from '@angular/forms';
+import {BehaviorSubject, Subscription} from 'rxjs/Rx';
 
-export class ContentModel {
+import {AppService} from './app.service';
+
+interface Constructor<T> {
+    new(value?: any): T;
+}
+
+export class ContentModel<T> {
     /**
-     * List of content entries (stream).
+     * List of content entries (stream) to detect changes.
      */
-    entries$ = new BehaviorSubject<any[]>([]);
+    entries$ = new BehaviorSubject<T[]>([]);
 
     /**
-     * Actual list of content entries.
+     * List of content entries.
      */
-    get entries(): any[] {
+    get entries(): T[] {
         return this.entries$.getValue();
     }
+
+    /**
+     * List length.
+     */
+    length: number;
 
     /**
      * Index of a current content entry.
@@ -24,16 +36,7 @@ export class ContentModel {
     /**
      * Current content entry number, starts from 1.
      */
-    get current(): number {
-        return this.index + 1;
-    }
-
-    /**
-     * List length.
-     */
-    get length(): number {
-        return this.entries.length;
-    }
+    current: number;
 
     /**
      * Last content entry index.
@@ -41,16 +44,12 @@ export class ContentModel {
      * @example select the last content entry
      *      content.select(content.last);
      */
-    get last(): number {
-        return this.entries.length - 1;
-    }
+    last: number;
 
     /**
      * Current content entry.
      */
-    get entry(): any { 
-        return this.entries[this.index];
-    }
+    entry: T;
 
     /**
      * Hidden entries list/value element.
@@ -60,24 +59,80 @@ export class ContentModel {
     /**
      * Limit of content entries number, or 0 for unlimited.
      */
-    limit: number = 0;
+    limit: number;
 
     /**
-     * List available space, or -1 for unlimited.
+     * Number of "free" entries, or -1 for unlimited.
      */
-    get free(): number {
-        return this.limit ? this.limit - this.length : -1;
+    free: number;
+
+    /**
+     * Single entry content.
+     */
+    single: boolean;
+
+    /**
+     * Form....
+     */
+    form: NgForm;
+
+    get value(): any {
+        return this.form.value;
+    }
+
+    get dirty(): boolean {
+        return this.form.dirty;
+    }
+
+    private synchronizer: Subscription
+
+    private synchronizing: boolean;
+
+    /**
+     * Duration time for the synchronization (milliseconds).
+     */
+    private duration: number = 250;
+
+    /**
+     * Content entry model class.
+     */
+    //private Model: T;
+
+    constructor(private app: AppService, private Model: Constructor<T>, limit: number = 1) {
+        this.limit = limit;
+        this.free = this.limit ? this.limit : -1;
+        this.single = this.limit === 1;
     }
 
     /**
-     * Content entry model.
+     * Initializes content and synchronization.
      */
-    private modeller: any;
+    init(form: NgForm, update?: (value) => any): BehaviorSubject<T[]> {
+        this.form = form;
 
-    constructor(model: any, limit: number = 1) {
-        this.modeller = typeof model === 'function' ? model : () => ({...model});
-        this.limit = limit;
-        this.create();
+        if (!this.length) {
+            this.createEntry(); //first entry
+        }
+
+        setTimeout(() => {
+            this.resetValue();
+
+            this.synchronizer = this.form.valueChanges.debounceTime(this.duration)
+                .map(update ? update : (value) => value)
+                .takeWhile((value) => value)
+                .subscribe((value) => this.setValue(value));
+        });
+
+        return this.entries$;
+    }
+
+    /**
+     * Destroys...
+     */
+    destroy() {
+        if (this.synchronizer) {
+            this.synchronizer.unsubscribe();
+        }
     }
 
     /**
@@ -88,24 +143,79 @@ export class ContentModel {
     }
 
     /**
-     * Assigns a content entry values.
+     * Assigns a current content entry values.
      */
     assign(...args) {
-        Object.assign(this.entry, ...args);
+        Object.assign(this.entry as any, ...args);
 
-        return this.update();
+        return this.set();
+    }
+
+    /**
+     * Patches form value.
+     */
+    patchValue(value: any) {
+        this.form.control.patchValue(value);
     }
 
     /**
      * Creates a new current content entry.
      */
-    create(...args): any {
+    create(value?: any) {
+        const message = 'Omezení neumožňuje přidat nový záznam.';
+
+        if (this.free) {
+            if (this.createEntry(value)) {
+                this.resetValue();
+            }
+        }
+        else {
+            this.app.alert(message);
+        }
+    }
+
+    save() {
+//TODO: check validity
+    }
+
+    remove(index?: number) {
+        const message = 'Dojde ke zrušení údajů, chcete pokračovat?';
+
+        if (this.app.confirm(message).result) {
+            if (this.entry !== this.removeEntry(index)) {
+                this.resetValue();
+            }
+        }
+    }
+
+    select(index?: number) {
+        if (this.selectEntry(index)) {
+            this.resetValue();
+        }
+    }
+
+    previous() {
+        if (this.previousEntry()) {
+            this.resetValue();
+        }
+    }
+
+    next() {
+        if (this.nextEntry()) {
+            this.resetValue();
+        }
+    }
+
+    /**
+     * Creates a new current content entry.
+     */
+    private createEntry(value?: any): T {
         if (this.free) {
             const entries = this.entries,
-                entry = this.modeller(...args),
+                entry = new this.Model(value), //model class
                 length = entries.push(entry);
 
-            return this.update(entries, length - 1);
+            return this.set(entries, length - 1);
         }
     }
 
@@ -118,13 +228,14 @@ export class ContentModel {
      *          console.log('New current content entry', content.entry);
      *      }
      */
-    remove(index: number = this.index): any {
-        const entries = this.entries;
+    private removeEntry(index: number = this.index): T {
+        const entries = this.entries,
+            removed = entries.splice(index, 1);
 
-        entries.splice(index, 1);
+        this.free += removed.length;
 
         if (!entries.length) {
-            return this.create();
+            return this.createEntry();
         }
 
         if (entries.length <= this.index) {
@@ -137,64 +248,93 @@ export class ContentModel {
             index = this.index;
         }
 
-        return this.update(entries, index);
+        return this.set(entries, index);
     }
 
     /**
      * Unselects a content entry.
      */
-    unselect(): any {
-        return this.update(this.entries, -1);
+    private unselectEntry(): T {
+        return this.set(this.entries, -1);
     }
 
     /**
      * Selects an existing content entry.
      */
-    select(value: number = this.index): any {
+    private selectEntry(value: number = this.index): T {
         const entries = this.entries,
             index = value < 0 ? 0 : Math.min(entries.length - 1, value);
 
-        return this.update(entries, index);
+        return this.set(entries, index);
     }
 
     /**
      * Shifts a selected content entry index to an existing one.
      */
-    shift(value: number): any {
+    private shift(value: number): T {
         const entries = this.entries,
             index = Math.min(entries.length - 1, Math.max(0, this.index + value));
 
-        return this.update(entries, index);
+        return this.set(entries, index);
     }
 
     /**
      * Selects the previous content entry.
      */
-    previous(): any {
+    private previousEntry(): T {
         return this.shift(-1);
     }
 
     /**
      * Selects the next content entry.
      */
-    next(): any {
+    private nextEntry(): T {
         return this.shift(1);
     }
 
     /**
-     * Updates content state.
+     * Sets content state.
      */
-    private update(entries: any[] = this.entries, index: number = this.index,
-            entry: any = this.entries[index]): any {
-console.log("UPDATE ENTRY", entry);
-        this.index = entry ? index : -1;
-
-        if (this.index > -1) {
-            this.entries[index] = entry;
+    private set(entries: T[] = this.entries, index: number = this.index,
+            entry: T = entries[index]): T {
+//console.log("SET CONTENT", index, entry);
+        if (index > -1) {
+            entries[index] = entry;
         }
+
+        this.length = entries.length;
+        this.free = this.limit ? this.limit - this.length : -1;
+        this.last = this.length - 1;
+        this.index = entry ? index : -1;
+        this.current = this.index + 1;
+        this.entry = entries[this.index];
 
         this.entries$.next(entries);
 
         return entry;
+    }
+
+    /**
+     * Synchronizes a current content entry value with form.
+     */
+    private setValue(value: any = this.value) {
+//console.log("SET VALUE", value);
+        if (!this.synchronizing) {
+            this.synchronizing = true;
+            this.assign(value);
+            this.synchronizing = false;
+        }
+    }
+
+    /**
+     * Resets a form value.
+     */
+    private resetValue(value: any = this.entry) {
+//console.log("RESET VALUE", value);
+        if (!this.synchronizing) {
+            this.synchronizing = true;
+            this.form.reset(value);
+            this.synchronizing = false;
+        }
     }
 }
