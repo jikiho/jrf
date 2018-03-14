@@ -3,9 +3,8 @@
  */
 import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
-import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -19,29 +18,24 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<ZivnostModel>;
+    content: ContentModel<ZivnostModel> = this.data.content.zivnosti;
 
     @ViewChild('form')
     private form: NgForm;
 
-    private synchronizer: Subscription | BehaviorSubject<ZivnostModel[]>;
+    private subscriptions: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            app: AppService, public data: DataService) {
-        this.content = this.data.content.zivnosti = this.data.content.zivnosti ||
-                new ContentModel(app, ZivnostModel, 0);
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.synchronizer = this.content.init(this.form, (value) => this.update(value));
-            // checked due to content toolbar entries async pipe
-            //.subscribe(() => this.cdr.markForCheck());
+        this.content.init(this.form, (value) => this.update(value));
     }
 
     ngOnDestroy() {
-        if (this.synchronizer) {
-            //this.synchronizer.unsubscribe();
-        }
+        this.subscriptions.forEach((subscription) =>
+                subscription.unsubscribe());
 
         this.content.destroy();
     }
@@ -62,6 +56,8 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
                 skupinaZivnosti: value.skupinaZivnosti,
                 oborCinnosti: value.oborCinnosti
             });
+
+            this.cdr.markForCheck();
         }
 
         if (value.skupinaZivnosti !== entry.skupinaZivnosti) {
@@ -74,6 +70,8 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
             this.form.control.patchValue({
                 zivnost: value.zivnost
             });
+
+            this.cdr.markForCheck();
         }
 
         if (value.zivnost !== entry.zivnost) {
@@ -82,6 +80,8 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
             Object.assign(value, {
                 predmetPodnikani: item ? item.Hodnota || item.Kod : ''
             });
+
+            this.cdr.markForCheck();
         }
 
         return value;

@@ -6,21 +6,10 @@ import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Parser} from 'xml2js';
 
-import {ContentModel} from '../content.model';
+import {DataContentModel} from './data-content.model';
 import {HttpService} from '../http/http.service';
-import {OstatniModel} from './ostatni.model';
-import {PodnikatelModel} from './podnikatel.model';
 import {UtilsModule as utils} from '../utils.module';
 import {XmlModel} from './xml.model';
-import {ZivnostModel} from './zivnost.model';
-import {ZmenovyListModel} from './zmenovy-list.model';
-
-class DataContentModel {
-    podnikatel: ContentModel<PodnikatelModel>;
-    zivnosti: ContentModel<ZivnostModel>;
-    ostatni: ContentModel<OstatniModel>;
-    zmenoveListy: ContentModel<ZmenovyListModel>;
-}
 
 @Injectable()
 export class DataService {

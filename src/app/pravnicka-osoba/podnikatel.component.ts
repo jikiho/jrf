@@ -3,9 +3,8 @@
  */
 import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
-import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {PodnikatelModel} from './podnikatel.model';
@@ -19,29 +18,24 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<PodnikatelModel>;
+    content: ContentModel<PodnikatelModel> = this.data.content.podnikatel;
 
     @ViewChild('form')
     private form: NgForm;
 
-    private synchronizer: Subscription | BehaviorSubject<PodnikatelModel[]>;
+    private subscriptions: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            app: AppService, public data: DataService) {
-        this.content = this.data.content.podnikatel = this.data.content.podnikatel ||
-                new ContentModel(app, PodnikatelModel);
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.synchronizer = this.content.init(this.form, (value) => this.update(value));
-            // checked due to content toolbar entries async pipe
-            //.subscribe(() => this.cdr.markForCheck());
+        this.content.init(this.form, (value) => this.update(value));
     }
 
     ngOnDestroy() {
-        if (this.synchronizer) {
-            //this.synchronizer.unsubscribe();
-        }
+        this.subscriptions.forEach((subscription) =>
+                subscription.unsubscribe());
 
         this.content.destroy();
     }
@@ -73,6 +67,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
             Object.assign(value, {
                 completePodnikatel: utils.dirty(value.nazev, value.ico)
             });
+
+            this.cdr.markForCheck();
         }
 
         if (value.ulice !== entry.ulice || value.obec !== entry.obec ||
@@ -81,6 +77,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 completeAdresa: utils.dirty(value.ulice) && utils.dirty(value.obec) &&
                         utils.dirty(value.cisloDomovni, value.cisloOrientacni)
             });
+
+            this.cdr.markForCheck();
         }
 
         return value;

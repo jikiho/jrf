@@ -98,7 +98,9 @@ export class ContentModel<T> {
      */
     //private Model: T;
 
-    constructor(private app: AppService, private Model: Constructor<T>, limit: number = 1) {
+    private app = AppService.self;
+
+    constructor(private Model: Constructor<T>, limit: number = 1) {
         this.limit = limit;
         this.free = this.limit ? this.limit : -1;
         this.single = this.limit === 1;
@@ -232,7 +234,9 @@ export class ContentModel<T> {
         const entries = this.entries,
             removed = entries.splice(index, 1);
 
-        this.free += removed.length;
+        if (this.limit) {
+            this.free += removed.length;
+        }
 
         if (!entries.length) {
             return this.createEntry();

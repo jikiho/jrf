@@ -4,7 +4,7 @@
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
 import {PlatformLocation} from '@angular/common';
 //import {Title} from '@angular/platform-browser';
-import {Router, ActivatedRoute, NavigationExtras, NavigationEnd} from '@angular/router';
+import {Router, ActivatedRoute, NavigationExtras, RouterEvent, NavigationEnd, NavigationCancel, NavigationError} from '@angular/router';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 
 import {AboutModel} from './about.model';
@@ -15,13 +15,20 @@ import {UtilsModule as utils} from './utils.module';
 
 @Injectable()
 export class AppService {
+    static self: AppService;
+
     /**
      * Information about the application (stream).
      */
     about$ = new BehaviorSubject<AboutModel>(null);
 
     /**
-     * Current application unique identification.
+     * Information about active route (stream).
+     */
+    route$ = new BehaviorSubject<any>(null);
+
+    /**
+     * Application unique identification.
      */
     get id(): string {
         return this.about$.getValue().id;
@@ -45,17 +52,21 @@ export class AppService {
     /**
      * Initializes the application.
      */
-    constructor(private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
-            @Inject(LOCALE_ID) public readonly locale: string, //locale string
+    constructor(@Inject(LOCALE_ID) public readonly locale: string, //locale string
+            private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
             private config: ConfigService, private process: ProcessService) {
-Object.assign(window, {app: this, utils});
-        if (this.config.debug) {
-            //Object.assign(window, {app: this, utils});
-        }
+        AppService.self = this;
+
+        //if (this.config.debug) {
+            Object.assign(window, {app: this, utils});
+        //}
 
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
 
         this.settleAbout();
+
+        this.router.events.subscribe((event: RouterEvent) =>
+                this.onRouterEvent(event));
     }
 
     /**
@@ -152,5 +163,36 @@ Object.assign(window, {app: this, utils});
         Observable.fromEvent(window, 'resize')
             .map((event: Event) => event.target['visualViewport'])
             .subscribe((viewport) => this.about(viewport)); //update viewport
+    }
+
+    /**
+     * Handles router events.
+     */
+    private onRouterEvent(event: RouterEvent) {
+        if (event instanceof NavigationEnd) {
+            this.route$.next({
+                //outlet: this.route.snapshot.outlet,
+                //component: this.route.snapshot.component.name,
+                params: this.route.snapshot.params,
+                query: this.route.snapshot.queryParams,
+                fragment: this.route.snapshot.fragment,
+                navigationId: this.router['navigationId'], //private
+                url: event.urlAfterRedirects
+            });
+
+            if (this.config.debug) {
+                console.debug('ROUTE', event.urlAfterRedirects, this.historyState);
+            }
+        }
+        else if (event instanceof NavigationCancel) {
+            if (this.config.debug) {
+                console.debug('CANCEL ROUTE', event.url, event.reason);
+            }
+        }
+        else if (event instanceof NavigationError) {
+            if (this.config.debug) {
+                //console.debug('FAILED ROUTE', event.url, this.router, this.route);
+            }
+        }
     }
 }

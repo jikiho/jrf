@@ -60,7 +60,7 @@ export class HistoryModule {
      */
     private initState(): HistoryStateModel {
         const applicationId = this.app.id,
-            navigationId = this.router['navigationId'], //private :(
+            navigationId = this.router['navigationId'], //private
             navigated = new Date();
 
         return new HistoryStateModel({applicationId, navigationId, navigated});

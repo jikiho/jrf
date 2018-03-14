@@ -3,9 +3,8 @@
  */
 import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
-import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -19,29 +18,24 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<ZmenovyListModel>;
+    content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
 
     @ViewChild('form')
     private form: NgForm;
 
-    private synchronizer: Subscription | BehaviorSubject<ZmenovyListModel[]>;
+    private subscriptions: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            app: AppService, public data: DataService) {
-        this.content = this.data.content.zmenoveListy = this.data.content.zmenoveListy ||
-                new ContentModel(app, ZmenovyListModel, 3);
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.synchronizer = this.content.init(this.form, (value) => this.update(value));
-            // checked due to content toolbar entries async pipe
-            //.subscribe(() => this.cdr.markForCheck());
+        this.content.init(this.form, (value) => this.update(value));
     }
 
     ngOnDestroy() {
-        if (this.synchronizer) {
-            //this.synchronizer.unsubscribe();
-        }
+        this.subscriptions.forEach((subscription) =>
+                subscription.unsubscribe());
 
         this.content.destroy();
     }
@@ -55,6 +49,8 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
                 zmenovyList: utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
                         [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
             });
+
+            this.cdr.markForCheck();
         }
 
         return value;
