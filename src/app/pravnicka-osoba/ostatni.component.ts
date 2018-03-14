@@ -1,9 +1,8 @@
 /**
  * "Pravnicka osoba - Ostatni" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -22,10 +21,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     private form: NgForm;
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+    constructor(public data: DataService) {
     }
 
     ngOnInit() {
@@ -33,9 +29,6 @@ export class OstatniComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptions.forEach((subscription) =>
-                subscription.unsubscribe());
-
         this.content.destroy();
     }
 }

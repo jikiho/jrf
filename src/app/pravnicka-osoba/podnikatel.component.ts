@@ -1,9 +1,8 @@
 /**
  * "Pravnicka osoba - Podnikatel" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -23,10 +22,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     private form: NgForm;
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+    constructor(public data: DataService) {
     }
 
     ngOnInit() {
@@ -34,9 +30,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptions.forEach((subscription) =>
-                subscription.unsubscribe());
-
         this.content.destroy();
     }
 
@@ -67,8 +60,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
             Object.assign(value, {
                 completePodnikatel: utils.dirty(value.nazev, value.ico)
             });
-
-            this.cdr.markForCheck();
         }
 
         if (value.ulice !== entry.ulice || value.obec !== entry.obec ||
@@ -77,8 +68,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 completeAdresa: utils.dirty(value.ulice) && utils.dirty(value.obec) &&
                         utils.dirty(value.cisloDomovni, value.cisloOrientacni)
             });
-
-            this.cdr.markForCheck();
         }
 
         return value;

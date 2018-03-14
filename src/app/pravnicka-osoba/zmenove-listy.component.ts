@@ -1,9 +1,8 @@
 /**
  * "Pravnicka osoba - Zmenove listy" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -23,10 +22,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     private form: NgForm;
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+    constructor(public data: DataService) {
     }
 
     ngOnInit() {
@@ -34,9 +30,6 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptions.forEach((subscription) =>
-                subscription.unsubscribe());
-
         this.content.destroy();
     }
 
@@ -49,8 +42,6 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
                 zmenovyList: utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
                         [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
             });
-
-            this.cdr.markForCheck();
         }
 
         return value;

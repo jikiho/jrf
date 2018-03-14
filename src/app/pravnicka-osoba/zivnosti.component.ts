@@ -1,9 +1,8 @@
 /**
  * "Pravnicka osoba - Zivnosti" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -23,10 +22,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     private form: NgForm;
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+    constructor(public data: DataService) {
     }
 
     ngOnInit() {
@@ -34,9 +30,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptions.forEach((subscription) =>
-                subscription.unsubscribe());
-
         this.content.destroy();
     }
 
@@ -56,8 +49,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
                 skupinaZivnosti: value.skupinaZivnosti,
                 oborCinnosti: value.oborCinnosti
             });
-
-            this.cdr.markForCheck();
         }
 
         if (value.skupinaZivnosti !== entry.skupinaZivnosti) {
@@ -70,8 +61,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
             this.form.control.patchValue({
                 zivnost: value.zivnost
             });
-
-            this.cdr.markForCheck();
         }
 
         if (value.zivnost !== entry.zivnost) {
@@ -80,8 +69,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
             Object.assign(value, {
                 predmetPodnikani: item ? item.Hodnota || item.Kod : ''
             });
-
-            this.cdr.markForCheck();
         }
 
         return value;
