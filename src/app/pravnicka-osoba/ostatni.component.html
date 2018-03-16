@@ -88,7 +88,7 @@
                                 <th><abbr title="Úřad práce">ÚP</abbr></th>
                                 <th class="compact">
                                     <button type="button" (click)="input_file.click()" title="Výběr nové elektronické přílohy"><b class="fa fa-bars"></b></button>
-                                    <input type="file" accept="image/*, application/pdf" #input_file hidden (change)="addPrilohy($event.target)">
+                                    <input type="file" multiple accept="image/*, application/pdf" #input_file hidden (change)="addPrilohy($event.target)">
                                 </th>
                             </tr>
                         </thead>

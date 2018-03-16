@@ -50,9 +50,9 @@ export class OstatniComponent implements OnInit, OnDestroy {
         const message = 'Není možné přidat znvou stejnou elektronickou přílohu.',
             entry = this.content.entry,
             items = entry.prilohy,
-            file = input.files[0];
+            files = Array.from(input.files);
 
-        if (file) {
+        for (let file of files) {
             const hash = this.hash(file);
 
             if (items.findIndex((item) => item.hash === hash) > -1) {
