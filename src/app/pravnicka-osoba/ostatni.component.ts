@@ -127,7 +127,6 @@ export class OstatniComponent implements OnInit, OnDestroy {
         }
 
         this.content.assign({
-            ostatniUdaje: new Date(),
             pocetPriloh: count
         });
 
