@@ -1,0 +1,7 @@
+<output class="file" [title]="title">
+    <i *ngIf="icon" class="fa {{file.type | fileicon}}" [title]="file.type"></i>
+    <div>
+        <a [routerLink]="routerLink" (click)="open()" [title]="openTitle">{{file.name}}</a>
+        <br><small>{{file.type}} ({{file.size | bytes}})</small>
+    </div>
+</output>

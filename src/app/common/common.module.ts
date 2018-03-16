@@ -10,14 +10,15 @@ import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
+import {FileIconPipe} from './file-icon.pipe';
 import {FilterPipe} from './filter.pipe';
-import {FormResetDirective, ButtonClearDirective} from './form-reset.directive';
+import {FormResetDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
 import {HiddenDirective} from './hidden.directive';
 import {InputFileDirective} from './input-file.directive';
 import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
-import {OutputForDirective} from './output-for.directive';
+import {OutputFileComponent} from './output-file.component';
 import {PluckPipe} from './pluck.pipe';
 import {ProvideControlDirective} from './provide-control.directive';
 import {RouterLinkActiveDirective} from './router-link-active.directive';
@@ -34,21 +35,21 @@ import {UnavailablePipe} from './unavailable.pipe';
     ],
     declarations: [
         BoolericPipe,
-        ButtonClearDirective,
         BytesPipe,
         DatericPipe,
         DialogDirective,
+        FileIconPipe,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,
         HiddenDirective,
         InputFileDirective,
         JoinPipe,
-        PluckPipe,
-        RouterLinkActiveDirective,
         NumericPipe,
-        OutputForDirective,
+        OutputFileComponent,
+        PluckPipe,
         ProvideControlDirective,
+        RouterLinkActiveDirective,
         SafeUrlPipe,
         StringifyPipe,
         TimestampPipe,
@@ -56,24 +57,24 @@ import {UnavailablePipe} from './unavailable.pipe';
     ],
     exports: [
         BoolericPipe,
-        ButtonClearDirective,
         BytesPipe,
         DatericPipe,
         DialogDirective,
+        FileIconPipe,
         FilterPipe,
         FormResetDirective,
         FormValidateDirective,
         HiddenDirective,
         InputFileDirective,
         JoinPipe,
-        RouterLinkActiveDirective,
         NgCommonModule,
         NgFormsModule,
         NgRouterModule,
         NumericPipe,
-        OutputForDirective,
+        OutputFileComponent,
         PluckPipe,
         ProvideControlDirective,
+        RouterLinkActiveDirective,
         SafeUrlPipe,
         StringifyPipe,
         TimestampPipe,

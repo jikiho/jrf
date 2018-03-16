@@ -50,6 +50,11 @@ export class AppService {
     component: Component;
 
     /**
+     * International...
+     */
+    collator: Intl.Collator;
+    
+    /**
      * Initializes the application.
      */
     constructor(@Inject(LOCALE_ID) public readonly locale: string, //locale string
@@ -62,6 +67,8 @@ export class AppService {
         //}
 
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
+
+        this.collator = new Intl.Collator(locale);
 
         this.settleAbout();
 

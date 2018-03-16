@@ -36,44 +36,44 @@
                     <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
                 </div>
             </div>
-            <div class="row row-middle">
+            <div class="row row-middle" ngModelGroup="uradyPrilohy">
                 <div class="col-3">
                     <label>
                         a)
                         <dfn>Živnostenský úřad</dfn>
-                        <input type="checkbox" name="PodaniZU" ngModel>
+                        <input type="checkbox" name="zu" ngModel>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" readonly>
+                        <input type="text" size="3" name="zu" [value]="content.entry.pocetPriloh.zu" readonly>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         b)
                         <dfn>Finanční úřad</dfn>
-                        <input type="checkbox" name="PodaniFU" ngModel>
+                        <input type="checkbox" name="fu" ngModel>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" readonly>
+                        <input type="text" size="3" name="fu" [value]="content.entry.pocetPriloh.fu" readonly>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         c)
                         <dfn>Úřad práce</dfn>
-                        <input type="checkbox" name="PodaniPU" ngModel>
+                        <input type="checkbox" name="up" ngModel>
                     </label>
                 </div>
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" readonly>
+                        <input type="text" size="3" name="up" [value]="content.entry.pocetPriloh.up" readonly>
                     </label>
                 </div>
             </div>
@@ -82,33 +82,32 @@
                     <table class="readonly">
                         <thead>
                             <tr>
-                                <th width="60%">název přílohy</th>
-                                <th width="20%">typ</th>
-                                <th width="20%">velikost</th>
+                                <th width="100%">elektronická příloha</th>
                                 <th><abbr title="Živnostenský úřad">ŽÚ</abbr></th>
                                 <th><abbr title="Finanční úřad">FÚ</abbr></th>
                                 <th><abbr title="Úřad práce">ÚP</abbr></th>
                                 <th class="compact">
-                                    <button type="button" title="Přidání nové elektronické přílohy"><b class="fa fa-plus"></b></button>
+                                    <button type="button" (click)="input_file.click()" title="Výběr nové elektronické přílohy"><b class="fa fa-bars"></b></button>
+                                    <input type="file" accept="image/*, application/pdf" #input_file hidden (change)="addPrilohy($event.target)">
                                 </th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="[{}] as items">
-                            <tr *ngFor="let item of items; let index = index;">
-                                <td>{{item.nazev}}</td>
-                                <td>{{item.typ}}</td>
-                                <td>{{item.velikost}}</td>
+                        <tbody *ngIf="content.entry.prilohy as items" ngModelGroup="uradyPrilohy">
+                            <tr *ngFor="let i = index; let item of items; trackBy: trackHash" [ngModelGroup]="item.hash">
                                 <td>
-                                    <input type="checkbox">
+                                    <output-file [routerLink]="['...', item.file.name]" [file]="item.file" icon></output-file>
                                 </td>
                                 <td>
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="zu" ngModel [disabled]="!content.entry.uradyPrilohy.zu">
                                 </td>
                                 <td>
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="fu" ngModel [disabled]="!content.entry.uradyPrilohy.fu">
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="up" ngModel [disabled]="!content.entry.uradyPrilohy.up">
                                 </td>
                                 <td class="compact">
-                                    <button type="button" title="Odebrání elektronické přílohy" class="compact"><b class="fa fa-minus"></b></button>
+                                    <button type="button" (click)="removePrilohy(i)" title="Smazání elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -116,7 +115,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12" title="Počet a celková velikost elektronických příloh">
+                    <small>{{files}}</small>
                 </div>
             </div>
             <div class="row">

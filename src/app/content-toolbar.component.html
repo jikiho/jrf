@@ -10,7 +10,6 @@
                     <button *ngIf="!content.single" type="button" (click)="content.next()" title="{{nextTitle}} (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
                     <button *ngIf="!content.single" type="button" (click)="content.create()" title="{{addTitle}} (Alt-N)"><i class="fa fa-fw fa-plus"></i>{{addLabel}}</button>
                     <button type="button" (click)="content.remove()" title="{{removeTitle}} (Alt-R)"><i class="fa fa-fw fa-remove"></i>{{removeLabel}}</button>
-                    <output [hidden]="!content.dirty" title="{{dirtyTitle}}"><b class="fa fa-fw fa-asterisk"></b></output>
                 </div>
             </div>
             <div class="row gutterless" [hidden]="content.hidden">
@@ -24,13 +23,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of entries; let index = index;" (dblclick)="content.select(index)" [class.over]="content.index === index">
+                            <tr *ngFor="let i = index; let item of entries" (dblclick)="content.select(i)" [class.over]="content.index === i">
                                 <td *ngIf="!content.single" class="compact">
-                                    <button type="button" (click)="content.select(index)" title="{{selectTitle}}">{{index + 1}}</button>
+                                    <button type="button" (click)="content.select(i)" title="{{selectTitle}}">{{i + 1}}</button>
                                 </td>
                                 <ng-container *ngTemplateOutlet="body; context: {$implicit: item}"></ng-container>
                                 <td class="compact">
-                                    <button type="button" (click)="content.remove(index)" title="{{removeTitle}}"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="content.remove(i)" title="{{removeTitle}}"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>

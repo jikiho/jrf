@@ -17,7 +17,7 @@ export class InputFileDirective {
      * Changes corresponding control group value.
      */
     @HostListener('change', ['$event.target'])
-    changeOnEvent(input: HTMLInputElement) {
+    private changeOnEvent(input: HTMLInputElement) {
         const group = this.control.control.parent,
             name = this.control.name,
             files = input.files;

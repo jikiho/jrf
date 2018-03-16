@@ -8,6 +8,7 @@ import {NgModule} from '@angular/core';
 import {ControlContainer} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
+import {saveAs} from 'file-saver';
 
 @NgModule({
 })
@@ -21,6 +22,16 @@ export class UtilsModule {
         while (Date.now() < time);
 
         return time;
+    }
+
+    /**
+     * Stops a standard event (prevents default action).
+     */
+    static stopEvent(event: Event): boolean {
+        event.stopPropagation();
+        event.preventDefault();
+
+        return false;
     }
 
     /**
@@ -115,8 +126,17 @@ export class UtilsModule {
         if (args.indexOf(value) > -1) {
             return '';
         }
-        
+
         return typeof value === 'object' ? JSON.stringify(value) : value.toString();
+    }
+
+    /**
+     * Converts an undefined value to unavailable text (n/a).
+     */
+    static readonly UNAVAILABLE = 'n/a';
+
+    static unavailable(value: any): any {
+        return value == undefined ? UtilsModule.UNAVAILABLE : value;
     }
 
     /**
@@ -159,10 +179,13 @@ export class UtilsModule {
     /**
      * Converts number of bytes to file size with a corresponding unit.
      */
-    static readonly BYTES_PREFIX = ['', 'K', 'M', 'G', 'T'];
-    static readonly BYTES_MULTIPLE = 1024;
+    static readonly BYTES_UNIT = ['bytes', 'B'];
+    static readonly BYTES_PREFIX = ['', 'k', 'M', 'G', 'T'];
+    static readonly BYTES_MULTIPLE = 1000;
+    //static readonly BYTES_PREFIX = ['', 'Ki', 'Mi', 'Gi', 'Ti'];
+    //static readonly BYTES_MULTIPLE = 1024;
 
-    static bytes(value: number): string {
+    static bytes(value: number = 0): string {
         let sign = Math.sign(value),
             range = Math.abs(value),
             convert = UtilsModule.BYTES_PREFIX.length,
@@ -177,7 +200,8 @@ export class UtilsModule {
             }
         }
 
-        return [sign * Math.round(range * 10) / 10, `${prefix}B`].join(' ');
+        return [sign * Math.round(range * 10) / 10,
+                prefix + UtilsModule.BYTES_UNIT[prefix ? 1 : 0]].join(' ');
     }
 
     /**
@@ -235,6 +259,20 @@ export class UtilsModule {
 
             reader[method](file);
         });
+    }
+
+    /**
+     * Opens a file in new window (download).
+     */
+    static openFile(file: File, name?: string): Window {
+        return window.open(URL.createObjectURL(file), name);
+    }
+
+    /**
+     * Saves a file.
+     */
+    static saveFile(file: File, name?: string) {
+        saveAs(file, name);
     }
 
     /**

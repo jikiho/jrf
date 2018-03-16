@@ -37,7 +37,7 @@ const routes: Routes = [
     ],
     providers: [
         {
-            provide: 'stop',
+            provide: 'Stop',
             useValue: () => false
         }
     ]

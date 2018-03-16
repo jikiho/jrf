@@ -3,13 +3,13 @@
  */
 import {Pipe, PipeTransform} from '@angular/core';
 
-const UNAVAILABLE = 'n/a';
+import {UtilsModule as utils} from '../utils.module';
 
 @Pipe({
     name: 'unavailable'
 })
 export class UnavailablePipe implements PipeTransform {
-    transform(value: any): number {
-        return value == undefined ? UNAVAILABLE : value;
+    transform(value: any): any {
+        return utils.unavailable(value);
     }
 }
