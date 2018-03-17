@@ -132,6 +132,12 @@
         border: none;
     }
 
+    table caption {
+        /* display: table-caption; */
+        caption-side: bottom;
+        text-align: left;
+    }
+
     table, button, input[type="text"], input[type="password"], select, textarea {
         border: 1px solid #999;
         border-radius: 0.25rem;

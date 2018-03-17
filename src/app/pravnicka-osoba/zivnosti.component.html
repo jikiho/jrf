@@ -77,9 +77,12 @@
             <div class="row" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!content.entry.oboryCinnosti">
                 <div class="col-12">
                     <label>
-                        <dfn>Obor činnosti</dfn>
+                        <dfn>Obory činnosti</dfn>
                         <select name="oborCinnosti" ngModel multiple [disabled]="!content.entry.zivnost?.Kod">
-                            <option *ngFor="let item of items" [hidden]="item.Zivnost != content.entry.zivnost?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Zivnost != content.entry.zivnost?.Kod" [ngValue]="item">
+                                {{item.Cislo}}.
+                                {{item.Hodnota}}
+                            </option>
                         </select>
                     </label>
                 </div>

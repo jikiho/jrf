@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Parser} from 'xml2js';
 
+import {AppService} from '../app.service';
 import {DataContentModel} from './data-content.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -52,7 +53,7 @@ export class DataService {
         explicitArray: false
     });
 
-    constructor(private http: HttpService) {
+    constructor(private app: AppService, private http: HttpService) {
         this.content = new DataContentModel();
         this.loadCiselnik('./assets/pravni-forma.xml', this.pravniForma$);
         this.loadCiselnik('./assets/uir-okres.xml', this.okres$);
@@ -60,6 +61,35 @@ export class DataService {
         this.loadCiselnik('./assets/druh-zivnosti.xml', this.druhZivnosti$);
         this.loadCiselnik('./assets/zivnost.xml', null, null, this.finishZivnost);
         this.loadCiselnik('./assets/obor-cinnosti.xml', this.oborCinnosti$, this.transformOborCinnosti);
+    }
+
+    /**
+     * Creates a new content.
+     */
+    create() {
+        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+
+        if (this.app.confirm(message).result) {
+            this.content = new DataContentModel();
+        }
+    }
+
+    /**
+     * Loads the content from a file.
+     */
+    load() {
+    }
+
+    /**
+     * Saves the content to a file.
+     */
+    save() {
+    }
+
+    /**
+     * Checks the content.
+     */
+    check() {
     }
 
     /**

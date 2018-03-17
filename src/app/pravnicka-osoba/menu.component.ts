@@ -3,6 +3,7 @@
  */
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener} from '@angular/core';
 
+import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
@@ -17,7 +18,8 @@ export class MenuComponent {
     @ViewChild('links')
     private scope: ElementRef;
 
-    private suspended: boolean;
+    constructor(public data: DataService) {
+    }
 
     /**
      * Actual list of available links.

@@ -26,17 +26,20 @@ export const PravnickaOsobaRoutes: Routes = [
         component: OstatniComponent
     },
     {
-        path: 'ostatni/...',
-        component: OstatniComponent,
-        canActivate: ['Stop']
-    },
-    {
         path: 'zmenove-listy',
         component: ZmenoveListyComponent
     },
     {
         path: '**',
+        component: PodnikatelComponent,
+        canActivate: ['Stop']
+    /*
+    },
+    {
+        path: '**',
         redirectTo: 'podnikatel'
+        canActivate: ['Stop']
+    */
     }
 ];
 

@@ -79,6 +79,9 @@
             <div class="row">
                 <div class="col-12">
                     <table class="readonly">
+                        <caption title="Počet a celková velikost elektronických příloh">
+                            <small>{{files}}</small>
+                        </caption>
                         <thead>
                             <tr>
                                 <th width="100%">elektronická příloha</th>
@@ -94,7 +97,7 @@
                         <tbody *ngIf="content.entry.prilohy as items" ngModelGroup="uradyPrilohy">
                             <tr *ngFor="let i = index; let item of items; trackBy: trackHash" [ngModelGroup]="item.hash">
                                 <td>
-                                    <output-file routerLink="..." [file]="item.file" icon></output-file>
+                                    <output-file routerLink="../open..." [file]="item.file" icon></output-file>
                                 </td>
                                 <td>
                                     <input type="checkbox" name="zu" ngModel [disabled]="!content.entry.uradyPrilohy.zu">
@@ -111,11 +114,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12" title="Počet a celková velikost elektronických příloh">
-                    <small>{{files}}</small>
                 </div>
             </div>
             <div class="row">
