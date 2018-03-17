@@ -14,6 +14,7 @@ import {HistoryModule} from './history.module';
 import {HttpModule} from './http/http.module';
 import {PravnickaOsobaModule} from './pravnicka-osoba/pravnicka-osoba.module';
 import {ProcessService} from './process.service';
+import {UtilsModule} from './utils.module';
 import {UvodniStrankaModule} from './uvodni-stranka/uvodni-stranka.module';
 import {WindowModule} from './window.module';
 
@@ -27,6 +28,7 @@ import {WindowModule} from './window.module';
         HistoryModule,
         HttpModule,
         NgBrowserModule,
+        UtilsModule,
         WindowModule,
         // feature modules with routing
         UvodniStrankaModule,

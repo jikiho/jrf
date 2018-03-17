@@ -39,7 +39,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         if (value.puvodniUdaj !== entry.puvodniUdaj ||
                 value.novyUdaj !== entry.novyUdaj) {
             Object.assign(value, {
-                zmenovyList: utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
+                overview: utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
                         [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
             });
         }

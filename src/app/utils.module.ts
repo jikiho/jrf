@@ -6,13 +6,48 @@
  */
 import {NgModule} from '@angular/core';
 import {ControlContainer} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
 import {saveAs} from 'file-saver';
 
 @NgModule({
 })
 export class UtilsModule {
+    constructor() {
+        Observable.fromEvent(document, 'keyup').subscribe((event: KeyboardEvent) => {
+            UtilsModule.keydowns.delete(event.key);
+        });
+    }
+
+    /**
+     * Stops a standard event (prevents default action).
+     */
+    static stopEvent(event: Event) {
+        //event.stopPropagation();
+        event.preventDefault();
+    }
+
+    /**
+     * Controls a keydown event w/out repeating.
+     */
+    static keydowns = new Set<string>();
+
+    static keydown(event: KeyboardEvent, stop: boolean = true): boolean {
+        const key = event.key;
+
+        if (stop) {
+            UtilsModule.stopEvent(event);
+        }
+
+        if (UtilsModule.keydowns.has(key)) {
+            return false;
+        }
+
+        UtilsModule.keydowns.add(key);
+
+        return true;
+    }
+
     /**
      * Freezes script execution for a specific time (milliseconds).
      */
@@ -22,16 +57,6 @@ export class UtilsModule {
         while (Date.now() < time);
 
         return time;
-    }
-
-    /**
-     * Stops a standard event (prevents default action).
-     */
-    static stopEvent(event: Event): boolean {
-        event.stopPropagation();
-        event.preventDefault();
-
-        return false;
     }
 
     /**

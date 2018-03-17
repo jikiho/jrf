@@ -3,14 +3,14 @@
  */
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener} from '@angular/core';
 
+import {UtilsModule as utils} from '../utils.module';
+
 @Component({
     selector: 'menu-component',
     templateUrl: './menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent {
-    static suspended: boolean = false;
-
     /**
      * Links scope.
      */
@@ -40,21 +40,14 @@ export class MenuComponent {
         }
     }
 
-    @HostListener('document:keydown.alt.PageUp', ['-1'])
-    @HostListener('document:keydown.alt.PageDown', ['1'])
-    private shiftOnKey(value: number) {
-        if (!MenuComponent.suspended) {
-            MenuComponent.suspended = true;
-
-            this.shift(value);
+    /**
+     * Control...
+     */
+    @HostListener('document:keydown.alt.pageup', ['$event', '-1'])
+    @HostListener('document:keydown.alt.pagedown', ['$event', '1'])
+    private shiftOnKey(event: KeyboardEvent, value: string) {
+        if (utils.keydown(event)) {
+            this.shift(parseInt(value));
         }
-    }
-
-    @HostListener('document:keyup.PageUp')
-    @HostListener('document:keyup.alt.PageUp')
-    @HostListener('document:keyup.PageDown')
-    @HostListener('document:keyup.alt.PageDown')
-    private resumeOnKey() {
-        MenuComponent.suspended = false;
     }
 }

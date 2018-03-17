@@ -4,7 +4,7 @@
             <div class="row bar">
                 <div class="col-12">
                     <button *ngIf="!content.single" type="button" (click)="content.previous()" title="{{previousTitle}} (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
-                    <button type="button" (click)="content.toggle()" title="{{toggleTitle}} (Alt-L)">
+                    <button *ngIf="!content.single" type="button" (click)="content.select()" title="{{selectTitle}}">
                         <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
                     </button>
                     <button *ngIf="!content.single" type="button" (click)="content.next()" title="{{nextTitle}} (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
@@ -12,7 +12,7 @@
                     <button type="button" (click)="content.remove()" title="{{removeTitle}} (Alt-R)"><i class="fa fa-fw fa-remove"></i>{{removeLabel}}</button>
                 </div>
             </div>
-            <div class="row gutterless" [hidden]="content.hidden">
+            <div class="row gutterless" *ngIf="list">
                 <div class="col-12">
                     <table class="readonly">
                         <thead>

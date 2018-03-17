@@ -12,16 +12,14 @@ interface Constructor<T> {
 
 export class ContentModel<T> {
     /**
-     * List of content entries (stream) to detect changes.
-     */
-    entries$ = new BehaviorSubject<T[]>([]);
-
-    /**
      * List of content entries.
      */
-    get entries(): T[] {
-        return this.entries$.getValue();
-    }
+    entries: T[] = [];
+
+    /**
+     * List of content entries (stream) to detect changes.
+     */
+    entries$ = new BehaviorSubject<T[]>(this.entries);
 
     /**
      * List length.
@@ -52,11 +50,6 @@ export class ContentModel<T> {
     entry: T;
 
     /**
-     * Hidden entries list/value element.
-     */
-    hidden: boolean = false;
-
-    /**
      * Limit of content entries number, or 0 for unlimited.
      */
     limit: number;
@@ -84,9 +77,10 @@ export class ContentModel<T> {
         return this.form.dirty;
     }
 
-    private synchronizer: Subscription
-
-    private synchronizing: boolean;
+    /**
+     * Synchronization...
+     */
+    private subsSync: Subscription
 
     /**
      * Duration time for the synchronization (milliseconds).
@@ -119,7 +113,7 @@ export class ContentModel<T> {
         setTimeout(() => {
             this.resetValue();
 
-            this.synchronizer = this.form.valueChanges.debounceTime(this.duration)
+            this.subsSync = this.form.valueChanges.debounceTime(this.duration)
                 .map(update ? update : (value) => value)
                 .takeWhile((value) => value)
                 .subscribe((value) => this.setValue(value));
@@ -132,16 +126,9 @@ export class ContentModel<T> {
      * Destroys...
      */
     destroy() {
-        if (this.synchronizer) {
-            this.synchronizer.unsubscribe();
+        if (this.subsSync) {
+            this.subsSync.unsubscribe();
         }
-    }
-
-    /**
-     * Toggles entries list/value visibility.
-     */
-    toggle() {
-        this.hidden = !this.hidden;
     }
 
     /**
@@ -313,7 +300,7 @@ export class ContentModel<T> {
         this.current = this.index + 1;
         this.entry = entries[this.index];
 
-        this.entries$.next(entries);
+        this.entries$.next([...entries]);
 
         return entry;
     }
@@ -323,11 +310,7 @@ export class ContentModel<T> {
      */
     private setValue(value: any = this.value) {
 //console.log("SET VALUE", value);
-        if (!this.synchronizing) {
-            this.synchronizing = true;
-            this.assign(value);
-            this.synchronizing = false;
-        }
+        this.assign(value);
     }
 
     /**
@@ -335,10 +318,6 @@ export class ContentModel<T> {
      */
     private resetValue(value: any = this.entry) {
 //console.log("RESET VALUE", value);
-        if (!this.synchronizing) {
-            this.synchronizing = true;
-            this.form.reset(value);
-            this.synchronizing = false;
-        }
+        this.form.reset(value);
     }
 }

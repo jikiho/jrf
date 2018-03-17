@@ -26,7 +26,7 @@ export const PravnickaOsobaRoutes: Routes = [
         component: OstatniComponent
     },
     {
-        path: 'ostatni/.../:name',
+        path: 'ostatni/...',
         component: OstatniComponent,
         canActivate: ['Stop']
     },

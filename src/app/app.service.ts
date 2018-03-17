@@ -99,6 +99,8 @@ export class AppService {
     alert(value: any, handler?: Function): TaskModel {
         const message = utils.stringify(value);
 
+        utils.keydowns.clear();
+
         return this.process.task({
             subject: () => window.alert(message),
             handler,
@@ -123,6 +125,8 @@ export class AppService {
      */
     confirm(value: any, handler?: Function, force: boolean = false): TaskModel {
         const message = utils.stringify(value);
+
+        utils.keydowns.clear();
 
         return this.process.task({
             subject: () => window.confirm(message) || null, //ignore false result

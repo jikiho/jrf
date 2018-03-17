@@ -31,13 +31,20 @@ export class ContentToolbarComponent {
     body: TemplateRef<any>;
 
     /**
+     * Flag to show entries list.
+     */
+    list: boolean = false;
+
+    @Input('list')
+    private set _list(value: any) {
+        this.list = value !== false;
+    }
+
+    /**
      * Titles and labels.
      */
     @Input()
     selectTitle: string = 'Výběr údajů';
-
-    @Input()
-    toggleTitle: string = 'Zobrazení souhrnných údajů';
 
     @Input()
     previousTitle: string = 'Předchozí údaje';
@@ -57,39 +64,43 @@ export class ContentToolbarComponent {
     @Input()
     removeLabel: string = 'Smazat údaje';
 
-    @Input()
-    dirtyTitle: string = 'Upravené údaje...';
-
     /**
      * Control...
      */
-    @HostListener('document:keydown.alt.l')
-    private toggleOnKey() {
-        utils.stopEvent(event);
-        this.content.toggle();
+    @HostListener('document:keydown.alt.n', ['$event'])
+    private createOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.content.create();
+        }
     }
 
-    @HostListener('document:keydown.alt.n')
-    private createOnKey() {
-        utils.stopEvent(event);
-        this.content.create();
+    @HostListener('document:keydown.alt.r', ['$event'])
+    private removeOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.content.remove();
+        }
     }
 
-    @HostListener('document:keydown.alt.r')
-    private removeOnKey() {
-        utils.stopEvent(event);
-        this.content.remove();
+    /*
+    @HostListener('document:keydown.alt.l', ['$event'])
+    private selectOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.content.select();
+        }
+    }
+    */
+
+    @HostListener('document:keydown.control.arrowup', ['$event'])
+    private previousOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.content.previous();
+        }
     }
 
-    @HostListener('document:keydown.control.arrowup')
-    private previousOnKey() {
-        utils.stopEvent(event);
-        this.content.previous();
-    }
-
-    @HostListener('document:keydown.control.arrowdown')
-    private nextOnKey() {
-        utils.stopEvent(event);
-        this.content.next();
+    @HostListener('document:keydown.control.arrowdown', ['$event'])
+    private nextOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.content.next();
+        }
     }
 }

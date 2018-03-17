@@ -8,7 +8,6 @@
 
 <content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
     selectTitle="Výběr změnového listu"
-    toggleTitle="Zobrazení seznamu změnových listů"
     previousTitle="Předchozí změnový list"
     nextTitle="Následující změnový list"
     addTitle="Přidání nového změnového listu"
@@ -17,10 +16,10 @@
     removeLabel="Smazat list"
 ></content-toolbar-component>
 <ng-template #thead>
-    <th width="100%">změnový list</th>
+    <th width="100%">přehled údajů</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.zmenovyList}}</td>
+    <td>{{item.overview}}</td>
 </ng-template>
 
 <section>

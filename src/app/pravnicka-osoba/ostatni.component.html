@@ -7,15 +7,14 @@
 </header>
 
 <content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
-    toggleTitle="Zobrazení souhrnných údajů"
     removeTitle="Smazání ostatních údajů"
     removeLabel="Smazat údaje"
 ></content-toolbar-component>
 <ng-template #thead>
-    <th width="100%">ostatní údaje</th>
+    <th width="100%">přehled údajů</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.ostatniUdaje}}</td>
+    <td>{{item.overview}}</td>
 </ng-template>
 
 <section>
@@ -95,7 +94,7 @@
                         <tbody *ngIf="content.entry.prilohy as items" ngModelGroup="uradyPrilohy">
                             <tr *ngFor="let i = index; let item of items; trackBy: trackHash" [ngModelGroup]="item.hash">
                                 <td>
-                                    <output-file [routerLink]="['...', item.file.name]" [file]="item.file" icon></output-file>
+                                    <output-file routerLink="..." [file]="item.file" icon></output-file>
                                 </td>
                                 <td>
                                     <input type="checkbox" name="zu" ngModel [disabled]="!content.entry.uradyPrilohy.zu">

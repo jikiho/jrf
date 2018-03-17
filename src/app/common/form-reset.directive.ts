@@ -17,8 +17,9 @@ export class FormResetDirective {
      */
     @HostListener('keyup.alt.Delete', ['$event'])
     private resetOnKey(event: KeyboardEvent) {
-        utils.stopEvent(event);
-
-        this.el.nativeElement.reset();
+        if (utils.keydown(event)) {
+console.log("RESET");
+            this.el.nativeElement.reset();
+        }
     }
 }

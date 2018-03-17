@@ -9,7 +9,7 @@ export class OstatniPrilohyModel extends Model<OstatniPrilohyModel> {
 }
 
 export class OstatniModel {
-    ostatniUdaje: string;
+    overview: string;
     uradyPrilohy = {};
     pocetPriloh = {fu: 0, zu: 0, up: 0};
     velikostPriloh = 0;

@@ -2,7 +2,7 @@
  * "Pravnicka osoba - Zmenove listy" feature model.
  */
 export class ZmenovyListModel {
-    zmenovyList: string;
+    overview: string;
     zivnosti: any[];
     puvodniUdaj: string;
     novyUdaj: string;
