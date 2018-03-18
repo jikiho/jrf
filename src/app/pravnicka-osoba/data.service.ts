@@ -3,10 +3,9 @@
  */
 //TODO: load/parse error handling
 import {Injectable} from '@angular/core';
-import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import {BehaviorSubject} from 'rxjs/Rx';
 import {Parser} from 'xml2js';
 
-import {AppService} from '../app.service';
 import {DataContentModel} from './data-content.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -53,7 +52,7 @@ export class DataService {
         explicitArray: false
     });
 
-    constructor(private app: AppService, private http: HttpService) {
+    constructor(private http: HttpService) {
         this.content = new DataContentModel();
         this.loadCiselnik('./assets/pravni-forma.xml', this.pravniForma$);
         this.loadCiselnik('./assets/uir-okres.xml', this.okres$);
@@ -66,30 +65,10 @@ export class DataService {
     /**
      * Creates a new content.
      */
-    create() {
-        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+    create(): DataContentModel {
+        this.content = new DataContentModel();
 
-        if (this.app.confirm(message).result) {
-            this.content = new DataContentModel();
-        }
-    }
-
-    /**
-     * Loads the content from a file.
-     */
-    load() {
-    }
-
-    /**
-     * Saves the content to a file.
-     */
-    save() {
-    }
-
-    /**
-     * Checks the content.
-     */
-    check() {
+        return this.content;
     }
 
     /**

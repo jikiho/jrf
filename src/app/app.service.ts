@@ -76,20 +76,7 @@ export class AppService {
                 this.onRouterEvent(event));
     }
 
-    /**
-     * Navigates...
-     */
-    navigate(params: any = '/', search?: any): Promise<boolean> {
-        const commands = Array.isArray(params) ? params : [params],
-            extras: NavigationExtras = {
-                preserveQueryParams: false,
-                preserveFragment: false
-            };
-
-        if (search) {
-            extras.queryParams = search;
-        }
-
+    navigate(commands: any[], extras?: {}): Promise<boolean> {
         return this.router.navigate(commands, extras);
     }
 

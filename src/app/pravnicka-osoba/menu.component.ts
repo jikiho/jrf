@@ -3,6 +3,7 @@
  */
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener} from '@angular/core';
 
+import {AppService} from '../app.service';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
 
@@ -18,7 +19,37 @@ export class MenuComponent {
     @ViewChild('links')
     private scope: ElementRef;
 
-    constructor(public data: DataService) {
+    constructor(private app: AppService, public data: DataService) {
+    }
+
+    /**
+     * Creates a new content.
+     */
+    create() {
+        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+
+        if (this.app.confirm(message).result) {
+            this.data.create();
+//TODO: refresh content
+        }
+    }
+
+    /**
+     * Loads the content from a file.
+     */
+    load() {
+    }
+
+    /**
+     * Saves the content to a file.
+     */
+    save() {
+    }
+
+    /**
+     * Checks the content.
+     */
+    check() {
     }
 
     /**
