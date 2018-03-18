@@ -1,8 +1,9 @@
 /**
  * "Pravnicka osoba - Zmenove listy" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -20,43 +21,58 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
 
     @ViewChild('form')
-    private form: NgForm;
+    form: NgForm;
 
-    constructor(public data: DataService) {
+    @ViewChild('inputPuvodniUdaj')
+    private inputPuvodniUdaj: ElementRef;
+
+    @ViewChild('inputNovyUdaj')
+    private inputNovyUdaj: ElementRef;
+
+    private changes: Subscription[] = [];
+
+    constructor(private cdr: ChangeDetectorRef,
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.content.init(this.form, (value) => this.update(value));
+        setTimeout(() => {
+            const control = this.form.control,
+                reset = Observable.fromEvent(this.form['el'].nativeElement, 'reset');
+
+            this.changes.push(control.get('puvodniUdaj').valueChanges.map((puvodniUdaj) => ({puvodniUdaj}))
+                .merge(control.get('novyUdaj').valueChanges.map((novyUdaj) => ({novyUdaj})))
+                .debounceTime(250)
+                .merge(reset)
+                .subscribe((changes) => this.update(changes)));
+        });
     }
 
     ngOnDestroy() {
-        this.content.destroy();
+        this.changes.forEach((s) => s.unsubscribe());
     }
 
-    private update(value): any {
-        const entry = this.content.entry;
-        
-        if (value.puvodniUdaj !== entry.puvodniUdaj ||
-                value.novyUdaj !== entry.novyUdaj) {
-            Object.assign(value, {
-                overview: utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
-                        [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
-            });
-        }
+    /**
+     * Updates...
+     */
+    private update(changes?: any) {
+        const value = {...this.form.value, ...changes};
 
-        return value;
+        this.content.patch({
+            overview: changes && utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
+                    [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
+        });
+
+        this.cdr.markForCheck();
     }
 
-    @ViewChild('input.puvodniUdaj')
-    private inputPuvodniUdaj: ElementRef;
-
+    /**
+     * Controls...
+     */
     @HostListener('document:keydown.alt.2')
     private focusPuvodniUdajOnKey() {
         this.inputPuvodniUdaj.nativeElement.focus();
     }
-
-    @ViewChild('input.novyUdaj')
-    private inputNovyUdaj: ElementRef;
 
     @HostListener('document:keydown.alt.3')
     private focusNovyUdajOnKey() {

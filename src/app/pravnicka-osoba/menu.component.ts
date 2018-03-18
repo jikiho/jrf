@@ -43,7 +43,7 @@ export class MenuComponent {
     }
 
     /**
-     * Control...
+     * Controls...
      */
     @HostListener('document:keydown.alt.pageup', ['$event', '-1'])
     @HostListener('document:keydown.alt.pagedown', ['$event', '1'])

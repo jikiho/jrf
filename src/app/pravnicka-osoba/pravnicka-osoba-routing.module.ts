@@ -30,16 +30,13 @@ export const PravnickaOsobaRoutes: Routes = [
         component: ZmenoveListyComponent
     },
     {
-        path: '**',
+        path: ':action',
         component: PodnikatelComponent,
         canActivate: ['Stop']
-    /*
     },
     {
         path: '**',
         redirectTo: 'podnikatel'
-        canActivate: ['Stop']
-    */
     }
 ];
 

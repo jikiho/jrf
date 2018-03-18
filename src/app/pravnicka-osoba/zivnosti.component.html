@@ -20,12 +20,12 @@
     <th width="75%">předmět podnikání</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.zivnost?.Kod || item.skupinaZivnosti?.Kod || item.druhZivnosti?.Kod}}</td>
-    <td>{{item.predmetPodnikani}}</td>
+    <td>{{item.overview.kodZivnosti}}</td>
+    <td>{{item.overview.predmetPodnikani}}</td>
 </ng-template>
 
-<section>
-    <form #form="ngForm">
+<section *ngIf="content.entry as entry">
+    <form #form="ngForm" *ngIf="entry.value as value">
         <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
@@ -37,7 +37,7 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) předmět podnikání</dfn>
-                        <textarea rows="3" readonly title="Předmět podnikání">{{content.entry.predmetPodnikani}}</textarea>
+                        <textarea rows="3" readonly title="Předmět podnikání">{{entry.overview.predmetPodnikani}}</textarea>
                     </label>
                 </div>
             </div>
@@ -45,20 +45,20 @@
                 <div class="col-12">
                     <label>
                         <dfn>Druh živnosti</dfn>
-                        <select name="druhZivnosti" #input.druhZivnosti ngModel>
+                        <select name="druhZivnosti" #inputDruhZivnosti [(ngModel)]="value.druhZivnosti">
                             <option [value]="null"></option>
                             <option *ngFor="let item of items" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
-            <div class="row" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="content.entry.oboryCinnosti">
+            <div class="row" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="entry.oboryCinnosti">
                 <div class="col-12">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
-                        <select name="skupinaZivnosti" ngModel [disabled]="!content.entry.druhZivnosti?.Kod">
+                        <select name="skupinaZivnosti" #inputSkupinaZivnosti [(ngModel)]="value.skupinaZivnosti" [disabled]="!value.druhZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Druh != content.entry.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Druh != value.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -67,19 +67,19 @@
                 <div class="col-12">
                     <label>
                         <dfn>Předmět podnikání</dfn>
-                        <select name="zivnost" ngModel [disabled]="!content.entry.oboryCinnosti && !content.entry.skupinaZivnosti?.Kod">
+                        <select name="zivnost" #inputZivnost [(ngModel)]="value.zivnost" [disabled]="!value.skupinaZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Skupina != content.entry.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Skupina != value.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
-            <div class="row" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!content.entry.oboryCinnosti">
+            <div class="row" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!entry.oboryCinnosti">
                 <div class="col-12">
                     <label>
                         <dfn>Obory činnosti</dfn>
-                        <select name="oborCinnosti" ngModel multiple [disabled]="!content.entry.zivnost?.Kod">
-                            <option *ngFor="let item of items" [hidden]="item.Zivnost != content.entry.zivnost?.Kod" [ngValue]="item">
+                        <select name="oborCinnosti" [(ngModel)]="value.oborCinnosti" multiple [disabled]="!value.zivnost?.Kod">
+                            <option *ngFor="let item of items" [hidden]="item.Zivnost != value.zivnost?.Kod" [ngValue]="item">
                                 {{item.Cislo}}.
                                 {{item.Hodnota}}
                             </option>
@@ -92,6 +92,6 @@
 </section>
 
 <pre>
-{{content.dirty}}
+{{form?.dirty | booleric}}
 {{content.entry | json}}
 </pre>

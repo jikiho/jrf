@@ -1,8 +1,9 @@
 /**
  * "Pravnicka osoba - Podnikatel" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -20,60 +21,97 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     content: ContentModel<PodnikatelModel> = this.data.content.podnikatel;
 
     @ViewChild('form')
-    private form: NgForm;
+    form: NgForm;
 
-    constructor(public data: DataService) {
+    private changes: Subscription[] = [];
+
+    constructor(private cdr: ChangeDetectorRef,
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.content.init(this.form, (value) => this.update(value));
+        setTimeout(() => {
+            const control = this.form.control,
+                reset = Observable.fromEvent(this.form['el'].nativeElement, 'reset');
+
+            this.changes.push(control.get('nazev').valueChanges.map((nazev) => ({nazev}))
+                .merge(control.get('ico').valueChanges.map((ico) => ({ico})))
+                .debounceTime(250)
+                .merge(reset)
+                .subscribe((changes) => this.updatePodnikatel(changes)));
+
+            this.changes.push(control.get('ulice').valueChanges.map((ulice) => ({ulice}))
+                .merge(control.get('cisloDomovni').valueChanges.map((cisloDomovni) => ({cisloDomovni})))
+                .merge(control.get('cisloOrientacni').valueChanges.map((cisloOrientacni) => ({cisloOrientacni})))
+                .merge(control.get('obec').valueChanges.map((obec) => ({obec})))
+                .debounceTime(250)
+                .merge(reset)
+                .subscribe((changes) => this.updateAdresaSidla(changes)));
+
+            this.changes.push(control.get('okres').valueChanges
+                .subscribe((value) => this.updateOkres(value)));
+
+            this.changes.push(control.get('stat').valueChanges
+                .subscribe((value) => this.updateStat(value)));
+        });
     }
 
     ngOnDestroy() {
-        this.content.destroy();
+        this.changes.forEach((s) => s.unsubscribe());
     }
 
-    private update(value): any {
-        const entry = this.content.entry;
-
-        if (value.okres !== entry.okres) {
-            const item = value.okres;
-
-            if (item) {
-                this.content.patchValue({
-                    stat: this.data.refs.stat.CZ
-                });
+    /**
+     * Updates...
+     */
+    private updatePodnikatel(changes?: any) {
+        const value = {...this.form.value, ...changes};
+    
+        this.content.patch({
+            completePodnikatel: changes && utils.dirty(value.nazev, value.ico),
+            overview: {
+                nazev: value.nazev,
+                ico: value.ico
             }
-        }
+        });
 
-        if (value.stat !== entry.stat) {
-            const item = value.stat;
+        this.cdr.markForCheck();
+    }
 
-            if (item && item.Kod !== this.data.refs.stat.CZ.Kod) {
-                this.content.patchValue({
-                    okres: null
-                });
-            }
-        }
+    private updateAdresaSidla(changes?: any) {
+        const value = {...this.form.value, ...changes};
+    
+        this.content.patch({
+            completeAdresa: changes && utils.dirty(value.ulice) && utils.dirty(value.obec) &&
+                    utils.dirty(value.cisloDomovni, value.cisloOrientacni)
+        });
 
-        if (value.nazev !== entry.nazev || value.ico !== entry.ico) {
-            Object.assign(value, {
-                completePodnikatel: utils.dirty(value.nazev, value.ico)
+        this.cdr.markForCheck();
+    }
+
+    private updateOkres(item?: any) {
+        if (item) {
+            this.form.control.patchValue({
+                stat: this.data.refs.stat.CZ
             });
         }
 
-        if (value.ulice !== entry.ulice || value.obec !== entry.obec ||
-                value.cisloDomovni !== entry.cisloDomovni || value.cisloOrientacni !== entry.cisloOrientacni) {
-            Object.assign(value, {
-                completeAdresa: utils.dirty(value.ulice) && utils.dirty(value.obec) &&
-                        utils.dirty(value.cisloDomovni, value.cisloOrientacni)
+        this.cdr.markForCheck();
+    }
+
+    private updateStat(item?: any) {
+        if (item && item.Kod !== this.data.refs.stat.CZ.Kod) {
+            this.form.control.patchValue({
+                okres: null
             });
         }
 
-        return value;
+        this.cdr.markForCheck();
     }
 
-    @ViewChild('input.nazev')
+    /**
+     * Controls...
+     */
+    @ViewChild('input_nazev')
     private inputNazev: ElementRef;
 
     @HostListener('document:keydown.alt.1')
@@ -81,7 +119,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         this.inputNazev.nativeElement.focus();
     }
 
-    @ViewChild('input.ulice')
+    @ViewChild('input_ulice')
     private inputUlice: ElementRef;
 
     @HostListener('document:keydown.alt.2')

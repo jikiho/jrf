@@ -1,13 +1,14 @@
 /**
  * "Pravnicka osoba - Ostatni" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
-import {OstatniModel, OstatniPrilohyModel} from './ostatni.model';
+import {OstatniModel, OstatniPrilohaModel} from './ostatni.model';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
@@ -29,24 +30,33 @@ export class OstatniComponent implements OnInit, OnDestroy {
     }
 
     @ViewChild('form')
-    private form: NgForm;
+    form: NgForm;
 
-    constructor(private app: AppService, public data: DataService) {
+    private changes: Subscription[] = [];
+
+    constructor(private cdr: ChangeDetectorRef,
+            private app: AppService, public data: DataService) {
     }
 
     ngOnInit() {
-        this.content.init(this.form, (value) => this.update(value));
+        setTimeout(() => {
+            const control = this.form.control;
+
+            this.changes.push(control.valueChanges
+                .subscribe(() => this.update()));
+        });
+
         this.update();
     }
 
     ngOnDestroy() {
-        this.content.destroy();
+        this.changes.forEach((s) => s.unsubscribe());
     }
 
     /**
      * Adds...
      */
-    addPrilohy(input: HTMLInputElement) {
+    addPriloha(input: HTMLInputElement) {
         const message = 'Není možné přidat znvou stejnou elektronickou přílohu.',
             entry = this.content.entry,
             items = entry.prilohy,
@@ -59,16 +69,16 @@ export class OstatniComponent implements OnInit, OnDestroy {
                 this.app.alert(message);
             }
             else {
-                const item = new OstatniPrilohyModel({hash, file}),
+                const item = new OstatniPrilohaModel({hash, file}),
                     sum = entry.velikostPriloh;
 
                 items.push(item);
 
                 items.sort((a, b) => this.app.collator.compare(a.file.name, b.file.name));
 
-                this.content.assign({
+                this.content.patch({
                     velikostPriloh: sum + file.size
-                })
+                });
             }
         }
 
@@ -78,7 +88,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     /**
      * Removes...
      */
-    removePrilohy(index: number) {
+    removePriloha(index: number) {
         const message = 'Dojde ke smazání elektronické přílohy, chcete pokračovat?',
             entry = this.content.entry,
             items = entry.prilohy,
@@ -91,14 +101,14 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
                 items.splice(index, 1);
 
-                this.content.assign({
+                this.content.patch({
                     velikostPriloh: sum - file.size
-                })
+                });
             }
         }
     }
 
-    trackHash(index: number, item: OstatniPrilohyModel) {
+    trackHash(index: number, item: OstatniPrilohaModel) {
         return item.hash;
     }
 
@@ -112,24 +122,26 @@ export class OstatniComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Updates counts.
+     * Updates...
      */
-    private update(value?: any): any {
+    private update() {
         const entry = this.content.entry,
             names = Object.keys(entry.pocetPriloh),
             count = names.reduce((count, name) => Object.assign(count, {[name]: 0}), {}); //zero
 
-        if (value) {
-            Object.entries(value.uradyPrilohy).reduce((count, [name, on]) => names.indexOf(name) > -1 ? count :
-                Object.entries(on).reduce((count, [name, on]) => Object.assign(count, {
-                    [name]: on ? count[name] + 1 : count[name]
-                }), count), count);
-        }
-
-        this.content.assign({
-            pocetPriloh: count
+        entry.prilohy.forEach((item) => {
+            names.forEach((name) => {
+                if (item.value.uradyPrilohy[name]) {
+                    count[name] += 1;
+                }
+            });
         });
 
-        return value;
+        this.content.patch({
+            pocetPriloh: count,
+            overview: this.files
+        });
+
+        this.cdr.markForCheck();
     }
 }

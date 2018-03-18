@@ -22,8 +22,8 @@
     <td>{{item.overview}}</td>
 </ng-template>
 
-<section>
-    <form #form="ngForm">
+<section *ngIf="content.entry as entry">
+    <form #form="ngForm" *ngIf="entry.value as value">
         <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
@@ -70,7 +70,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <textarea name="puvodniUdaj" #input.puvodniUdaj ngModel></textarea>
+                    <textarea name="puvodniUdaj" #inputPuvodniUdaj [(ngModel)]="value.puvodniUdaj"></textarea>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +83,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <textarea name="novyUdaj" #input.novyUdaj ngModel></textarea>
+                    <textarea name="novyUdaj" #inputNovyUdaj [(ngModel)]="value.novyUdaj"></textarea>
                 </div>
             </div>
             <div class="row">
@@ -96,6 +96,6 @@
 </section>
 
 <pre>
-{{content.dirty}}
+{{form?.dirty | booleric}}
 {{content.entry | json}}
 </pre>

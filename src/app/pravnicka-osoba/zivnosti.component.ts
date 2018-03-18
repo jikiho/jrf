@@ -1,8 +1,9 @@
 /**
  * "Pravnicka osoba - Zivnosti" feature component.
  */
-import {Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
@@ -20,63 +21,92 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     content: ContentModel<ZivnostModel> = this.data.content.zivnosti;
 
     @ViewChild('form')
-    private form: NgForm;
+    form: NgForm;
 
-    constructor(public data: DataService) {
+    @ViewChild('inputDruhZivnosti')
+    private inputDruhZivnosti: ElementRef;
+
+    @ViewChild('inputSkupinaZivnosti')
+    private inputSkupinaZivnosti: ElementRef;
+
+    @ViewChild('inputZivnost')
+    private inputZivnost: ElementRef;
+
+    private changes: Subscription[] = [];
+
+    constructor(private cdr: ChangeDetectorRef,
+            public data: DataService) {
     }
 
     ngOnInit() {
-        this.content.init(this.form, (value) => this.update(value));
+        setTimeout(() => {
+            this.changes.push(Observable.fromEvent(this.inputDruhZivnosti.nativeElement, 'change')
+                .merge(Observable.fromEvent(this.form['el'].nativeElement, 'reset'))
+                .subscribe(() => this.updateDruhZivnosti()));
+
+            this.changes.push(Observable.fromEvent(this.inputSkupinaZivnosti.nativeElement, 'change')
+                .subscribe(() => this.updateSkupinaZivnosti()));
+
+            this.changes.push(Observable.fromEvent(this.inputZivnost.nativeElement, 'change')
+                .subscribe(() => this.updateZivnost()));
+        });
     }
 
     ngOnDestroy() {
-        this.content.destroy();
+        this.changes.forEach((s) => s.unsubscribe());
     }
 
-    private update(value): any {
-        const entry = this.content.entry;
-        
-        if (value.druhZivnosti !== entry.druhZivnosti) {
-            const item = value.druhZivnosti;
+    /**
+     * Updates...
+     */
+    updateDruhZivnosti() {
+        const item = this.form.value.druhZivnosti;
 
-            Object.assign(value, {
-                skupinaZivnosti: item && this.data.defaults[item.Kod] || null,
-                oborCinnosti: null,
-                oboryCinnosti: item ? item.Kod === 'O' : false
-            });
+        this.content.patch({
+            oboryCinnosti: item ? item.Kod === 'O' : false
+        });
 
-            this.form.control.patchValue({
-                skupinaZivnosti: value.skupinaZivnosti,
-                oborCinnosti: value.oborCinnosti
-            });
-        }
+        this.form.control.patchValue({
+            skupinaZivnosti: item && this.data.defaults[item.Kod] || null
+        });
 
-        if (value.skupinaZivnosti !== entry.skupinaZivnosti) {
-            const item = value.skupinaZivnosti;
+        setTimeout(() => this.updateSkupinaZivnosti());
+    }
 
-            Object.assign(value, {
-                zivnost: item && this.data.defaults[item.Kod] || null
-            });
+    updateSkupinaZivnosti() {
+        const item = this.form.value.skupinaZivnosti;
 
-            this.form.control.patchValue({
-                zivnost: value.zivnost
-            });
-        }
+        this.form.control.patchValue({
+            zivnost: item && this.data.defaults[item.Kod] || null,
+            oborCinnosti: null
+        });
 
-        if (value.zivnost !== entry.zivnost) {
-            const item = value.zivnost;
+        setTimeout(() => this.updateZivnost());
+    }
 
-            Object.assign(value, {
+    updateZivnost() {
+        const item = this.form.value.zivnost,
+            kodZivnosti = item && item.Kod || utils.get(this.form.value.skupinaZivnosti, 'Kod') ||
+                    utils.get(this.form.value.druhZivnosti, 'Kod') || '';
+
+        this.content.patch({
+            overview: {
+                kodZivnosti,
                 predmetPodnikani: item ? item.Hodnota || item.Kod : ''
-            });
-        }
+            }
+        });
 
-        return value;
+        setTimeout(() => this.cdr.markForCheck());
     }
 
-    @ViewChild('input.druhZivnosti')
-    private inputDruhZivnosti: ElementRef;
+    private getKodZivnosti() {
+        const value = this.form.value;
 
+    }
+
+    /**
+     * Controls...
+     */
     @HostListener('document:keydown.alt.5')
     private focusDruhZivnostiOnKey() {
         this.inputDruhZivnosti.nativeElement.focus();

@@ -3,15 +3,20 @@
  */
 import {Model} from '../model';
 
-export class OstatniPrilohyModel extends Model<OstatniPrilohyModel> {
+export class OstatniPrilohaModel extends Model<OstatniPrilohaModel> {
     hash: string;
     file: File;
+    value = {
+        uradyPrilohy: {}
+    };
 }
 
 export class OstatniModel {
-    overview: string;
-    uradyPrilohy = {};
     pocetPriloh = {fu: 0, zu: 0, up: 0};
     velikostPriloh = 0;
-    prilohy: OstatniPrilohyModel[] = [];
+    prilohy: OstatniPrilohaModel[] = [];
+    value = {
+        uradyPrilohy: {}
+    };
+    overview = '';
 }

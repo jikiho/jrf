@@ -2,10 +2,15 @@
  * "Pravnicka osoba - Zivnosti" feature model.
  */
 export class ZivnostModel {
-    druhZivnosti: any;
-    skupinaZivnosti: any;
-    zivnost: any;
-    oborCinnosti: any[];
-    oboryCinnosti: boolean;
-    predmetPodnikani: string;
+    oboryCinnosti = false;
+    value = {
+        druhZivnosti: null,
+        skupinaZivnosti: null,
+        zivnost: null,
+        oborCinnosti: null
+    };
+    overview = {
+        kodZivnosti: '',
+        predmetPodnikani: ''
+    };
 }

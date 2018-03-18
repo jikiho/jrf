@@ -1,15 +1,20 @@
 /**
  * Directive to enhance a form reset functionality.
  */
-import {Directive, ElementRef, HostListener} from '@angular/core';
+import {Directive, OnInit, ElementRef, HostListener} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 import {UtilsModule as utils} from '../utils.module';
 
 @Directive({
     selector: 'form'
 })
-export class FormResetDirective {
-    constructor(private el: ElementRef) {
+export class FormResetDirective implements OnInit {
+    constructor(private form: NgForm, private el: ElementRef) {
+    }
+
+    ngOnInit() {
+        this.form['el'] = this.el;
     }
 
     /**
@@ -18,7 +23,6 @@ export class FormResetDirective {
     @HostListener('keyup.alt.Delete', ['$event'])
     private resetOnKey(event: KeyboardEvent) {
         if (utils.keydown(event)) {
-console.log("RESET");
             this.el.nativeElement.reset();
         }
     }

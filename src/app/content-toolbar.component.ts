@@ -65,7 +65,7 @@ export class ContentToolbarComponent {
     removeLabel: string = 'Smazat údaje';
 
     /**
-     * Control...
+     * Controls...
      */
     @HostListener('document:keydown.alt.n', ['$event'])
     private createOnKey(event: KeyboardEvent) {
