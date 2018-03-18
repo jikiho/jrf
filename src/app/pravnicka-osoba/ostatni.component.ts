@@ -1,7 +1,7 @@
 /**
  * "Pravnicka osoba - Ostatni" feature component.
  */
-import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 
@@ -40,13 +40,11 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setTimeout(() => {
-            const control = this.form.control;
+            this.changes.push(this.form.control.valueChanges
+                .subscribe((value) => this.update(value)));
 
-            this.changes.push(control.valueChanges
-                .subscribe(() => this.update()));
+            this.update(this.form.value);
         });
-
-        this.update();
     }
 
     ngOnDestroy() {
@@ -124,22 +122,21 @@ export class OstatniComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    private update() {
+    private update(value?: any) {
         const entry = this.content.entry,
             names = Object.keys(entry.pocetPriloh),
             count = names.reduce((count, name) => Object.assign(count, {[name]: 0}), {}); //zero
 
-        entry.prilohy.forEach((item) => {
+        Object.values(entry.prilohy).map(({hash}) => value.prilohy && value.prilohy[hash]).forEach((item) => {
             names.forEach((name) => {
-                if (item.value.uradyPrilohy[name]) {
+                if (value.uradyPrilohy[name] && item && item.value.uradyPrilohy[name]) {
                     count[name] += 1;
                 }
             });
         });
 
         this.content.patch({
-            pocetPriloh: count,
-            overview: this.files
+            pocetPriloh: count
         });
 
         this.cdr.markForCheck();

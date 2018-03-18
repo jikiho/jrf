@@ -516,6 +516,7 @@
     pre {
         margin-top: 0.5rem;
         white-space: pre-wrap;
+        opacity: 0.5;
     }
 
     [hidden] {

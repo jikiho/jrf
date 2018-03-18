@@ -6,7 +6,7 @@
     -->
 </header>
 
-<content-toolbar-component [content]="content" [header]="thead" [body]="tbody" list
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
     removeTitle="Smazání ostatních údajů"
     removeLabel="Smazat údaje"
 ></content-toolbar-component>
@@ -14,7 +14,7 @@
     <th width="100%">přehled údajů</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>Elektronické přílohy: {{item.overview}}</td>
+    <td>{{item.overview}}</td>
 </ng-template>
 
 <section *ngIf="content.entry as entry">
@@ -35,7 +35,7 @@
                     <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
                 </div>
             </div>
-            <div class="row row-middle" [ngModelGroup]="uradyPrilohy">
+            <div class="row row-middle" ngModelGroup="uradyPrilohy">
                 <div class="col-3">
                     <label>
                         a)
@@ -96,21 +96,25 @@
                         </thead>
                         <tbody *ngIf="entry.prilohy as items" ngModelGroup="prilohy">
                             <tr *ngFor="let i = index; let item of items; trackBy: trackHash" [ngModelGroup]="item.hash">
+<ng-container ngModelGroup="value">
+    <ng-container ngModelGroup="uradyPrilohy">
                                 <td>
                                     <output-file routerLink="../open..." [file]="item.file" icon></output-file>
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="zu" ngModelGroup="uradyPrilohy" [(ngModel)]="item.value.uradyPrilohy.zu" [disabled]="!value.uradyPrilohy.zu">
+                                    <input type="checkbox" name="zu" [(ngModel)]="item.value.uradyPrilohy.zu" [disabled]="!value.uradyPrilohy.zu">
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="fu" ngModelGroup="uradyPrilohy" [(ngModel)]="item.value.uradyPrilohy.fu" [disabled]="!value.uradyPrilohy.fu">
+                                    <input type="checkbox" name="fu" [(ngModel)]="item.value.uradyPrilohy.fu" [disabled]="!value.uradyPrilohy.fu">
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="up" ngModelGroup="uradyPrilohy" [(ngModel)]="item.value.uradyPrilohy.pu" [disabled]="!value.uradyPrilohy.up">
+                                    <input type="checkbox" name="up" [(ngModel)]="item.value.uradyPrilohy.pu" [disabled]="!value.uradyPrilohy.up">
                                 </td>
                                 <td class="compact">
                                     <button type="button" (click)="removePriloha(i)" title="Smazání elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
                                 </td>
+    </ng-container>
+</ng-container>
                             </tr>
                         </tbody>
                     </table>
