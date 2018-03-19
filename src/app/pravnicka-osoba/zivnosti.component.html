@@ -78,7 +78,7 @@
                 <div class="col-12">
                     <label>
                         <dfn>Obory činnosti</dfn>
-                        <select name="oborCinnosti" [(ngModel)]="value.oborCinnosti" multiple [disabled]="!value.zivnost?.Kod">
+                        <select name="oborCinnosti" [(ngModel)]="value.oborCinnosti" multiple size="5" [disabled]="!value.zivnost?.Kod">
                             <option *ngFor="let item of items" [hidden]="item.Zivnost != value.zivnost?.Kod" [ngValue]="item">
                                 {{item.Cislo}}.
                                 {{item.Hodnota}}

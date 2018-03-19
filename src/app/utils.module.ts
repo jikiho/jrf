@@ -112,18 +112,30 @@ export class UtilsModule {
     /**
      * Converts a value to the corresponding boolean.
      * Optional values to be inverted (e.g. '' to return true for an empty string).
+     * Date is treated as validity.
+     * Defined object is treated as number of properties.
+     * Not-a-number is treated as false.
      */
     static booleric(value: any, ...args): boolean {
         if (args.indexOf(value) > -1) {
             return !value;
         }
+        else if (value instanceof Date) {
+            return !Number.isNaN(value.valueOf());
+        }
+        else if (value !== null && typeof value === 'object') {
+            return Object.keys(value).length ? true: false;
+        }
+        else if (Number.isNaN(value)) {
+            return false;
+        }
         
-        return !!value;
+        return Boolean(value);
     }
 
     /**
      * Converts a value to the corresponding date.
-     * A number is treated as a timestamp.
+     * Number is treated as a timestamp.
      */
     static dateric(value: any): Date {
         const timestamp = typeof value === 'number' ? value : Date.parse(value);
@@ -133,11 +145,18 @@ export class UtilsModule {
 
     /**
      * Converts a value to the corresponding number.
-     * A date is treated as the number of milliseconds since midnight January 1, 1970.
+     * Date is treated as the number of milliseconds since midnight January 1, 1970.
+     * Defined object is treated as number of properties.
      */
     static numeric(value: any): number {
         if (typeof value === 'string') {
             return parseFloat(value);
+        }
+        else if (value instanceof Date) {
+            ;
+        }
+        else if (value !== null && typeof value === 'object') {
+            return value = Object.keys(value).length;
         }
 
         return Number(value);
@@ -152,7 +171,7 @@ export class UtilsModule {
             return '';
         }
 
-        return typeof value === 'object' ? JSON.stringify(value) : value.toString();
+        return typeof value === 'object' ? JSON.stringify(value) : String(value);
     }
 
     /**
@@ -382,5 +401,83 @@ export class UtilsModule {
         }
 
         return o;
+    }
+
+    /**
+     * Value validations.
+     * @see https://www.cnb.cz/cs/dohled_financni_trh/vykon_dohledu/informacni_povinnosti/algoritmy.html
+     * @returns a normalized string value, or null for an invalid one.
+     */
+
+    /**
+     * Simple text value.
+     */
+    static validText(input: string): string | null {
+        const value = input.trim().replace(/\s+/g, ' ');
+
+        return value;
+    }
+
+    /**
+     * Simple date value.
+     */
+    static validDate(input: string): string | null {
+        const value = input.trim().replace(/\s+/g, '');
+
+//TODO
+        return value;
+    }
+
+    /**
+     * "Rodne cislo (rc.)"
+     */
+    static validRc(input: string): string | null {
+        const match = input.match(/^\s*((\d{2})(\d{2})(\d{2}))\/?((\d{3})(\d)?)\s*$/),
+            value = match && `${match[1]}/${match[5]}`;
+
+        let valid = false;
+
+        if (value) {
+//TODO
+            valid = true;
+        }
+
+        return valid ? value : null;
+    }
+
+    /**
+     * "Identifikacni cislo osoby (ICO)"
+     * @see https://cs.wikipedia.org/wiki/Identifika%C4%8Dn%C3%AD_%C4%8D%C3%ADslo_osoby
+     */
+    static validIco(input: string): string | null {
+        const match = input.match(/^\s*(\d{8})\s*$/),
+            value = match && match[1];
+
+        let valid = false;
+
+        if (value) {
+            let n = 0,
+                c: number;
+
+            for (let i = 0; i < 7; i += 1) {
+                n += parseInt(value[i]) * (8 - i);
+            }
+
+            n = n % 11;
+
+            if (n === 0) {
+                c = 1;
+            }
+            else if (n === 1) {
+                c = 0;
+            }
+            else {
+                c = 11 - n;
+            }
+
+            valid = parseInt(value[7]) === c;
+        }
+
+        return valid ? value : null;
     }
 }
