@@ -522,4 +522,30 @@
     [hidden] {
         display: none;
     }
+
+    dialog[open] {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.85);
+        border: none;
+    }
+
+    dialog[open] > div {
+        max-width: 55rem;
+        min-width: 35rem;
+        min-height: 10rem;
+        padding: 0;
+        background: #dde7f0;
+        border: 1px solid #999;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 1.5px 0 #ccc;
+    }
 }

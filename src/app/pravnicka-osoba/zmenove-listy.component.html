@@ -41,18 +41,18 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <table class="readonly">
+                    <table class="readonly" *ngIf="entry.zivnost as items">
                         <thead>
                             <tr>
                                 <th width="25%"><abbr title="Kód živnosti">kód</abbr> / <abbr title="Číslo oboru činnosti">č. oboru</abbr></th>
                                 <th width="75%">předmět podnikání / obor činnosti</th>
                                 <th class="compact">
-                                    <button type="button" title="Výběr živností nebo oborů činnosti"><b class="fa fa-bars"></b></button>
+                                    <button type="button" (click)="panelZivnosti.showModal()" title="Výběr živností nebo oborů činnosti"><b class="fa fa-bars"></b></button>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let item of items">
                                 <td></td>
                                 <td></td>
                                 <td class="compact">
@@ -63,6 +63,26 @@
                     </table>
                 </div>
             </div>
+<dialog #panelZivnosti>
+    <ng-container *ngIf="data.content.zivnosti.entries as items">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Výběr přednětů podnikání</h3>
+                </div>
+                <div class="col-12">
+                    <select name="zivnosti" [(ngModel)]="value.zivnosti" multiple size="10" [disabled]="!items.length">
+                        <option *ngFor="let item of items" [ngValue]="item">
+                            {{item.Hodnota}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="button"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="panelZivnosti.close()"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                </div>
+            </div>
+    </ng-container>
+</dialog>
             <div class="row">
                 <div class="col-12">
                     <h4>02 Původní údaj</h4>

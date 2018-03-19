@@ -89,7 +89,7 @@ export class UtilsModule {
     static get(obj: any, name: string): any {
         [obj, name] = UtilsModule.ref(obj, name);
 
-        if (obj.hasOwnProperty(name)) {
+        if (obj && obj.hasOwnProperty(name)) {
             return obj[name];
         }
     }
@@ -100,7 +100,7 @@ export class UtilsModule {
     static set(obj: any, name: string, value?: any) {
         [obj, name] = UtilsModule.ref(obj, name);
 
-        if (obj.hasOwnProperty(name)) {
+        if (obj && obj.hasOwnProperty(name)) {
             obj[name] = value;
         }
     }
@@ -112,7 +112,7 @@ export class UtilsModule {
         for (let arg of args.length ? args : Object.keys(obj)) {
             const [ref, name] = UtilsModule.ref(obj, arg);
 
-            if (ref.hasOwnProperty(name)) {
+            if (ref && ref.hasOwnProperty(name)) {
                 delete ref[name];
             }
         }
