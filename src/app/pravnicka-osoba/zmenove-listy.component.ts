@@ -5,6 +5,7 @@ import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy
 import {NgForm} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 
+import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -20,8 +21,15 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
 
+    vyberZivnosti = null;
+
+    vybraneZivnosti = null;
+
     @ViewChild('form')
     form: NgForm;
+
+    @ViewChild('panelVyberZivnosti')
+    private panelVyberZivnosti: ElementRef;
 
     @ViewChild('inputPuvodniUdaj')
     private inputPuvodniUdaj: ElementRef;
@@ -32,7 +40,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+            private app: AppService, public data: DataService) {
     }
 
     ngOnInit() {
@@ -46,10 +54,49 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
                 .merge(reset)
                 .subscribe((changes) => this.update(changes)));
         });
+
+        this.updateZivnosti();
     }
 
     ngOnDestroy() {
         this.changes.forEach((s) => s.unsubscribe());
+    }
+
+    /**
+     * Manages...
+     */
+    openVyberZivnosti() {
+        this.vyberZivnosti = this.data.content.zivnosti.entries.map((entry) => entry.value.zivnost)
+            .filter((item) => item && item.Kod);
+        this.vybraneZivnosti = [...(this.content.entry.zivnost || [])];
+        this.panelVyberZivnosti.nativeElement.showModal();
+    }
+
+    closeVyberZivnosti() {
+        this.vyberZivnosti = this.vybraneZivnosti = null;
+        this.panelVyberZivnosti.nativeElement.close();
+    }
+
+    commitVyberZivnosti() {
+        this.content.entry.zivnost = this.vybraneZivnosti;
+        this.closeVyberZivnosti();
+    }
+
+    removeZivnost(index: number) {
+        const message = 'Dojde ke smazání živnosti z výběru, chcete pokračovat?',
+            entry = this.content.entry,
+            items = entry.zivnost,
+            item = items[index];
+
+        if (item) {
+            if (this.app.confirm(message).result) {
+                items.splice(index, 1);
+            }
+        }
+    }
+
+    trackZivnost(index: number, item: any) {
+        return item.Kod;
     }
 
     /**
@@ -64,6 +111,14 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         });
 
         this.cdr.markForCheck();
+    }
+
+    private updateZivnosti() {
+        this.content.entries.forEach((entry) => {
+            entry.zivnost = this.content.entry.zivnost.filter((item) =>
+                    this.data.content.zivnosti.entries.find((entry) =>
+                            entry.value.zivnost.Kod === item.Kod));
+        });
     }
 
     /**

@@ -79,23 +79,17 @@
             <div class="row">
                 <div class="col-12">
                     <table class="readonly">
-                        <caption title="Počet a celková velikost elektronických příloh">
-                            <small>{{files}}</small>
-                        </caption>
                         <thead>
                             <tr>
                                 <th width="100%">elektronická příloha</th>
                                 <th><abbr title="Živnostenský úřad">ŽÚ</abbr></th>
                                 <th><abbr title="Finanční úřad">FÚ</abbr></th>
                                 <th><abbr title="Úřad práce">ÚP</abbr></th>
-                                <th class="compact">
-                                    <button type="button" (click)="input_file.click()" title="Výběr nové elektronické přílohy"><b class="fa fa-bars"></b></button>
-                                    <input type="file" multiple accept="image/*, application/pdf" #input_file hidden (change)="addPriloha($event.target)">
-                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody *ngIf="entry.prilohy as items" ngModelGroup="prilohy">
-                            <tr *ngFor="let i = index; let item of items; trackBy: trackHash" [ngModelGroup]="item.hash">
+                            <tr *ngFor="let i = index; let item of items; trackBy: trackPrilohy" [ngModelGroup]="item.hash">
 <ng-container ngModelGroup="value">
     <ng-container ngModelGroup="uradyPrilohy">
                                 <td>
@@ -122,6 +116,13 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    <button type="button" (click)="input_file.click()" title="Výběr elektronických příloh"><i class="fa fa-bars"></i>Vybrat přilohy</button>
+                    <input type="file" multiple accept="image/*, application/pdf" #input_file hidden (change)="addPriloha($event.target)">
+                    <small title="Počet a celková velikost elektronických příloh">{{entry.prilohy.length}} ({{entry.velikostPriloh | bytes}})</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     ...
                 </div>
             </div>
@@ -130,6 +131,6 @@
 </section>
 
 <pre>
-{{form?.dirty | booleric}}
+{{{dirty: form?.dirty, valid: form?.valid} | json}}
 {{content.entry | json}}
 </pre>

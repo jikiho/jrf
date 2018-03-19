@@ -21,14 +21,6 @@ export class OstatniComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<OstatniModel> = this.data.content.ostatni;
 
-    get files(): string {
-        const entry = this.content.entry,
-            count = entry.prilohy.length,
-            size = entry.velikostPriloh;
-
-        return `${utils.unavailable(count || undefined)} (${utils.bytes(size)})`;
-    }
-
     @ViewChild('form')
     form: NgForm;
 
@@ -106,7 +98,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
         }
     }
 
-    trackHash(index: number, item: OstatniPrilohaModel) {
+    trackPrilohy(index: number, item: OstatniPrilohaModel) {
         return item.hash;
     }
 

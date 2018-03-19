@@ -41,47 +41,51 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <table class="readonly" *ngIf="entry.zivnost as items">
+                    <table class="readonly">
                         <thead>
                             <tr>
                                 <th width="25%"><abbr title="Kód živnosti">kód</abbr> / <abbr title="Číslo oboru činnosti">č. oboru</abbr></th>
                                 <th width="75%">předmět podnikání / obor činnosti</th>
-                                <th class="compact">
-                                    <button type="button" (click)="panelZivnosti.showModal()" title="Výběr živností nebo oborů činnosti"><b class="fa fa-bars"></b></button>
-                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of items">
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let i = index; let item of entry.zivnost; trackBy: trackZivnost">
+                                <td>{{item.Kod}}</td>
+                                <td>{{item.Hodnota}}</td>
                                 <td class="compact">
-                                    <button type="button" title="Smazání živnosti z výběru"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="removeZivnost(i)" title="Smazání živnosti z výběru"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-<dialog #panelZivnosti>
-    <ng-container *ngIf="data.content.zivnosti.entries as items">
             <div class="row">
                 <div class="col-12">
-                    <h3>Výběr přednětů podnikání</h3>
+                    <button type="button" (click)="openVyberZivnosti()" title="Výběr živností nebo oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnosti</button>
+                    <small title="Počet vybraných živností">{{entry.zivnost.length}}</small>
+                </div>
+            </div>
+<dialog #panelVyberZivnosti>
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Výběr předmětů podnikání
+                        <small>(max. 3 v rámci změnového listu)</small>
+                    </h3>
                 </div>
                 <div class="col-12">
-                    <select name="zivnosti" [(ngModel)]="value.zivnosti" multiple size="10" [disabled]="!items.length">
-                        <option *ngFor="let item of items" [ngValue]="item">
-                            {{item.Hodnota}}
-                        </option>
+                    <select multiple name="vybraneZivnosti" [(ngModel)]="vybraneZivnosti" size="10">
+                        <option *ngFor="let item of vyberZivnosti" [ngValue]="item">{{item?.Hodnota}}</option>
                     </select>
                 </div>
                 <div class="col-12">
-                    <button type="button"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
-                    <button type="button" (click)="panelZivnosti.close()"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                    <button type="button" (click)="commitVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                    <small title="Počet vybraných a celkový počet živností">{{vybraneZivnosti?.length}}/{{vyberZivnosti?.length}}</small>
                 </div>
             </div>
-    </ng-container>
 </dialog>
             <div class="row">
                 <div class="col-12">
@@ -116,6 +120,6 @@
 </section>
 
 <pre>
-{{form?.dirty | booleric}}
+{{{dirty: form?.dirty, valid: form?.valid} | json}}
 {{content.entry | json}}
 </pre>
