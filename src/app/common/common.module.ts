@@ -16,7 +16,6 @@ import {FormResetDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
 import {HiddenDirective} from './hidden.directive';
 import {InputFileDirective} from './input-file.directive';
-import {InputPasteDirective} from './input-paste.directive';
 import {InputValidDirective} from './input-valid.directive';
 import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
@@ -46,7 +45,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         FormValidateDirective,
         HiddenDirective,
         InputFileDirective,
-        InputPasteDirective,
         InputValidDirective,
         JoinPipe,
         NumericPipe,
@@ -70,7 +68,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         FormValidateDirective,
         HiddenDirective,
         InputFileDirective,
-        InputPasteDirective,
         InputValidDirective,
         JoinPipe,
         NgCommonModule,

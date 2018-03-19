@@ -60,53 +60,78 @@ export class UtilsModule {
     }
 
     /**
-     * Checks existance of a dirty (non-blank) argument.
+     * Checks existance of a filled (non-blank) argument.
      */
-    static dirty(...args): boolean {
+    static filled(...args): boolean {
         return args.reduce((acc, part) => acc || (part ? /\S/.test(part) : false), false);
     }
 
-    /*
-     * Filters a list by value or properties.
+    /**
+     * Gets a pair of value property reference and name (value[name] -> property).
      * Accepts dot notation string for a nested property.
      */
-    static filter(items: any[], value: any): any[] {
-        return typeof value !== 'object' ? items.filter((item) => item == value) :
-                items.filter((item) => Object.keys(value).reduce((acc, part) => acc &&
-                        UtilsModule.get(item, part) == value[part], true));
+    static ref(value: any, name: string): any[] {
+        const parts = name.split('.');
+
+        if (parts.length > 1) {
+            name = parts.pop();
+
+            value = parts.reduce((acc, part) => acc &&
+                    acc.hasOwnProperty(part) ? acc[part] : undefined, value);
+        }
+
+        return [value, name];
+    }
+
+    /**
+     * Gets an object property value by name.
+     */
+    static get(obj: any, name: string): any {
+        [obj, name] = UtilsModule.ref(obj, name);
+
+        if (obj.hasOwnProperty(name)) {
+            return obj[name];
+        }
+    }
+
+    /**
+     * Sets an object property value by name.
+     */
+    static set(obj: any, name: string, value?: any) {
+        [obj, name] = UtilsModule.ref(obj, name);
+
+        if (obj.hasOwnProperty(name)) {
+            obj[name] = value;
+        }
+    }
+
+    /**
+     * Deletes object properties, all or one by name.
+     */
+    static delete(obj: any, ...args) {
+        for (let arg of args.length ? args : Object.keys(obj)) {
+            const [ref, name] = UtilsModule.ref(obj, arg);
+
+            if (ref.hasOwnProperty(name)) {
+                delete ref[name];
+            }
+        }
     }
 
     /*
-     * Plucks property from a list.
-     * Accepts dot notation string for a nested property.
+     * Plucks an object property from a list.
      */
     static pluck(items: any[], name: string): any[] {
         return items.map((item) => UtilsModule.get(item, name));
     }
 
-    /**
-     * Gets a property value by its name.
-     * Accepts dot notation string for a nested property.
+    /*
+     * Filters a list by a value or properties.
      */
-    static get(obj: any, name: string): any {
-        return name.split('.').reduce((acc, part) => acc && acc[part], obj);
-    }
-
-    /**
-     * Sets a property value by its name.
-     * Accepts dot notation string for a nested property.
-     */
-    static set(obj: any, name: string, value?: any) {
-        const parts = name.split('.');
-
-        if (parts.length > 1) {
-            name = parts.pop();
-            obj = parts.reduce((acc, part) => acc && acc[part], obj);
-        }
-
-        if (obj && obj.hasOwnProperty(name)) {
-            obj[name] = value;
-        }
+    static filter(items: any[], value: any): any[] {
+        return typeof value !== 'object' ? items.filter((item) => item == value) :
+                items.filter((item) => Object.keys(value).reduce((acc, part) => acc &&
+                        UtilsModule.get(item, part) == value[part], true));
     }
 
     /**
@@ -410,35 +435,64 @@ export class UtilsModule {
      */
 
     /**
-     * Simple text value.
+     * Text value, just trim.
      */
     static validText(input: string): string | null {
-        const value = input.trim().replace(/\s+/g, ' ');
-
-        return value;
+        return input.trim().replace(/\s+/g, ' ');
     }
 
     /**
-     * Simple date value.
+     * Number value, float or integer.
      */
-    static validDate(input: string): string | null {
-        const value = input.trim().replace(/\s+/g, '');
+    static validNumber(input: string): string | null {
+        const match = input.match(/^\s*(\S(.*?))\s*$/);
 
-//TODO
-        return value;
-    }
-
-    /**
-     * "Rodne cislo (rc.)"
-     */
-    static validRc(input: string): string | null {
-        const match = input.match(/^\s*((\d{2})(\d{2})(\d{2}))\/?((\d{3})(\d)?)\s*$/),
-            value = match && `${match[1]}/${match[5]}`;
-
-        let valid = false;
+        let value = match && match[1],
+            valid = false;
 
         if (value) {
-//TODO
+            const n = Number(value);
+
+            valid = !Number.isNaN(n);
+
+            value = String(n);
+        }
+
+        return valid ? value : null;
+    }
+
+    /**
+     * Date value.
+     */
+    static validDate(input: string): string | null {
+//TODO: parsing and format
+        const match = input.match(/^\s*(\S(.*?))\s*$/);
+
+        let value = match && match[1],
+            valid = false;
+
+        if (value) {
+            const n = Date.parse(value);
+
+            valid = !Number.isNaN(n);
+
+            value = String(new Date(n));
+        }
+
+        return valid ? value : null;
+    }
+
+    /**
+     * "Postovni smerovaci cislo (PSC)".
+     */
+    static validPsc(input: string): string | null {
+//TODO: simple validation + async. request
+        const match = input.match(/^\s*(\d{3})\s{0,2}(\d{2})\s*$/);
+
+        let value = match ? `${match[1]} ${match[2]}` : '',
+            valid = false;
+
+        if (value) {
             valid = true;
         }
 
@@ -446,14 +500,31 @@ export class UtilsModule {
     }
 
     /**
-     * "Identifikacni cislo osoby (ICO)"
+     * "Rodne cislo (rc.)".
+     */
+    static validRc(input: string): string | null {
+//TODO: simple + invalid but possible
+        const match = input.match(/^\s*((\d{2})(\d{2})(\d{2}))\/?((\d{3})(\d)?)\s*$/);
+
+        let value = match ? `${match[1]}/${match[5]}` : '',
+            valid = false;
+
+        if (value) {
+            valid = true;
+        }
+
+        return valid ? value : null;
+    }
+
+    /**
+     * "Identifikacni cislo osoby (ICO)".
      * @see https://cs.wikipedia.org/wiki/Identifika%C4%8Dn%C3%AD_%C4%8D%C3%ADslo_osoby
      */
     static validIco(input: string): string | null {
-        const match = input.match(/^\s*(\d{8})\s*$/),
-            value = match && match[1];
+        const match = input.match(/^\s*(\d{8})\s*$/);
 
-        let valid = false;
+        let value = match ? match[1] : '',
+            valid = false;
 
         if (value) {
             let n = 0,

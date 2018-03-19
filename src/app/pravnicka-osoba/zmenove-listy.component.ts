@@ -59,7 +59,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         const value = {...this.form.value, ...changes};
 
         this.content.patch({
-            overview: changes && utils.dirty(value.puvodniUdaj, value.novyUdaj) ?
+            overview: changes && utils.filled(value.puvodniUdaj, value.novyUdaj) ?
                     [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
         });
 

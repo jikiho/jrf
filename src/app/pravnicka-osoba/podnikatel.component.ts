@@ -73,7 +73,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         const value = {...this.form.value, ...changes};
     
         this.content.patch({
-            completePodnikatel: changes && utils.dirty(value.nazev, value.ico),
+            completePodnikatel: changes && utils.filled(value.nazev, value.ico),
             overview: {
                 nazev: value.nazev,
                 ico: value.ico
@@ -87,8 +87,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         const value = {...this.form.value, ...changes};
     
         this.content.patch({
-            completeAdresa: changes && utils.dirty(value.ulice) && utils.dirty(value.obec) &&
-                    utils.dirty(value.cisloDomovni, value.cisloOrientacni)
+            completeAdresa: changes && utils.filled(value.ulice) && utils.filled(value.obec) &&
+                    utils.filled(value.cisloDomovni, value.cisloOrientacni)
         });
 
         this.cdr.markForCheck();

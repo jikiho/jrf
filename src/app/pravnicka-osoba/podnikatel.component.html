@@ -36,7 +36,7 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
-                        <input type="text" name="nazev" #input_nazev [(ngModel)]="value.podnikatel.nazev">
+                        <input type="text" #input_nazev name="nazev" [(ngModel)]="value.podnikatel.nazev">
                     </label>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="col-2">
                     <label>
                         <dfn>d) <abbr title="poštovní směrovací číslo">PSČ</abbr></dfn>
-                        <input type="text" name="psc" [(ngModel)]="value.adresaSidla.psc">
+                        <input type="text" name="psc" valid="psc" [(ngModel)]="value.adresaSidla.psc">
                     </label>
                 </div>
             </div>
