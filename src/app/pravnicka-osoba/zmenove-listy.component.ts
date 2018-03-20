@@ -69,7 +69,18 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         this.panelVyberZivnosti.nativeElement.close();
     }
 
-    commitVyberZivnosti() {
+    applyVyberZivnosti() {
+        const message = 'Omezení umožňuje vybrat nejvýše 3 živnosti.';
+
+        if (this.vybraneZivnosti.length > 3) {
+            this.app.alert(message);
+        }
+        else {
+            this.applierVyberZivnosti();
+        }
+    }
+
+    applierVyberZivnosti() {
         this.content.entry.zivnost = this.vybraneZivnosti;
 
         this.closeVyberZivnosti();

@@ -5,6 +5,7 @@ import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy
 import {NgForm} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 
+import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -32,7 +33,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            public data: DataService) {
+            private app: AppService, public data: DataService) {
     }
 
     ngOnInit() {
@@ -76,9 +77,21 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         this.panelVyberZivnosti.nativeElement.close();
     }
 
-    commitVyberZivnosti() {
+    applyVyberZivnosti() {
         const item = this.vybranaZivnost,
-            kodZivnosti = item && item.Kod || utils.get(this.vybranaSkupinaZivnosti, 'Kod') ||
+            message = 'Není možné přidat znvou stejnou živnost.';
+
+        if (item && this.content.entries.findIndex((entry) => entry.zivnost &&
+                entry.zivnost.Kod === item.Kod) > -1) {
+            this.app.alert(message);
+        }
+        else {
+            this.applier(item);
+        }
+    }
+
+    private applier(item) {
+        const kodZivnosti = item && item.Kod || utils.get(this.vybranaSkupinaZivnosti, 'Kod') ||
                     utils.get(this.vybranyDruhZivnosti, 'Kod') || '';
 
         let predmetPodnikani = '';
@@ -95,7 +108,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         this.content.patch({
             druhZivnosti: this.vybranyDruhZivnosti,
             skupinaZivnosti: this.vybranaSkupinaZivnosti,
-            zivnost: this.vybranaZivnost,
+            zivnost: item,
             oborCinnosti: this.vybranyOborCinnosti,
             overview: {
                 kodZivnosti,
@@ -109,7 +122,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    updateDruhZivnosti(open: boolean = false) {
+    private updateDruhZivnosti(open: boolean = false) {
         const item = this.vybranyDruhZivnosti;
 
         this.vybraneOboryCinnosti = item ? item.Kod === 'O' : false;
@@ -121,7 +134,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         setTimeout(() => this.updateSkupinaZivnosti(open));
     }
 
-    updateSkupinaZivnosti(open: boolean = false) {
+    private updateSkupinaZivnosti(open: boolean = false) {
         const item = this.vybranaSkupinaZivnosti;
 
         if (!open) {
@@ -131,17 +144,12 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         setTimeout(() => this.updateZivnost(open));
     }
 
-    updateZivnost(open: boolean = false) {
+    private updateZivnost(open: boolean = false) {
         if (!open) {
             this.vybranyOborCinnosti = null;
         }
 
         setTimeout(() => this.cdr.markForCheck());
-    }
-
-    private getKodZivnosti() {
-        const value = this.form.value;
-
     }
 
     /**
