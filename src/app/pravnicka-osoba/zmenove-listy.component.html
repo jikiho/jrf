@@ -44,8 +44,8 @@
                     <table class="readonly">
                         <thead>
                             <tr>
-                                <th width="25%"><abbr title="Kód živnosti">kód</abbr> / <abbr title="Číslo oboru činnosti">č. oboru</abbr></th>
-                                <th width="75%">předmět podnikání / obor činnosti</th>
+                                <th width="25%"><abbr title="Kód živnosti">kód</abbr></th>
+                                <th width="75%">předmět podnikání</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -63,8 +63,8 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="openVyberZivnosti()" title="Výběr živností nebo oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnosti</button>
-                    <small title="Počet vybraných živností">{{entry.zivnost.length}}</small>
+                    <button type="button" (click)="openVyberZivnosti()" title="Výběr živností, případně oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnosti</button>
+                    <small title="Počet vybraných živností">{{entry.zivnost?.length}}</small>
                 </div>
             </div>
 <dialog #panelVyberZivnosti>

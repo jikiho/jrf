@@ -22,20 +22,10 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
 
     vyberZivnosti = null;
-
     vybraneZivnosti = null;
 
     @ViewChild('form')
     form: NgForm;
-
-    @ViewChild('panelVyberZivnosti')
-    private panelVyberZivnosti: ElementRef;
-
-    @ViewChild('inputPuvodniUdaj')
-    private inputPuvodniUdaj: ElementRef;
-
-    @ViewChild('inputNovyUdaj')
-    private inputNovyUdaj: ElementRef;
 
     private changes: Subscription[] = [];
 
@@ -44,6 +34,8 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.updateZivnosti();
+
         setTimeout(() => {
             const control = this.form.control,
                 reset = Observable.fromEvent(this.form['el'].nativeElement, 'reset');
@@ -54,8 +46,6 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
                 .merge(reset)
                 .subscribe((changes) => this.update(changes)));
         });
-
-        this.updateZivnosti();
     }
 
     ngOnDestroy() {
@@ -66,19 +56,22 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      * Manages...
      */
     openVyberZivnosti() {
-        this.vyberZivnosti = this.data.content.zivnosti.entries.map((entry) => entry.value.zivnost)
+        this.vyberZivnosti = this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
             .filter((item) => item && item.Kod);
         this.vybraneZivnosti = [...(this.content.entry.zivnost || [])];
+
         this.panelVyberZivnosti.nativeElement.showModal();
     }
 
     closeVyberZivnosti() {
         this.vyberZivnosti = this.vybraneZivnosti = null;
+
         this.panelVyberZivnosti.nativeElement.close();
     }
 
     commitVyberZivnosti() {
         this.content.entry.zivnost = this.vybraneZivnosti;
+
         this.closeVyberZivnosti();
     }
 
@@ -117,13 +110,22 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         this.content.entries.forEach((entry) => {
             entry.zivnost = this.content.entry.zivnost.filter((item) =>
                     this.data.content.zivnosti.entries.find((entry) =>
-                            entry.value.zivnost.Kod === item.Kod));
+                            entry.zivnost && entry.zivnost.Kod === item.Kod));
         });
     }
 
     /**
      * Controls...
      */
+    @ViewChild('panelVyberZivnosti')
+    private panelVyberZivnosti: ElementRef;
+
+    @ViewChild('inputPuvodniUdaj')
+    private inputPuvodniUdaj: ElementRef;
+
+    @ViewChild('inputNovyUdaj')
+    private inputNovyUdaj: ElementRef;
+
     @HostListener('document:keydown.alt.2')
     private focusPuvodniUdajOnKey() {
         this.inputPuvodniUdaj.nativeElement.focus();

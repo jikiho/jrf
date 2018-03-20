@@ -2,7 +2,7 @@
  * Directive to provide custom validations and normalization.
  */
 //TODO: warning, number, integer, float, hexadecimal..., glob, regexp
-import {Directive, Input, HostBinding, ElementRef, HostListener} from '@angular/core';
+import {Directive, Input, ElementRef, HostListener} from '@angular/core';
 import {NG_VALIDATORS, Validator, AbstractControl, ValidationErrors} from '@angular/forms';
 
 import {UtilsModule as utils} from '../utils.module';

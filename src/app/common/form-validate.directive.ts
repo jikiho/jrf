@@ -11,7 +11,7 @@ import {UtilsModule as utils} from '../utils.module';
 export class FormValidateDirective {
     @Input('novalidate')
     private set _novalidate(value: boolean) {
-        this.novalidate = utils.booleric(value, '') || undefined;
+        //this.novalidate = utils.booleric(value, '') || undefined;
     }
 
     /**

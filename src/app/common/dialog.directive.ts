@@ -1,24 +1,51 @@
 /**
- * Directive to enhance a dialog functionality.
+ * Directive to provide a dialog element.
  */
-import {NgModule, Directive, Input, ElementRef, OnChanges} from '@angular/core';
+import {Directive, OnInit, ElementRef} from '@angular/core';
 
 @Directive({
-    selector: 'dialog[modal]'
+    selector: 'dialog'
 })
-export class DialogDirective implements OnChanges {
-    @Input()
-    private visible: boolean;
-
+export class DialogDirective implements OnInit {
     constructor(private el: ElementRef) {
     }
 
-    ngOnChanges(changes: any) {
-        if (this.visible) {
-            this.el.nativeElement.showModal();
+    ngOnInit() {
+        this.settleToggle();
+    }
+
+    /**
+     * Initializes and handles dialog toggling.
+     * Adds an element functionality.
+     */
+    private settleToggle() {
+        //this.el.nativeElement.setAttribute('modal', true);
+
+        Object.defineProperty(this.el.nativeElement, 'toggle', {
+            value: function() {
+                return this.hasAttribute('open') ? this.close() : this.showModal();
+            }
+        });
+
+        if (!this.el.nativeElement.showModal) {
+            Object.defineProperty(this.el.nativeElement, 'showModal', {
+                value: function() {
+                    this.setAttribute('open', true);
+
+                    return this.hasAttribute('open');
+                }
+            });
         }
-        else {
-            this.el.nativeElement.removeAttribute('open');
+
+        if (!this.el.nativeElement.close) {
+//TODO: close on escape
+            Object.defineProperty(this.el.nativeElement, 'close', {
+                value: function() {
+                    this.removeAttribute('open');
+
+                    return this.hasAttribute('open');
+                }
+            });
         }
     }
 }

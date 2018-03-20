@@ -23,12 +23,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    @ViewChild('input_nazev')
-    private inputNazev: ElementRef;
-
-    @ViewChild('input_ulice')
-    private inputUlice: ElementRef;
-
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
@@ -117,6 +111,12 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     /**
      * Controls...
      */
+    @ViewChild('input_nazev')
+    private inputNazev: ElementRef;
+
+    @ViewChild('input_ulice')
+    private inputUlice: ElementRef;
+
     @HostListener('document:keydown.alt.1')
     private focusNazevOnKey() {
         this.inputNazev.nativeElement.focus();

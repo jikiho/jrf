@@ -16,16 +16,16 @@ export class HiddenDirective implements OnInit {
 
     /**
      * Initializes and handles element toggling.
-     * Adds an element toggle functionality.
+     * Adds an element functionality.
      */
     private settleToggle() {
         Object.defineProperty(this.el.nativeElement, 'toggle', {
             value: function() {
-                return this.hasAttribute('hidden') ? this.unhide() : this.hide();
+                return this.hasAttribute('hidden') ? this.show() : this.hide();
             }
         });
 
-        Object.defineProperty(this.el.nativeElement, 'unhide', {
+        Object.defineProperty(this.el.nativeElement, 'show', {
             value: function() {
                 this.removeAttribute('hidden');
 

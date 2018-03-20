@@ -25,7 +25,7 @@
 </ng-template>
 
 <section *ngIf="content.entry as entry">
-    <form #form="ngForm" *ngIf="entry.value as value">
+    <form #form="ngForm">
         <div class="grid gutterless">
             <div class="row">
                 <div class="col-12">
@@ -37,56 +37,79 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) předmět podnikání</dfn>
-                        <textarea rows="3" readonly title="Předmět podnikání">{{entry.overview.predmetPodnikani}}</textarea>
                     </label>
+                    <table class="readonly">
+                        <thead>
+                            <tr>
+                                <th width="25%"><abbr title="Kód živnosti">kód</abbr></th>
+                                <th width="75%">předmět podnikání</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="entry.zivnost?.Kod">
+                            <tr>
+                                <td>{{entry.zivnost.Kod}}</td>
+                                <td>{{entry.zivnost.Hodnota}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row" *ngIf="data.druhZivnosti$ | async as items">
+            <div class="row">
                 <div class="col-12">
+                    <button type="button" (click)="openVyberZivnosti()" title="Výběr živnosti, případně oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnost</button>
+                </div>
+            </div>
+<dialog #panelVyberZivnosti>
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Výběr předmětu podnikání
+                    </h3>
+                </div>
+                <div class="col-12" *ngIf="data.druhZivnosti$ | async as items">
                     <label>
                         <dfn>Druh živnosti</dfn>
-                        <select name="druhZivnosti" #inputDruhZivnosti [(ngModel)]="value.druhZivnosti">
+                        <select name="vybranyDruhZivnosti" #inputDruhZivnosti [(ngModel)]="vybranyDruhZivnosti">
                             <option [value]="null"></option>
                             <option *ngFor="let item of items" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
-            </div>
-            <div class="row" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="entry.oboryCinnosti">
-                <div class="col-12">
+                <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="vybraneOboryCinnosti">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
-                        <select name="skupinaZivnosti" #inputSkupinaZivnosti [(ngModel)]="value.skupinaZivnosti" [disabled]="!value.druhZivnosti?.Kod">
+                        <select name="vybranaSkupinaZivnosti" #inputSkupinaZivnosti [(ngModel)]="vybranaSkupinaZivnosti" [disabled]="!vybranyDruhZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Druh != value.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Druh != vybranyDruhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
-            </div>
-            <div class="row" *ngIf="data.zivnost$ | async as items">
-                <div class="col-12">
+                <div class="col-12" *ngIf="data.zivnost$ | async as items">
                     <label>
                         <dfn>Předmět podnikání</dfn>
-                        <select name="zivnost" #inputZivnost [(ngModel)]="value.zivnost" [disabled]="!value.skupinaZivnosti?.Kod">
+                        <select name="vybranaZivnost" #inputZivnost [(ngModel)]="vybranaZivnost" [disabled]="!vybranaSkupinaZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Skupina != value.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Skupina != vybranaSkupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
-            </div>
-            <div class="row" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!entry.oboryCinnosti">
-                <div class="col-12">
+                <div class="col-12" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!vybraneOboryCinnosti">
                     <label>
                         <dfn>Obory činnosti</dfn>
-                        <select name="oborCinnosti" [(ngModel)]="value.oborCinnosti" multiple size="5" [disabled]="!value.zivnost?.Kod">
-                            <option *ngFor="let item of items" [hidden]="item.Zivnost != value.zivnost?.Kod" [ngValue]="item">
+                        <select name="vybranyOborCinnosti" [(ngModel)]="vybranyOborCinnosti" multiple size="5" [disabled]="!vybranaZivnost?.Kod">
+                            <option *ngFor="let item of items" [hidden]="item.Zivnost != vybranaZivnost?.Kod" [ngValue]="item">
                                 {{item.Cislo}}.
                                 {{item.Hodnota}}
                             </option>
                         </select>
                     </label>
                 </div>
+                <div class="col-12">
+                    <button type="button" (click)="commitVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                </div>
             </div>
+</dialog>
         </div>
     </form>
 </section>

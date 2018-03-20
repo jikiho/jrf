@@ -20,17 +20,14 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<ZivnostModel> = this.data.content.zivnosti;
 
+    vybranyDruhZivnosti = null;
+    vybranaSkupinaZivnosti = null;
+    vybranaZivnost = null;
+    vybranyOborCinnosti = null;
+    vybraneOboryCinnosti = false;
+
     @ViewChild('form')
     form: NgForm;
-
-    @ViewChild('inputDruhZivnosti')
-    private inputDruhZivnosti: ElementRef;
-
-    @ViewChild('inputSkupinaZivnosti')
-    private inputSkupinaZivnosti: ElementRef;
-
-    @ViewChild('inputZivnost')
-    private inputZivnost: ElementRef;
 
     private changes: Subscription[] = [];
 
@@ -49,7 +46,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
 
             this.changes.push(Observable.fromEvent(this.inputZivnost.nativeElement, 'change')
                 .subscribe(() => this.updateZivnost()));
-        });
+        }, 250);
     }
 
     ngOnDestroy() {
@@ -57,44 +54,87 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Updates...
+     * Manages...
      */
-    updateDruhZivnosti() {
-        const item = this.form.value.druhZivnosti;
+    openVyberZivnosti() {
+        const entry = this.content.entry;
 
-        this.content.patch({
-            oboryCinnosti: item ? item.Kod === 'O' : false
-        });
+        this.vybranyDruhZivnosti = entry.druhZivnosti;
+        this.vybranaSkupinaZivnosti = entry.skupinaZivnosti;
+        this.vybranaZivnost = entry.zivnost;
+        this.vybranyOborCinnosti = entry.oborCinnosti;
+        this.updateDruhZivnosti(true);
 
-        this.form.control.patchValue({
-            skupinaZivnosti: item && this.data.defaults[item.Kod] || null
-        });
-
-        setTimeout(() => this.updateSkupinaZivnosti());
+        this.panelVyberZivnosti.nativeElement.showModal();
     }
 
-    updateSkupinaZivnosti() {
-        const item = this.form.value.skupinaZivnosti;
+    closeVyberZivnosti() {
+        this.vybranyDruhZivnosti = this.vybranaSkupinaZivnosti = this.vybranaZivnost =
+                this.vybranyOborCinnosti = null;
+        this.vybraneOboryCinnosti = false;
 
-        this.form.control.patchValue({
-            zivnost: item && this.data.defaults[item.Kod] || null,
-            oborCinnosti: null
-        });
-
-        setTimeout(() => this.updateZivnost());
+        this.panelVyberZivnosti.nativeElement.close();
     }
 
-    updateZivnost() {
-        const item = this.form.value.zivnost,
-            kodZivnosti = item && item.Kod || utils.get(this.form.value.skupinaZivnosti, 'Kod') ||
-                    utils.get(this.form.value.druhZivnosti, 'Kod') || '';
+    commitVyberZivnosti() {
+        const item = this.vybranaZivnost,
+            kodZivnosti = item && item.Kod || utils.get(this.vybranaSkupinaZivnosti, 'Kod') ||
+                    utils.get(this.vybranyDruhZivnosti, 'Kod') || '';
+
+        let predmetPodnikani = '';
+
+        if (item) {
+//utils.pluck(this.vybranyOborCinnosti, 'Cislo')
+            const hodnotaZivnosti = item.Hodnota || item.Kod || '',
+                oboryCinnosti = utils.numeric(this.vybranyOborCinnosti);
+
+            predmetPodnikani = !this.vybraneOboryCinnosti ? hodnotaZivnosti :
+                    `${hodnotaZivnosti} (${oboryCinnosti})`;
+        }
 
         this.content.patch({
+            druhZivnosti: this.vybranyDruhZivnosti,
+            skupinaZivnosti: this.vybranaSkupinaZivnosti,
+            zivnost: this.vybranaZivnost,
+            oborCinnosti: this.vybranyOborCinnosti,
             overview: {
                 kodZivnosti,
-                predmetPodnikani: item ? item.Hodnota || item.Kod : ''
+                predmetPodnikani
             }
         });
+
+        this.closeVyberZivnosti();
+    }
+
+    /**
+     * Updates...
+     */
+    updateDruhZivnosti(open: boolean = false) {
+        const item = this.vybranyDruhZivnosti;
+
+        this.vybraneOboryCinnosti = item ? item.Kod === 'O' : false;
+
+        if (!open) {
+            this.vybranaSkupinaZivnosti = item && this.data.defaults[item.Kod] || null;
+        }
+
+        setTimeout(() => this.updateSkupinaZivnosti(open));
+    }
+
+    updateSkupinaZivnosti(open: boolean = false) {
+        const item = this.vybranaSkupinaZivnosti;
+
+        if (!open) {
+            this.vybranaZivnost = item && this.data.defaults[item.Kod] || null;
+        }
+
+        setTimeout(() => this.updateZivnost(open));
+    }
+
+    updateZivnost(open: boolean = false) {
+        if (!open) {
+            this.vybranyOborCinnosti = null;
+        }
 
         setTimeout(() => this.cdr.markForCheck());
     }
@@ -107,6 +147,18 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     /**
      * Controls...
      */
+    @ViewChild('panelVyberZivnosti')
+    private panelVyberZivnosti: ElementRef;
+
+    @ViewChild('inputDruhZivnosti')
+    private inputDruhZivnosti: ElementRef;
+
+    @ViewChild('inputSkupinaZivnosti')
+    private inputSkupinaZivnosti: ElementRef;
+
+    @ViewChild('inputZivnost')
+    private inputZivnost: ElementRef;
+
     @HostListener('document:keydown.alt.5')
     private focusDruhZivnostiOnKey() {
         this.inputDruhZivnosti.nativeElement.focus();

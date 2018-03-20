@@ -4,7 +4,7 @@
  * Adds "active" CSS class to an element when the link's route becomes active,
  * unless the route looks like a directory (ends with "/").
  */
-import {Directive, OnInit, Input, HostBinding} from '@angular/core';
+import {Directive, OnInit, Input} from '@angular/core';
 import {RouterLinkActive} from '@angular/router';
 
 @Directive({
