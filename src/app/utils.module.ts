@@ -60,9 +60,9 @@ export class UtilsModule {
     }
 
     /**
-     * Checks existance of a filled (non-blank) argument.
+     * Checks some non-blank argument.
      */
-    static filled(...args): boolean {
+    static some(...args): boolean {
         return args.reduce((acc, part) => acc || (part ? /\S/.test(part) : false), false);
     }
 
@@ -197,6 +197,16 @@ export class UtilsModule {
         }
 
         return typeof value === 'object' ? JSON.stringify(value) : String(value);
+    }
+
+    /**
+     * Converts address properties to a standard postal address string.
+     */
+    static postal(item: any): string {
+        const {stat, psc, obec, castObce, ulice, cisloDomovni, cisloOrientacni} = item;
+
+//TODO
+        return `${ulice} ${cisloDomovni}/${cisloOrientacni}, ${psc} ${obec}, ${stat}`;
     }
 
     /**
@@ -429,16 +439,30 @@ export class UtilsModule {
     }
 
     /**
+     * Trims and replaces white spaces with a single space.
+     */
+    static trims(input: string): string | null {
+        return String(input).trim().replace(/\s+/g, ' ');
+    }
+
+    /**
      * Value validations.
      * @see https://www.cnb.cz/cs/dohled_financni_trh/vykon_dohledu/informacni_povinnosti/algoritmy.html
      * @returns a normalized string value, or null for an invalid one.
      */
 
     /**
-     * Text value, just trim.
+     * Any text value.
      */
-    static validText(input: string): string | null {
-        return input.trim().replace(/\s+/g, ' ');
+    static validAny(input: string): string {
+        return UtilsModule.trims(input);
+    }
+
+    /**
+     * Some non-blank text value.
+     */
+    static validSome(input: string): string | null {
+        return UtilsModule.some(input) ? UtilsModule.trims(input) : null;
     }
 
     /**
@@ -464,8 +488,8 @@ export class UtilsModule {
     /**
      * Date value.
      */
-    static validDate(input: string): string | null {
 //TODO: parsing and format
+    static validDate(input: string): string | null {
         const match = input.match(/^\s*(\S(.*?))\s*$/);
 
         let value = match && match[1],
@@ -485,11 +509,11 @@ export class UtilsModule {
     /**
      * "Postovni smerovaci cislo (PSC)".
      */
-    static validPsc(input: string): string | null {
 //TODO: simple validation + async. request
+    static validPsc(input: string): string | null {
         const match = input.match(/^\s*(\d{3})\s{0,2}(\d{2})\s*$/);
 
-        let value = match ? `${match[1]} ${match[2]}` : '',
+        let value = match ? `${match[1]}${match[2]}` : '',
             valid = false;
 
         if (value) {
@@ -502,8 +526,8 @@ export class UtilsModule {
     /**
      * "Rodne cislo (rc.)".
      */
-    static validRc(input: string): string | null {
 //TODO: simple + invalid but possible
+    static validRc(input: string): string | null {
         const match = input.match(/^\s*((\d{2})(\d{2})(\d{2}))\/?((\d{3})(\d)?)\s*$/);
 
         let value = match ? `${match[1]}/${match[5]}` : '',

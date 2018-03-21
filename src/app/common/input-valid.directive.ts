@@ -1,7 +1,7 @@
 /**
  * Directive to provide custom validations and normalization.
  */
-//TODO: warning, number, integer, float, hexadecimal..., glob, regexp
+//TODO: reset cursor position after normalization
 import {Directive, Input, ElementRef, HostListener} from '@angular/core';
 import {NG_VALIDATORS, Validator, AbstractControl, ValidationErrors} from '@angular/forms';
 
@@ -23,9 +23,8 @@ class InputValidContext {
 })
 export class InputValidDirective implements Validator {
     static readonly VALIDATORS = {
-        'ignore': InputValidDirective.ignore, //no validation but normalize valid
-        'text': utils.validText,
-        //'filled': utils.validFilled,
+        'any': utils.validAny,
+        'some': utils.validSome,
         'number': utils.validNumber,
         'date': utils.validDate,
         'psc': utils.validPsc,
@@ -33,18 +32,19 @@ export class InputValidDirective implements Validator {
         'ico': utils.validIco
     };
 
-    static ignore(value: any, context: any): undefined {
-        return context.errors = null || undefined;
-    }
-
     /**
-     * List of validators to use.
+     * List of validators to use, any text value by default.
      */
-    private validators: any[] = ['text'];
+    private validators: any[] = ['any'];
 
     /**
-     * Input prop. with one or more validator name or callback, or "off" for none.
-     * Single string can containe multiple names separated by "|".
+     * Flag to set empty value to a pristine control.
+     */
+    private pristine: boolean;
+
+    /**
+     * One or more validators, or "off" for none.
+     * "number", ""number|any", "[callback]", "['number', callback]"
      */
     @Input()
     private set valid(value: any) {
@@ -52,6 +52,8 @@ export class InputValidDirective implements Validator {
                 (typeof value === 'string' ? value.split('|') : value);
 
         this.validators = items.indexOf('off') > -1 ? [] : items;
+
+        this.pristine = items.indexOf('some') > -1;
     }
 
     /**
@@ -64,35 +66,48 @@ export class InputValidDirective implements Validator {
     }
 
     /**
-     * Validates and normalizes a string value.
-     * Ignores empty or undefined value.
+     * Prepares and calls a value validation.
      */
     validate(control: AbstractControl): ValidationErrors {
-        const input = control.value,
-            context = new InputValidContext();
+        let value = control.value;
 
         this.validValue = undefined;
         this.control = control;
 
-        if (input == undefined || input === '') {
-            return null;
+        if (control.pristine) {
+            if (this.pristine) {
+                value = '';
+            }
+            else {
+                return null;
+            }
         }
 
+        return this.process(value);
+    }
+
+    /**
+     * Processes an input value using list of validators.
+     */
+    private process(input: string): any {
+        let errors = {};
+
         for (let item of this.validators) {
-            const validator = typeof item === 'function' ? item : InputValidDirective.VALIDATORS[item],
-                value = validator(String(input), context);
+            const callback = typeof item === 'function' ? item : null,
+                validator = callback || InputValidDirective.VALIDATORS[item],
+                value = validator(input, errors);
 
             if (value !== null) {
                 if (value !== undefined) {
                     this.validValue = value;
                 }
 
-                context.errors = null;
+                errors = null;
 
                 break;
             }
-            else if (!context.errors) {
-                context.errors = {
+            else if (!Object.keys(errors).length) {
+                errors = {
                     [String(item)]: {
                         actualValue: input
                     }
@@ -100,7 +115,7 @@ export class InputValidDirective implements Validator {
             }
         }
 
-        return context.errors;
+        return errors;
     }
 
     /**

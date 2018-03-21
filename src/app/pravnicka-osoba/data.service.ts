@@ -3,16 +3,22 @@
  */
 //TODO: load/parse error handling
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Parser} from 'xml2js';
+import {Observable, BehaviorSubject} from 'rxjs/Rx';
+import {Builder, Parser} from 'xml2js';
 
 import {DataContentModel} from './data-content.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
-import {XmlModel} from './xml.model';
+//import {XmlModel} from './xml.model';
 
 @Injectable()
 export class DataService {
+    builder = new Builder();
+
+    parser = new Parser({
+        explicitArray: false
+    });
+
     /**
      * Features content.
      */
@@ -48,10 +54,6 @@ export class DataService {
         }
     };
 
-    private parser = new Parser({
-        explicitArray: false
-    });
-
     constructor(private http: HttpService) {
         this.content = new DataContentModel();
         this.loadCiselnik('./assets/pravni-forma.xml', this.pravniForma$);
@@ -61,6 +63,10 @@ export class DataService {
         this.loadCiselnik('./assets/zivnost.xml', null, null, this.finishZivnost);
         this.loadCiselnik('./assets/obor-cinnosti.xml', this.oborCinnosti$, this.transformOborCinnosti);
     }
+
+    /**
+     * Requests...
+     */
 
     /**
      * Creates a new content.
@@ -170,5 +176,70 @@ export class DataService {
         this.skupinaZivnosti$.next(groups);
 
         this.zivnost$.next(values);
+    }
+
+    /**
+     * "Overeni adresy" request.
+     */
+    requestOvereniAdresy(value: any): Observable<any> {
+        const content = this.xmlOvereniAdresy(value),
+            file = utils.xmlFile(content),
+            body = utils.formData({
+                VSS_SERV: 'ZUMJRFADR',
+                filename: file
+            });
+
+        return new Observable((observer) => {
+            this.http.postXml('api:', body).subscribe((response) => {
+                this.parser.parseString(response.body, (error, result) => {
+                    if (error) {
+                        observer.error(error);
+                    }
+                    else {
+                        observer.next(this.mapOvereniAdresy(result));
+                        observer.complete();
+                    }
+                });
+            });
+        });
+    }
+
+    private xmlOvereniAdresy(value: any): string {
+        return this.builder.buildObject({
+            KlientPozadavek: {
+                $: {
+                    version: '1.0',
+                    xmlns: 'urn:cz:isvs:rzp:schemas:Podani:v1'
+                },
+                OvereniAdresy: {
+                    Stat: {
+                        $: {
+                            kod: value.stat || this.refs.stat.CZ.Kod
+                        }
+                    },
+                    Obec: value.obec,
+                    CastObce: value.castObce,
+                    Ulice: value.ulice,
+                    CisloDomovni: value.cisloDomovni,
+                    CisloOrientacni: value.cisloOrientacni,
+                    PSC: value.psc
+                }
+            }
+        });
+    }
+
+    private mapOvereniAdresy(result: any): any {
+        let data = result.KlientOdpoved.OvereniAdresy.Adresa,
+            items = Array.isArray(data) ? data : data && [data] || [];
+
+        return items.map((item) => ({
+            stat: item.Stat.$.kod,
+            obec: item.Obec._,
+            castObce: item.CastObce._,
+            ulice: item.Ulice,
+            cisloDomovni: item.CisloDomovni,
+            cisloOrientacni: item.CisloOrientacni,
+            psc: item.PSC
+        }));
     }
 }

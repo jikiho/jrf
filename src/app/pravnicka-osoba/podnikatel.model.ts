@@ -2,8 +2,8 @@
  * "Pravnicka osoba - Podnikatel" feature model.
  */
 export class PodnikatelModel {
-    completePodnikatel: boolean = false;
-    completeAdresa: boolean = false;
+    //completePodnikatel: boolean = false;
+    //completeAdresa: boolean = false;
     value = {
         podnikatel: {
             nazev: null,

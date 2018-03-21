@@ -27,6 +27,7 @@ export class DialogDirective implements OnInit {
             }
         });
 
+//TODO: close before show, or check and keep open if modal
         if (!this.el.nativeElement.showModal) {
             Object.defineProperty(this.el.nativeElement, 'showModal', {
                 value: function() {

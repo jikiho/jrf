@@ -21,6 +21,7 @@ import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
 import {OutputFileComponent} from './output-file.component';
 import {PluckPipe} from './pluck.pipe';
+import {PostalPipe} from './postal.pipe';
 import {ProvideControlDirective} from './provide-control.directive';
 import {RouterLinkActiveDirective} from './router-link-active.directive';
 import {SafeUrlPipe} from './safe-url.pipe';
@@ -50,6 +51,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         NumericPipe,
         OutputFileComponent,
         PluckPipe,
+        PostalPipe,
         ProvideControlDirective,
         RouterLinkActiveDirective,
         SafeUrlPipe,
@@ -76,6 +78,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         NumericPipe,
         OutputFileComponent,
         PluckPipe,
+        PostalPipe,
         ProvideControlDirective,
         RouterLinkActiveDirective,
         SafeUrlPipe,

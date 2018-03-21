@@ -32,11 +32,12 @@
                     <h4>01 Podnikatel</h4>
                 </div>
             </div>
+<ng-container ngModelGroup="podnikatel">
             <div class="row">
                 <div class="col-12">
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
-                        <input type="text" #input_nazev name="nazev" [(ngModel)]="value.podnikatel.nazev">
+                        <input type="text" #inputNazev name="nazev" valid="some" [(ngModel)]="value.podnikatel.nazev">
                     </label>
                 </div>
             </div>
@@ -46,7 +47,7 @@
                         <dfn>b) právní forma</dfn>
                         <select name="pravniForma" [(ngModel)]="value.podnikatel.pravniForma">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of (data.pravniForma$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of (data.pravniForma$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -59,9 +60,11 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" [disabled]="!entry.completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
+                    <button type="button" [disabled]="!completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
                 </div>
             </div>
+</ng-container>
+<ng-container ngModelGroup="adresaSidla">
             <div class="row">
                 <div class="col-12">
                     <h4>02 Adresa sídla</h4>
@@ -71,19 +74,19 @@
                 <div class="col-6">
                     <label>
                         <dfn>a) název ulice</dfn>
-                        <input type="text" name="ulice" #input_ulice [(ngModel)]="value.adresaSidla.ulice">
+                        <input type="text" name="ulice" #inputUlice [(ngModel)]="value.adresaSidla.ulice">
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>b) <abbr title="číslo domovní (popisné / evidenční)">č.p. / č.ev.</abbr></dfn>
-                        <input type="text" name="cisloDomovni" [(ngModel)]="value.adresaSidla.cisloDomovni">
+                        <input type="text" name="cisloDomovni" valid="number" [(ngModel)]="value.adresaSidla.cisloDomovni">
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>c) <abbr title="číslo orientační">č. or.</abbr></dfn>
-                        <input type="text" name="cisloOrientacni" [(ngModel)]="value.adresaSidla.cisloOrientacni">
+                        <input type="text" name="cisloOrientacni" pattern="[1-9]\d*[A-Za-z]" [(ngModel)]="value.adresaSidla.cisloOrientacni">
                     </label>
                 </div>
                 <div class="col-2">
@@ -113,7 +116,7 @@
                         <dfn>g) okres</dfn>
                         <select name="okres" [(ngModel)]="value.adresaSidla.okres">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of (data.okres$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of (data.okres$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
@@ -122,16 +125,35 @@
                         <dfn>h) stát</dfn>
                         <select name="stat" [(ngModel)]="value.adresaSidla.stat">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of (data.stat$ | async)" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of (data.stat$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" [disabled]="!entry.completeAdresa"><i class="fa fa-fw fa-search"></i>Doplnit adresu</button>
+                    <button type="button" (click)="requestVyberAdresySidla()" [disabled]="!completeAdresaSidla"><i class="fa fa-fw fa-search"></i>Doplnit adresu</button>
+                    <button type="button" (click)="clearAdresaSidla()" title="Smazání údajů adresy sídla"><i class="fa fa-fw fa-remove"></i>Smazat adresu</button>
                 </div>
             </div>
+</ng-container>
+<dialog #panelVyberAdresySidla>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Výběr adresy sídla</h3>
+                </div>
+                <div class="col-12">
+                    <select name="vybranaAdresaSidla" [(ngModel)]="vybranaAdresaSidla" size="10">
+                        <option *ngFor="let item of vyberAdresySidla" [ngValue]="item">{{item | postal}}</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="button" (click)="applyVyberAdresySidla()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="closeVyberAdresySidla()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                    <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla?.length}}</small>
+                </div>
+            </div>
+</dialog>
         </div>
     </form>
 </section>

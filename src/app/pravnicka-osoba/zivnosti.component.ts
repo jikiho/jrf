@@ -78,19 +78,20 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     }
 
     applyVyberZivnosti() {
-        const item = this.vybranaZivnost,
-            message = 'Není možné přidat znvou stejnou živnost.';
+        const message = 'Není možné přidat znvou stejnou živnost.',
+            item = this.vybranaZivnost,
+            index = item ? this.content.entries.findIndex((entry) => entry.zivnost &&
+                entry.zivnost.Kod === item.Kod) : -1;
 
-        if (item && this.content.entries.findIndex((entry) => entry.zivnost &&
-                entry.zivnost.Kod === item.Kod) > -1) {
+        if (index > -1 && index !== this.content.index) {
             this.app.alert(message);
         }
         else {
-            this.applier(item);
+            this.applierVyberZivnosti(item);
         }
     }
 
-    private applier(item) {
+    private applierVyberZivnosti(item) {
         const kodZivnosti = item && item.Kod || utils.get(this.vybranaSkupinaZivnosti, 'Kod') ||
                     utils.get(this.vybranyDruhZivnosti, 'Kod') || '';
 

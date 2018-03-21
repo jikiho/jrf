@@ -110,7 +110,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         const value = {...this.form.value, ...changes};
 
         this.content.patch({
-            overview: changes && utils.filled(value.puvodniUdaj, value.novyUdaj) ?
+            overview: changes && utils.some(value.puvodniUdaj, value.novyUdaj) ?
                     [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
         });
 
@@ -119,7 +119,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
 
     private updateZivnosti() {
         this.content.entries.forEach((entry) => {
-            entry.zivnost = this.content.entry.zivnost.filter((item) =>
+            entry.zivnost = entry.zivnost.filter((item) =>
                     this.data.content.zivnosti.entries.find((entry) =>
                             entry.zivnost && entry.zivnost.Kod === item.Kod));
         });

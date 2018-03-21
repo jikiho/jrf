@@ -5,11 +5,11 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule as NgHttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {AppService} from '../app.service';
-import {CacheInterceptor} from './cache.interceptor';
+//import {CacheInterceptor} from './cache.interceptor';
 import {ConfigService} from '../config.service';
 import {ErrorInterceptor} from './error.interceptor';
 import {HttpService} from './http.service';
-import {LanguageInterceptor} from './language.interceptor';
+//import {LanguageInterceptor} from './language.interceptor';
 import {ProcessInterceptor} from './process.interceptor';
 import {ProcessService} from '../process.service';
 import {RequestInterceptor} from './request.interceptor';
@@ -34,6 +34,7 @@ import {TimeoutInterceptor} from './timeout.interceptor';
             multi: true,
             deps: [ConfigService]
         },
+        /*
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LanguageInterceptor,
@@ -46,6 +47,7 @@ import {TimeoutInterceptor} from './timeout.interceptor';
             multi: true,
             deps: [ConfigService]
         },
+        */
         {
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
