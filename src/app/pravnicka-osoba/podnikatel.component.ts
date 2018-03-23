@@ -74,7 +74,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                     this.vyberAdresySidla.items = items;
                     this.openVyberAdresySidla();
                 },
-                (error, ...args) => {
+                ([error, ...args]) => {
                     this.app.failure(...args, error);
                 }
             );

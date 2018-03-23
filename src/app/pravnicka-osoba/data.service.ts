@@ -86,7 +86,7 @@ export class DataService {
             (response) => {
                 this.parser.parseString(response.body, (error, result) => {
                     if (error) {
-                        this.app.failure('Resource XML parsing failed: ' + url, error);
+                        this.app.failure(`Resource XML parsing failed: "${url}"`, error);
                     }
                     else {
                         let items = result.Ciselnik.Polozka;
@@ -106,7 +106,7 @@ export class DataService {
                 });
             },
             (error) => {
-                this.app.failure('Resource loading failed: ' + url, error);
+                this.app.failure(`Resource loading failed: "${url}"`, error);
             }
         );
     }
@@ -215,7 +215,7 @@ export class DataService {
                     });
                 },
                 (error) => {
-                    observer.error(error, 'Resource loading failure: ' + url);
+                    observer.error([error, `Resource loading failure: "${url}"`]);
                 }
             );
         });
