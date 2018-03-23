@@ -3,7 +3,7 @@
  */
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Observable, Subscription, BehaviorSubject} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -21,16 +21,18 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<ZivnostModel> = this.data.content.zivnosti;
 
-    vybranyDruhZivnosti = null;
-    vybranaSkupinaZivnosti = null;
-    vybranaZivnost = null;
-    vybranyOborCinnosti = null;
-    vybraneOboryCinnosti = false;
+    vyberZivnosti = {
+        druhZivnosti: null,
+        skupinaZivnosti: null,
+        zivnost: null,
+        oborCinnosti: null,
+        oboryCinnosti: false
+    };
 
     @ViewChild('form')
     form: NgForm;
 
-    private changes: Subscription[] = [];
+    private changers: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -38,20 +40,18 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setTimeout(() => {
-            this.changes.push(Observable.fromEvent(this.inputDruhZivnosti.nativeElement, 'change')
-                .merge(Observable.fromEvent(this.form['el'].nativeElement, 'reset'))
-                .subscribe(() => this.updateDruhZivnosti()));
-
-            this.changes.push(Observable.fromEvent(this.inputSkupinaZivnosti.nativeElement, 'change')
-                .subscribe(() => this.updateSkupinaZivnosti()));
-
-            this.changes.push(Observable.fromEvent(this.inputZivnost.nativeElement, 'change')
-                .subscribe(() => this.updateZivnost()));
-        }, 250);
+            this.changers.push(utils.changer(this.form.controls.vyberZivnosti, {
+                'druhZivnosti': ({value}) => this.updateDruhZivnosti(value),
+                'skupinaZivnosti': ({value}) => this.updateSkupinaZivnosti(value),
+                'zivnost': ({value}) => this.updateZivnost(value)
+            }));
+        });
     }
 
     ngOnDestroy() {
-        this.changes.forEach((s) => s.unsubscribe());
+        while (this.changers.length) {
+            this.changers.shift().unsubscribe();
+        }
     }
 
     /**
@@ -60,26 +60,25 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     openVyberZivnosti() {
         const entry = this.content.entry;
 
-        this.vybranyDruhZivnosti = entry.druhZivnosti;
-        this.vybranaSkupinaZivnosti = entry.skupinaZivnosti;
-        this.vybranaZivnost = entry.zivnost;
-        this.vybranyOborCinnosti = entry.oborCinnosti;
-        this.updateDruhZivnosti(true);
+        this.vyberZivnosti.druhZivnosti = entry.druhZivnosti;
+        this.vyberZivnosti.skupinaZivnosti = entry.skupinaZivnosti;
+        this.vyberZivnosti.zivnost = entry.zivnost;
+        this.vyberZivnosti.oborCinnosti = entry.oborCinnosti;
 
         this.panelVyberZivnosti.nativeElement.showModal();
+
+        // apply complex content changes
+        this.cdr.markForCheck();
     }
 
     closeVyberZivnosti() {
-        this.vybranyDruhZivnosti = this.vybranaSkupinaZivnosti = this.vybranaZivnost =
-                this.vybranyOborCinnosti = null;
-        this.vybraneOboryCinnosti = false;
-
+        // just close like escape
         this.panelVyberZivnosti.nativeElement.close();
     }
 
     applyVyberZivnosti() {
         const message = 'Není možné přidat znvou stejnou živnost.',
-            item = this.vybranaZivnost,
+            item = this.vyberZivnosti.zivnost,
             index = item ? this.content.entries.findIndex((entry) => entry.zivnost &&
                 entry.zivnost.Kod === item.Kod) : -1;
 
@@ -92,25 +91,25 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     }
 
     private applierVyberZivnosti(item) {
-        const kodZivnosti = item && item.Kod || utils.get(this.vybranaSkupinaZivnosti, 'Kod') ||
-                    utils.get(this.vybranyDruhZivnosti, 'Kod') || '';
+        const entry = this.content.entry,
+            kodZivnosti = item && item.Kod || utils.get(this.vyberZivnosti.skupinaZivnosti, 'Kod') ||
+                    utils.get(this.vyberZivnosti.druhZivnosti, 'Kod') || '';
 
         let predmetPodnikani = '';
 
         if (item) {
-//utils.pluck(this.vybranyOborCinnosti, 'Cislo')
             const hodnotaZivnosti = item.Hodnota || item.Kod || '',
-                oboryCinnosti = utils.numeric(this.vybranyOborCinnosti);
+                count = utils.numeric(this.vyberZivnosti.oborCinnosti);
 
-            predmetPodnikani = !this.vybraneOboryCinnosti ? hodnotaZivnosti :
-                    `${hodnotaZivnosti} (${oboryCinnosti})`;
+            predmetPodnikani = !this.vyberZivnosti.oboryCinnosti ? hodnotaZivnosti :
+                    `${hodnotaZivnosti} (${count})`;
         }
 
         this.content.patch({
-            druhZivnosti: this.vybranyDruhZivnosti,
-            skupinaZivnosti: this.vybranaSkupinaZivnosti,
-            zivnost: item,
-            oborCinnosti: this.vybranyOborCinnosti,
+            druhZivnosti: this.vyberZivnosti.druhZivnosti,
+            skupinaZivnosti: this.vyberZivnosti.skupinaZivnosti,
+            zivnost: this.vyberZivnosti.zivnost,
+            oborCinnosti: this.vyberZivnosti.oborCinnosti,
             overview: {
                 kodZivnosti,
                 predmetPodnikani
@@ -123,34 +122,23 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    private updateDruhZivnosti(open: boolean = false) {
-        const item = this.vybranyDruhZivnosti;
-
-        this.vybraneOboryCinnosti = item ? item.Kod === 'O' : false;
-
-        if (!open) {
-            this.vybranaSkupinaZivnosti = item && this.data.defaults[item.Kod] || null;
-        }
-
-        setTimeout(() => this.updateSkupinaZivnosti(open));
+    private updateDruhZivnosti(value: any) {
+console.log('druhZivnosti', value);
+        this.vyberZivnosti.skupinaZivnosti = value && this.data.defaults[value.Kod] || null;
+        this.vyberZivnosti.zivnost = null;
+        this.vyberZivnosti.oborCinnosti = null;
+        this.vyberZivnosti.oboryCinnosti = value ? value.Kod === 'O' : false;
     }
 
-    private updateSkupinaZivnosti(open: boolean = false) {
-        const item = this.vybranaSkupinaZivnosti;
-
-        if (!open) {
-            this.vybranaZivnost = item && this.data.defaults[item.Kod] || null;
-        }
-
-        setTimeout(() => this.updateZivnost(open));
+    private updateSkupinaZivnosti(value?: any) {
+console.log('skupinaZivnosti', value);
+        this.vyberZivnosti.zivnost = value && this.data.defaults[value.Kod] || null;
+        this.vyberZivnosti.oborCinnosti = null;
     }
 
-    private updateZivnost(open: boolean = false) {
-        if (!open) {
-            this.vybranyOborCinnosti = null;
-        }
-
-        setTimeout(() => this.cdr.markForCheck());
+    private updateZivnost(value: any) {
+console.log('zivnost', value);
+        this.vyberZivnosti.oborCinnosti = null;
     }
 
     /**

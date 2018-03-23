@@ -5,8 +5,9 @@
  *      import {UtilsModule as utils} from './common/utils.module';
  */
 import {NgModule} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 import {ControlContainer} from '@angular/forms';
-import {Observable} from 'rxjs/Rx';
+import {Observable, Subscription} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
 import {saveAs} from 'file-saver';
 
@@ -60,10 +61,91 @@ export class UtilsModule {
     }
 
     /**
-     * Checks some non-blank argument.
+     * Checks some defined non-blank argument.
      */
     static some(...args): boolean {
-        return args.reduce((acc, part) => acc || (part ? /\S/.test(part) : false), false);
+        return args.reduce((acc, part) => acc ||
+                (part != undefined ? /\S/.test(part) : false), false);
+    }
+
+    /**
+     * Deep object diff, returns changed "after" object (a) properties.
+     */
+    static diff(a: any, b: any): null | any {
+        const changes = Object.is(a, b) ? null : Object.keys(a).reduce((acc, part) => {
+                if (!b[part] || typeof a[part] !== 'object') {
+                    return Object.is(a[part], b[part]) ? acc : Object.assign(acc, {[part]: a[part]});
+                }
+                else {
+                    const changes = UtilsModule.diff(a[part], b[part]);
+
+                    return !changes || !Object.keys(changes).length ? acc :
+                            Object.assign(acc, {[part]: changes});
+                }
+            }, {});
+
+        return changes;
+    }
+
+    /**
+     * Patches an object content with value properties.
+     */
+    static patch(obj: any, value?: any): any {
+        return value ? Object.assign(obj, {...obj as any, ...value}) : obj;
+    }
+
+    /**
+     * Compares object properties after (a) and before (b) changes
+     * and calls a callback with each change found.
+     *
+     * @returns an object after changes.
+     *
+     * @example
+     *      let current = this.form.value;
+     *
+     *      this.differ = this.form.valueChanges.subscribe((value) => {
+     *          current = utils.differ(value, current, {
+     *              personal: {
+     *                  name: (value) => this.updatePersonalName(value);
+     *              }
+     *          });
+     */
+    static differ(a: any, b: any, changes: any, result?: any): any {
+        const names = Object.getOwnPropertyNames(changes);
+
+        for (let name of names) {
+            if (!name) { //whole object
+                result ? changes[name](result) : changes[name](a, b);
+            }
+            else if (!a || !b || !a.hasOwnProperty(name) || !b.hasOwnProperty(name)) {
+                ;
+            }
+            else if (typeof changes[name] === 'object') {
+                UtilsModule.differ(a[name], b[name], changes[name], result);
+            }
+            else if (Object.is(a[name], b[name])) {
+                ;
+            }
+            else if (result) {
+                changes[name](Object.assign(result, {value: a[name], oldValue: b[name]}));
+            }
+            else {
+                changes[name](a[name], b[name]);
+            }
+        }
+
+        return a;
+    }
+
+    /**
+     * Checks a form group for value changes, compares properties
+     * and calls a callback with each change found.
+     */
+    static changer(control: AbstractControl, changes: any): Subscription {
+        let b = control.value;
+
+        return control.valueChanges.subscribe((a) =>
+                b = UtilsModule.differ(a, b, changes, {control, values: a, oldValues: b}));
     }
 
     /**
@@ -84,6 +166,19 @@ export class UtilsModule {
     }
 
     /**
+     * Checks an object property existance.
+     */
+    static has(obj: any, name: string): boolean {
+        [obj, name] = UtilsModule.ref(obj, name);
+
+        if (obj && obj.hasOwnProperty(name)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Gets an object property value by name.
      */
     static get(obj: any, name: string): any {
@@ -97,6 +192,7 @@ export class UtilsModule {
     /**
      * Sets an object property value by name.
      */
+//TODO: create structure
     static set(obj: any, name: string, value?: any) {
         [obj, name] = UtilsModule.ref(obj, name);
 
@@ -490,7 +586,7 @@ export class UtilsModule {
      */
 //TODO: parsing and format
     static validDate(input: string): string | null {
-        const match = input.match(/^\s*(\S(.*?))\s*$/);
+        const match = input.match(/^\s*(([0-3])?(\d))\. ?(([0-1])?(\d))\. ?((\d{2})?(\d{2}))?\s*$/);
 
         let value = match && match[1],
             valid = false;
@@ -500,7 +596,7 @@ export class UtilsModule {
 
             valid = !Number.isNaN(n);
 
-            value = String(new Date(n));
+            value = `${match[2] || '0'}${match[3]}.${match[5] || '0'}${match[6]}.${match[8] || '20'}${match[9]}`;
         }
 
         return valid ? value : null;
@@ -511,7 +607,7 @@ export class UtilsModule {
      */
 //TODO: simple validation + async. request
     static validPsc(input: string): string | null {
-        const match = input.match(/^\s*(\d{3})\s{0,2}(\d{2})\s*$/);
+        const match = input.match(/^\s*(\d{3}) ?(\d{2})\s*$/);
 
         let value = match ? `${match[1]}${match[2]}` : '',
             valid = false;

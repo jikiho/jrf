@@ -3,9 +3,11 @@
  */
 export class ZmenovyListModel {
     zivnost = [];
+
     value = {
         puvodniUdaj: null,
         novyUdaj: null
     };
+
     overview = '';
 }

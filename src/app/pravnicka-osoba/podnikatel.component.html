@@ -6,7 +6,7 @@
     -->
 </header>
 
-<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody" list
     removeTitle="Smazání údajů podnikatele"
     removeLabel="Smazat údaje"
 ></content-toolbar-component>
@@ -138,13 +138,14 @@
             </div>
 </ng-container>
 <dialog #panelVyberAdresySidla>
+    <ng-container ngModelGroup="vyberAdresySidla">
             <div class="row">
                 <div class="col-12">
                     <h3>Výběr adresy sídla</h3>
                 </div>
                 <div class="col-12">
-                    <select name="vybranaAdresaSidla" [(ngModel)]="vybranaAdresaSidla" size="10">
-                        <option *ngFor="let item of vyberAdresySidla" [ngValue]="item">{{item | postal}}</option>
+                    <select name="item" [(ngModel)]="vyberAdresySidla.item" size="10">
+                        <option *ngFor="let item of vyberAdresySidla.items" [ngValue]="item">{{item | postal}}</option>
                     </select>
                 </div>
                 <div class="col-12">
@@ -153,12 +154,8 @@
                     <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla?.length}}</small>
                 </div>
             </div>
+    </ng-container>
 </dialog>
         </div>
     </form>
 </section>
-
-<pre>
-{{{dirty: form?.dirty, valid: form?.valid} | json}}
-{{content.entry | json}}
-</pre>

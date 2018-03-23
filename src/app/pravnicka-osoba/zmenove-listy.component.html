@@ -6,7 +6,7 @@
     -->
 </header>
 
-<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody" list
     selectTitle="Výběr změnového listu"
     previousTitle="Předchozí změnový list"
     nextTitle="Následující změnový list"
@@ -118,8 +118,3 @@
         </div>
     </form>
 </section>
-
-<pre>
-{{{dirty: form?.dirty, valid: form?.valid} | json}}
-{{content.entry | json}}
-</pre>

@@ -9,7 +9,10 @@ import {ZmenovyListModel} from './zmenovy-list.model';
 
 export class DataContentModel {
     podnikatel = new ContentModel(PodnikatelModel);
+
     zivnosti = new ContentModel(ZivnostModel, 0);
+
     ostatni = new ContentModel(OstatniModel);
+
     zmenoveListy = new ContentModel(ZmenovyListModel, 3);
 }

@@ -6,7 +6,7 @@
     -->
 </header>
 
-<content-toolbar-component [content]="content" [header]="thead" [body]="tbody"
+<content-toolbar-component [content]="content" [header]="thead" [body]="tbody" list
     removeTitle="Smazání ostatních údajů"
     removeLabel="Smazat údaje"
 ></content-toolbar-component>
@@ -14,7 +14,7 @@
     <th width="100%">přehled údajů</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.overview}}</td>
+    <td>Počet příloh pro úrady: {{item.overview.pocetPriloh}}</td>
 </ng-template>
 
 <section *ngIf="content.entry as entry">
@@ -35,7 +35,8 @@
                     <h3>Část C - Vyberte úřady, vůči kterým je podání učiněno</h3>
                 </div>
             </div>
-            <div class="row row-middle" ngModelGroup="uradyPrilohy">
+<ng-container ngModelGroup="uradyPrilohy">
+            <div class="row row-middle">
                 <div class="col-3">
                     <label>
                         a)
@@ -76,6 +77,8 @@
                     </label>
                 </div>
             </div>
+</ng-container>
+<ng-container ngModelGroup="prilohy">
             <div class="row">
                 <div class="col-12">
                     <table class="readonly">
@@ -88,10 +91,11 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="entry.prilohy as items" ngModelGroup="prilohy">
-                            <tr *ngFor="let i = index; let item of items; trackBy: trackPrilohy" [ngModelGroup]="item.hash">
-<ng-container ngModelGroup="value">
-    <ng-container ngModelGroup="uradyPrilohy">
+                        <tbody *ngIf="entry.prilohy as items">
+                            <tr *ngFor="let i = index; let item of items; trackBy: trackPrilohy">
+    <ng-container [ngModelGroup]="item.hash">
+        <ng-container ngModelGroup="value">
+            <ng-container ngModelGroup="uradyPrilohy">
                                 <td>
                                     <output-file routerLink="../open..." [file]="item.file" icon></output-file>
                                 </td>
@@ -107,13 +111,15 @@
                                 <td class="compact">
                                     <button type="button" (click)="removePriloha(i)" title="Smazání elektronické přílohy" class="compact"><b class="fa fa-remove"></b></button>
                                 </td>
+            </ng-container>
+        </ng-container>
     </ng-container>
-</ng-container>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+</ng-container>
             <div class="row">
                 <div class="col-12">
                     <button type="button" (click)="input_file.click()" title="Výběr elektronických příloh"><i class="fa fa-bars"></i>Vybrat přilohy</button>
@@ -129,8 +135,3 @@
         </div>
     </form>
 </section>
-
-<pre>
-{{{dirty: form?.dirty, valid: form?.valid} | json}}
-{{content.entry | json}}
-</pre>

@@ -2,9 +2,10 @@
  * Feature content model.
  */
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject, Subscription} from 'rxjs/Rx';
+import {BehaviorSubject} from 'rxjs/Rx';
 
 import {AppService} from './app.service';
+import {UtilsModule as utils} from './utils.module';
 
 interface Constructor<T> {
     new(value?: any): T;
@@ -77,8 +78,11 @@ export class ContentModel<T> {
         }
     }
 
-    patch(value: any): T {
-        return Object.assign(this.entry, {...this.entry as any, ...value});
+    /**
+     * Patches a current content entry with value properties.
+     */
+    patch(value?: any): T {
+        return utils.patch(this.entry, value);
     }
 
     /**
@@ -89,7 +93,7 @@ export class ContentModel<T> {
 
         if (this.free) {
             if (this.createEntry(value)) {
-                //this.resetValue();
+                ;
             }
         }
         else {
@@ -106,26 +110,26 @@ export class ContentModel<T> {
 
         if (this.app.confirm(message).result) {
             if (this.entry !== this.removeEntry(index)) {
-                //this.resetValue();
+                ;
             }
         }
     }
 
     select(index?: number) {
         if (this.selectEntry(index)) {
-            //this.resetValue();
+            ;
         }
     }
 
     previous() {
         if (this.previousEntry()) {
-            //this.resetValue();
+            ;
         }
     }
 
     next() {
         if (this.nextEntry()) {
-            //this.resetValue();
+            ;
         }
     }
 

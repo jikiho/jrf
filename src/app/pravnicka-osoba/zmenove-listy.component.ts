@@ -2,8 +2,8 @@
  * "Pravnicka osoba - Zmenove listy" feature component.
  */
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {NgForm, FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -27,7 +27,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    private changes: Subscription[] = [];
+    private changers: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -37,19 +37,17 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         this.updateZivnosti();
 
         setTimeout(() => {
-            const control = this.form.control,
-                reset = Observable.fromEvent(this.form['el'].nativeElement, 'reset');
-
-            this.changes.push(control.get('puvodniUdaj').valueChanges.map((puvodniUdaj) => ({puvodniUdaj}))
-                .merge(control.get('novyUdaj').valueChanges.map((novyUdaj) => ({novyUdaj})))
-                .debounceTime(250)
-                .merge(reset)
-                .subscribe((changes) => this.update(changes)));
+            this.changers.push(utils.changer(this.form.control, {
+                'puvodniUdaj': ({values}) => this.updateUdaj(values),
+                'novyUdaj': ({values}) => this.updateUdaj(values)
+            }));
         });
     }
 
     ngOnDestroy() {
-        this.changes.forEach((s) => s.unsubscribe());
+        while (this.changers.length) {
+            this.changers.shift().unsubscribe();
+        }
     }
 
     /**
@@ -81,7 +79,9 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     }
 
     applierVyberZivnosti() {
-        this.content.entry.zivnost = this.vybraneZivnosti;
+        this.content.patch({
+            zivnost: this.vybraneZivnosti
+        });
 
         this.closeVyberZivnosti();
     }
@@ -106,22 +106,18 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    private update(changes?: any) {
-        const value = {...this.form.value, ...changes};
-
-        this.content.patch({
-            overview: changes && utils.some(value.puvodniUdaj, value.novyUdaj) ?
-                    [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
-        });
-
-        this.cdr.markForCheck();
-    }
-
     private updateZivnosti() {
         this.content.entries.forEach((entry) => {
             entry.zivnost = entry.zivnost.filter((item) =>
                     this.data.content.zivnosti.entries.find((entry) =>
                             entry.zivnost && entry.zivnost.Kod === item.Kod));
+        });
+    }
+
+    private updateUdaj(value: any) {
+        this.content.patch({
+            overview: utils.some(value.puvodniUdaj, value.novyUdaj) ?
+                    [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
         });
     }
 

@@ -16,7 +16,7 @@
     removeLabel="Smazat živnost"
 ></content-toolbar-component>
 <ng-template #thead>
-    <th width="25%">kód živnosti</th>
+    <th width="25%"><abbr title="Kód živnosti">kód</abbr></th>
     <th width="75%">předmět podnikání</th>
 </ng-template>
 <ng-template #tbody let-item>
@@ -60,6 +60,7 @@
                 </div>
             </div>
 <dialog #panelVyberZivnosti>
+    <ng-container ngModelGroup="vyberZivnosti">
             <div class="row">
                 <div class="col-12">
                     <h3>
@@ -69,35 +70,35 @@
                 <div class="col-12" *ngIf="data.druhZivnosti$ | async as items">
                     <label>
                         <dfn>Druh živnosti</dfn>
-                        <select name="vybranyDruhZivnosti" #inputDruhZivnosti [(ngModel)]="vybranyDruhZivnosti">
+                        <select name="druhZivnosti" [(ngModel)]="vyberZivnosti.druhZivnosti">
                             <option [value]="null"></option>
                             <option *ngFor="let item of items" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
-                <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="vybraneOboryCinnosti">
+                <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="vyberZivnosti.oboryCinnosti">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
-                        <select name="vybranaSkupinaZivnosti" #inputSkupinaZivnosti [(ngModel)]="vybranaSkupinaZivnosti" [disabled]="!vybranyDruhZivnosti?.Kod">
+                        <select name="skupinaZivnosti" [(ngModel)]="vyberZivnosti.skupinaZivnosti" [disabled]="!vyberZivnosti.druhZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Druh != vybranyDruhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Druh != vyberZivnosti.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
                 <div class="col-12" *ngIf="data.zivnost$ | async as items">
                     <label>
                         <dfn>Předmět podnikání</dfn>
-                        <select name="vybranaZivnost" #inputZivnost [(ngModel)]="vybranaZivnost" [disabled]="!vybranaSkupinaZivnosti?.Kod">
+                        <select name="zivnost" [(ngModel)]="vyberZivnosti.zivnost" [disabled]="!vyberZivnosti.skupinaZivnosti?.Kod">
                             <option [value]="null"></option>
-                            <option *ngFor="let item of items" [hidden]="item.Skupina != vybranaSkupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
+                            <option *ngFor="let item of items" [hidden]="item.Skupina != vyberZivnosti.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
                 </div>
-                <div class="col-12" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!vybraneOboryCinnosti">
+                <div class="col-12" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!vyberZivnosti.oboryCinnosti">
                     <label>
                         <dfn>Obory činnosti</dfn>
-                        <select name="vybranyOborCinnosti" [(ngModel)]="vybranyOborCinnosti" multiple size="5" [disabled]="!vybranaZivnost?.Kod">
-                            <option *ngFor="let item of items" [hidden]="item.Zivnost != vybranaZivnost?.Kod" [ngValue]="item">
+                        <select name="oborCinnosti" [(ngModel)]="vyberZivnosti.oborCinnosti" multiple size="5" [disabled]="!vyberZivnosti.zivnost?.Kod">
+                            <option *ngFor="let item of items" [hidden]="item.Zivnost != vyberZivnosti.zivnost?.Kod" [ngValue]="item">
                                 {{item.Cislo}}.
                                 {{item.Hodnota}}
                             </option>
@@ -109,12 +110,8 @@
                     <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
                 </div>
             </div>
+    </ng-container>
 </dialog>
         </div>
     </form>
 </section>
-
-<pre>
-{{{dirty: form?.dirty, valid: form?.valid} | json}}
-{{content.entry | json}}
-</pre>

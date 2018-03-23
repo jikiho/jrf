@@ -5,7 +5,9 @@ import {Model} from '../model';
 
 export class OstatniPrilohaModel extends Model<OstatniPrilohaModel> {
     hash: string;
+
     file: File;
+
     value = {
         uradyPrilohy: {}
     };
@@ -13,10 +15,16 @@ export class OstatniPrilohaModel extends Model<OstatniPrilohaModel> {
 
 export class OstatniModel {
     pocetPriloh = {fu: 0, zu: 0, up: 0};
+
     velikostPriloh = 0;
+
     prilohy: OstatniPrilohaModel[] = [];
+
     value = {
         uradyPrilohy: {}
     };
-    overview = '';
+
+    overview = {
+        pocetPriloh: 0
+    }
 }

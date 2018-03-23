@@ -3,7 +3,7 @@
  */
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -24,7 +24,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    private changes: Subscription[] = [];
+    private changers: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -32,15 +32,18 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setTimeout(() => {
-            this.changes.push(this.form.control.valueChanges
-                .subscribe((value) => this.update(value)));
+            this.updatePocetPriloh(this.form.value);
 
-            this.update(this.form.value);
+            this.changers.push(utils.changer(this.form.control, {
+                '': ({values}) => this.updatePocetPriloh(values)
+            }));
         });
     }
 
     ngOnDestroy() {
-        this.changes.forEach((s) => s.unsubscribe());
+        while (this.changers.length) {
+            this.changers.shift().unsubscribe();
+        }
     }
 
     /**
@@ -60,14 +63,14 @@ export class OstatniComponent implements OnInit, OnDestroy {
             }
             else {
                 const item = new OstatniPrilohaModel({hash, file}),
-                    sum = entry.velikostPriloh;
+                    size = entry.velikostPriloh;
 
                 items.push(item);
 
                 items.sort((a, b) => this.app.collator.compare(a.file.name, b.file.name));
 
                 this.content.patch({
-                    velikostPriloh: sum + file.size
+                    velikostPriloh: size + file.size
                 });
             }
         }
@@ -87,12 +90,12 @@ export class OstatniComponent implements OnInit, OnDestroy {
         if (item) {
             if (this.app.confirm(message).result) {
                 const file = item.file,
-                    sum = entry.velikostPriloh;
+                    size = entry.velikostPriloh;
 
                 items.splice(index, 1);
 
                 this.content.patch({
-                    velikostPriloh: sum - file.size
+                    velikostPriloh: size - file.size
                 });
             }
         }
@@ -114,23 +117,30 @@ export class OstatniComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    private update(value?: any) {
+    private updatePocetPriloh(value: any) {
         const entry = this.content.entry,
             names = Object.keys(entry.pocetPriloh),
             count = names.reduce((count, name) => Object.assign(count, {[name]: 0}), {}); //zero
 
+        let totalCount = 0;
+
         Object.values(entry.prilohy).map(({hash}) => value.prilohy && value.prilohy[hash]).forEach((item) => {
             names.forEach((name) => {
                 if (value.uradyPrilohy[name] && item && item.value.uradyPrilohy[name]) {
+                    totalCount += 1;
                     count[name] += 1;
                 }
             });
         });
 
         this.content.patch({
-            pocetPriloh: count
+            pocetPriloh: count,
+            overview: {
+                pocetPriloh: totalCount
+            }
         });
 
+        // apply complex content changes
         this.cdr.markForCheck();
     }
 }
