@@ -63,16 +63,21 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * "Overeni adresy sidla" request and management.
+     * "Vyber adresy sidla" request and management.
      */
     requestVyberAdresySidla() {
         const value = this.content.entry.value;
 
         this.data.requestOvereniAdresy(value.adresaSidla).first()
-            .subscribe((items) => {
-                this.vyberAdresySidla.items = items;
-                this.openVyberAdresySidla();
-            });
+            .subscribe(
+                (items) => {
+                    this.vyberAdresySidla.items = items;
+                    this.openVyberAdresySidla();
+                },
+                (error, ...args) => {
+                    this.app.failure(...args, error);
+                }
+            );
     }
 
     openVyberAdresySidla() {

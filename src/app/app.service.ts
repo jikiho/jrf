@@ -81,6 +81,26 @@ export class AppService {
     }
 
     /**
+     * Handles an application failure, e.g. a request error.
+     */
+    failure(...args) {
+        const messages = [];
+
+        console.log(args);
+
+        for (let arg of args) {
+            if (arg instanceof Error) {
+                messages.push(arg.message);
+            }
+            else {
+                messages.push(utils.stringify(arg));
+            }
+        }
+
+        this.alert(messages.join('\n-\n'));
+    }
+
+    /**
      * Simple application alert dialog.
      */
     alert(value: any, handler?: Function): TaskModel {

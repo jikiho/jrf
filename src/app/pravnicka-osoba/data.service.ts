@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Builder, Parser} from 'xml2js';
 
+import {AppService} from '../app.service';
 import {DataContentModel} from './data-content.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
@@ -54,7 +55,7 @@ export class DataService {
         }
     };
 
-    constructor(private http: HttpService) {
+    constructor(private app: AppService, private http: HttpService) {
         this.content = new DataContentModel();
         this.loadCiselnik('./assets/pravni-forma.xml', this.pravniForma$);
         this.loadCiselnik('./assets/uir-okres.xml', this.okres$);
@@ -81,23 +82,33 @@ export class DataService {
      * Loads and processes options from a resource.
      */
     private loadCiselnik(url: string, subject?: BehaviorSubject<any[]>, tr?: Function, fn?: Function) {
-        this.http.getXml(url).subscribe((response) => {
-            this.parser.parseString(response.body, (error, result) => {
-                let items = result.Ciselnik.Polozka;
+        this.http.getXml(url).subscribe(
+            (response) => {
+                this.parser.parseString(response.body, (error, result) => {
+                    if (error) {
+                        this.app.failure('Resource XML parsing failed: ' + url, error);
+                    }
+                    else {
+                        let items = result.Ciselnik.Polozka;
 
-                if (tr) {
-                    items = items.map((item) => tr(item));
-                }
+                        if (tr) {
+                            items = items.map((item) => tr(item));
+                        }
 
-                if (fn) {
-                    subject = fn.call(this, items, subject);
-                }
+                        if (fn) {
+                            subject = fn.call(this, items, subject);
+                        }
 
-                if (subject) {
-                    subject.next(items);
-                }
-            });
-        });
+                        if (subject) {
+                            subject.next(items);
+                        }
+                    }
+                });
+            },
+            (error) => {
+                this.app.failure('Resource loading failed: ' + url, error);
+            }
+        );
     }
 
     /**
@@ -182,7 +193,8 @@ export class DataService {
      * "Overeni adresy" request.
      */
     requestOvereniAdresy(value: any): Observable<any> {
-        const content = this.xmlOvereniAdresy(value),
+        const url = 'api:', //resource
+            content = this.xmlOvereniAdresy(value),
             file = utils.xmlFile(content),
             body = utils.formData({
                 VSS_SERV: 'ZUMJRFADR',
@@ -190,17 +202,22 @@ export class DataService {
             });
 
         return new Observable((observer) => {
-            this.http.postXml('api:', body).subscribe((response) => {
-                this.parser.parseString(response.body, (error, result) => {
-                    if (error) {
-                        observer.error(error);
-                    }
-                    else {
-                        observer.next(this.mapOvereniAdresy(result));
-                        observer.complete();
-                    }
-                });
-            });
+            this.http.postXml(url, body).subscribe(
+                (response) => {
+                    this.parser.parseString(response.body, (error, result) => {
+                        if (error) {
+                            observer.error(error);
+                        }
+                        else {
+                            observer.next(this.mapOvereniAdresy(result));
+                            observer.complete();
+                        }
+                    });
+                },
+                (error) => {
+                    observer.error(error, 'Resource loading failure: ' + url);
+                }
+            );
         });
     }
 

@@ -60,15 +60,17 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     openVyberZivnosti() {
         const entry = this.content.entry;
 
-        this.vyberZivnosti.druhZivnosti = entry.druhZivnosti;
-        this.vyberZivnosti.skupinaZivnosti = entry.skupinaZivnosti;
-        this.vyberZivnosti.zivnost = entry.zivnost;
-        this.vyberZivnosti.oborCinnosti = entry.oborCinnosti;
+        utils.patch(this.vyberZivnosti, {
+            druhZivnosti: entry.druhZivnosti,
+            skupinaZivnosti: entry.skupinaZivnosti,
+            zivnost: entry.zivnost,
+            oborCinnosti: entry.oborCinnosti
+        });
 
         this.panelVyberZivnosti.nativeElement.showModal();
 
         // apply complex content changes
-        this.cdr.markForCheck();
+        //this.cdr.markForCheck();
     }
 
     closeVyberZivnosti() {
@@ -124,21 +126,27 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
      */
     private updateDruhZivnosti(value: any) {
 console.log('druhZivnosti', value);
-        this.vyberZivnosti.skupinaZivnosti = value && this.data.defaults[value.Kod] || null;
-        this.vyberZivnosti.zivnost = null;
-        this.vyberZivnosti.oborCinnosti = null;
-        this.vyberZivnosti.oboryCinnosti = value ? value.Kod === 'O' : false;
+        utils.patch(this.vyberZivnosti, {
+            skupinaZivnosti: value && this.data.defaults[value.Kod] || null,
+            zivnost: null,
+            oborCinnosti: null,
+            oboryCinnosti: value ? value.Kod === 'O' : false
+        });
     }
 
     private updateSkupinaZivnosti(value?: any) {
 console.log('skupinaZivnosti', value);
-        this.vyberZivnosti.zivnost = value && this.data.defaults[value.Kod] || null;
-        this.vyberZivnosti.oborCinnosti = null;
+        utils.patch(this.vyberZivnosti, {
+            zivnost: value && this.data.defaults[value.Kod] || null,
+            oborCinnosti: null
+        });
     }
 
     private updateZivnost(value: any) {
 console.log('zivnost', value);
-        this.vyberZivnosti.oborCinnosti = null;
+        utils.patch(this.vyberZivnosti, {
+            oborCinnosti: null
+        });
     }
 
     /**

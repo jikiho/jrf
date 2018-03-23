@@ -340,19 +340,6 @@
     }
     */
 
-    datalist.select option:before {
-        content: "\f096";
-        width: 1rem;
-        margin-right: 0.25rem;
-        font-family: FontAwesome;
-        text-align: center;
-        display: inline-block;
-    }
-
-    datalist.select option.checked:before {
-        content: "\f046";
-    }
-
     button:focus, input:focus, select:focus, textarea:focus {
         box-shadow: 0 0 1.5px 0 #ccc;
         outline: 1px dotted #999;
