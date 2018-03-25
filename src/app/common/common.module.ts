@@ -10,6 +10,7 @@ import {BoolericPipe} from './booleric.pipe';
 import {BytesPipe} from './bytes.pipe';
 import {DatericPipe} from './dateric.pipe';
 import {DialogDirective} from './dialog.directive';
+import {FileComponent} from './file.component';
 import {FileIconPipe} from './file-icon.pipe';
 import {FilterPipe} from './filter.pipe';
 import {FormResetDirective} from './form-reset.directive';
@@ -19,7 +20,6 @@ import {InputFileDirective} from './input-file.directive';
 import {InputValidDirective} from './input-valid.directive';
 import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
-import {OutputFileComponent} from './output-file.component';
 import {PluckPipe} from './pluck.pipe';
 import {PostalPipe} from './postal.pipe';
 import {ProvideControlDirective} from './provide-control.directive';
@@ -40,6 +40,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
+        FileComponent,
         FileIconPipe,
         FilterPipe,
         FormResetDirective,
@@ -49,7 +50,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         InputValidDirective,
         JoinPipe,
         NumericPipe,
-        OutputFileComponent,
         PluckPipe,
         PostalPipe,
         ProvideControlDirective,
@@ -64,6 +64,7 @@ import {UnavailablePipe} from './unavailable.pipe';
         BytesPipe,
         DatericPipe,
         DialogDirective,
+        FileComponent,
         FileIconPipe,
         FilterPipe,
         FormResetDirective,
@@ -76,7 +77,6 @@ import {UnavailablePipe} from './unavailable.pipe';
         NgFormsModule,
         NgRouterModule,
         NumericPipe,
-        OutputFileComponent,
         PluckPipe,
         PostalPipe,
         ProvideControlDirective,

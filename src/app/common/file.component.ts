@@ -6,11 +6,11 @@ import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
-    selector: 'output-file[file]',
-    templateUrl: './output-file.component.html',
+    selector: 'file-component',
+    templateUrl: './file.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OutputFileComponent {
+export class FileComponent {
     @Input()
     routerLink: any[] | string;
 
