@@ -1,9 +1,10 @@
 /**
  * "Pravnicka osoba - Podnikatel" feature component.
  */
+//TODO: separate dialog form
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
-import {NgForm, FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {NgForm} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -32,7 +33,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    private changers: Subscription[] = [];
+    private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -40,25 +41,31 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setTimeout(() => {
-            this.changers.push(utils.changer(this.form.controls.podnikatel, {
-                'nazev': ({values}) => this.updatePodnikatel(values),
-                'ico': ({values}) => this.updatePodnikatel(values)
-            }));
+            const control = this.form.control;
 
-            this.changers.push(utils.changer(this.form.controls.adresaSidla, {
-                'obec': ({values, control}) => this.updateAdresaSidla(values, control),
-                'ulice': ({values, control}) => this.updateAdresaSidla(values, control),
-                'cisloOrientacni': ({values, control}) => this.updateAdresaSidla(values, control),
-                'cisloDomovni': ({values, control}) => this.updateAdresaSidla(values, control),
-                'okres': ({value, control}) => this.updateAdresaSidlaOkres(value, control),
-                'stat': ({value, control}) => this.updateAdresaSidlaStat(value, control)
-            }));
+            this.changes.push(control.get('podnikatel.nazev').valueChanges
+                .merge(control.get('podnikatel.ico').valueChanges)
+                .debounceTime(1) //reset...
+                .subscribe(() => this.updatePodnikatel()));
+
+            this.changes.push(control.get('adresaSidla.ulice').valueChanges
+                .merge(control.get('adresaSidla.cisloDomovni').valueChanges)
+                .merge(control.get('adresaSidla.cisloOrientacni').valueChanges)
+                .merge(control.get('adresaSidla.obec').valueChanges)
+                .debounceTime(1) //reset...
+                .subscribe(() => this.updateAdresaSidla()));
+
+            this.changes.push(control.get('adresaSidla.okres').valueChanges
+                .subscribe(() => this.updateAdresaSidlaOkres()));
+
+            this.changes.push(control.get('adresaSidla.stat').valueChanges
+                .subscribe(() => this.updateAdresaSidlaStat()));
         });
     }
 
     ngOnDestroy() {
-        while (this.changers.length) {
-            this.changers.shift().unsubscribe();
+        while (this.changes.length) {
+            this.changes.shift().unsubscribe();
         }
     }
 
@@ -116,7 +123,10 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     /**
      * Updates...
      */
-    private updatePodnikatel(value: any) {
+    private updatePodnikatel() {
+        const value = this.content.entry.value.podnikatel,
+            previous = this.completePodnikatel;
+
         this.completePodnikatel = utils.some(value.nazev, value.ico);
 
         this.content.patch({
@@ -125,31 +135,46 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 ico: value.ico
             }
         });
+
+        if (previous !== this.completePodnikatel) {
+            this.cdr.markForCheck();
+        }
     }
 
-    private updateAdresaSidla(value: any, control: FormGroup) {
+    private updateAdresaSidla() {
+        const value = this.content.entry.value.adresaSidla,
+            previous = this.completeAdresaSidla;
+
         this.completeAdresaSidla = utils.some(value.ulice) && utils.some(value.obec) &&
                 utils.some(value.cisloDomovni, value.cisloOrientacni);
+
+        if (previous !== this.completeAdresaSidla) {
+            this.cdr.markForCheck();
+        }
     }
 
-    private updateAdresaSidlaOkres(value: any, control: FormGroup) {
-        setTimeout(() => {
-            if (value) {
-                control.patchValue({
-                    stat: this.data.refs.stat.CZ.Kod
-                });
-            }
-        });
+    private updateAdresaSidlaOkres() {
+        const value = this.content.entry.value.adresaSidla.okres;
+
+        if (value) {
+            utils.suspend(this.content.entry.value.adresaSidla.okres, 0);
+
+            this.form.controls.adresaSidla.patchValue({
+                stat: this.data.refs.stat.CZ.Kod
+            });
+        }
     }
 
-    private updateAdresaSidlaStat(value: any, control: FormGroup) {
-        setTimeout(() => {
-            if (value !== this.data.refs.stat.CZ.Kod) {
-                control.patchValue({
+    private updateAdresaSidlaStat() {
+        const value = this.content.entry.value.adresaSidla.okres;
+
+        if (value !== this.data.refs.stat.CZ.Kod) {
+            if (!utils.suspended(this.content.entry.value.adresaSidla.okres)) {
+                this.form.controls.adresaSidla.patchValue({
                     okres: null
                 });
             }
-        });
+        }
     }
 
     /**

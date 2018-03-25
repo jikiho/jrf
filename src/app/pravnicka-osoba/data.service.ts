@@ -133,7 +133,7 @@ export class DataService {
     }
 
     /**
-     * Transforms "okres" options.
+     * Transforms "obor cinnosti" options.
      */
     private transformOborCinnosti(item: any): any {
         return {
@@ -164,11 +164,14 @@ export class DataService {
 
         items.forEach((item) => {
             const group = item.Poznamka !== '0',
-                items = group ? groups : values;
+                items = group ? groups : values,
+                Skupina = group ? {} : {
+                    Skupina: item.Kod.substr(0, 4)
+                };
 
             items.push({
                 Druh: item.Poznamka2,
-                Skupina: group ? undefined : item.Kod.substr(0, 4),
+                ...Skupina,
                 Kod: group ? item.Kod.substr(0, 4) : item.Kod,
                 Hodnota: item.Hodnota
             });

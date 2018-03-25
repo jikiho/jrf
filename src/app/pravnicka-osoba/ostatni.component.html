@@ -47,7 +47,7 @@
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" name="zu" [value]="entry.pocetPriloh.zu" readonly>
+                        <input type="text" size="3" [value]="entry.pocetPriloh.zu" readonly>
                     </label>
                 </div>
                 <div class="col-3">
@@ -60,7 +60,7 @@
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" name="fu" [value]="entry.pocetPriloh.fu" readonly>
+                        <input type="text" size="3" [value]="entry.pocetPriloh.fu" readonly>
                     </label>
                 </div>
                 <div class="col-3">
@@ -73,7 +73,7 @@
                 <div class="col-3">
                     <label>
                         <dfn>počet příloh</dfn>
-                        <input type="text" size="3" name="up" [value]="entry.pocetPriloh.up" readonly>
+                        <input type="text" size="3" [value]="entry.pocetPriloh.up" readonly>
                     </label>
                 </div>
             </div>
@@ -97,7 +97,7 @@
         <ng-container ngModelGroup="value">
             <ng-container ngModelGroup="uradyPrilohy">
                                 <td>
-                                    <output-file routerLink="../open..." [file]="item.file" icon></output-file>
+                                    <file-component routerLink="../open..." [file]="item.file" icon></file-component>
                                 </td>
                                 <td>
                                     <input type="checkbox" name="zu" [(ngModel)]="item.value.uradyPrilohy.zu" [disabled]="!value.uradyPrilohy.zu">

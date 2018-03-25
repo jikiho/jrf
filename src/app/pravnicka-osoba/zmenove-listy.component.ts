@@ -1,6 +1,7 @@
 /**
  * "Pravnicka osoba - Zmenove listy" feature component.
  */
+//TODO: separate dialog form
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs/Rx';
@@ -27,7 +28,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    private changers: Subscription[] = [];
+    private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -37,16 +38,18 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         this.updateZivnosti();
 
         setTimeout(() => {
-            this.changers.push(utils.changer(this.form.control, {
-                'puvodniUdaj': ({values}) => this.updateUdaj(values),
-                'novyUdaj': ({values}) => this.updateUdaj(values)
-            }));
+            const control = this.form.control;
+
+            this.changes.push(control.get('puvodniUdaj').valueChanges
+                .merge(control.get('novyUdaj').valueChanges)
+                .debounceTime(1) //reset
+                .subscribe(() => this.updateUdaj()));
         });
     }
 
     ngOnDestroy() {
-        while (this.changers.length) {
-            this.changers.shift().unsubscribe();
+        while (this.changes.length) {
+            this.changes.shift().unsubscribe();
         }
     }
 
@@ -114,11 +117,16 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         });
     }
 
-    private updateUdaj(value: any) {
+    private updateUdaj() {
+        const value = this.content.entry.value;
+
         this.content.patch({
             overview: utils.some(value.puvodniUdaj, value.novyUdaj) ?
                     [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
         });
+
+        // apply complex content changes
+        this.cdr.markForCheck();
     }
 
     /**

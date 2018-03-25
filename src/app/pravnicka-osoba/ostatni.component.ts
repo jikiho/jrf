@@ -1,9 +1,10 @@
 /**
  * "Pravnicka osoba - Ostatni" feature component.
  */
+//TODO: zero on reset, now empty value
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -24,7 +25,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
-    private changers: Subscription[] = [];
+    private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
             private app: AppService, public data: DataService) {
@@ -34,15 +35,15 @@ export class OstatniComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.updatePocetPriloh(this.form.value);
 
-            this.changers.push(utils.changer(this.form.control, {
-                '': ({values}) => this.updatePocetPriloh(values)
-            }));
+            this.changes.push(this.form.control.valueChanges
+                .debounceTime(1) //add, reset...
+                .subscribe((value) => this.updatePocetPriloh(value)));
         });
     }
 
     ngOnDestroy() {
-        while (this.changers.length) {
-            this.changers.shift().unsubscribe();
+        while (this.changes.length) {
+            this.changes.shift().unsubscribe();
         }
     }
 

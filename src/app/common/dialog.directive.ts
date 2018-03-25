@@ -29,6 +29,7 @@ export class DialogDirective implements OnInit {
 
 //TODO: close before show, or check and keep open if modal
         if (!this.el.nativeElement.showModal) {
+//TODO: emit open event
             Object.defineProperty(this.el.nativeElement, 'showModal', {
                 value: function() {
                     this.setAttribute('open', true);
@@ -39,7 +40,7 @@ export class DialogDirective implements OnInit {
         }
 
         if (!this.el.nativeElement.close) {
-//TODO: close on escape
+//TODO: emit close event, close on escape key
             Object.defineProperty(this.el.nativeElement, 'close', {
                 value: function() {
                     this.removeAttribute('open');

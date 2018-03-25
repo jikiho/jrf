@@ -21,6 +21,54 @@ export class UtilsModule {
     }
 
     /**
+     * Generates a random value.
+     */
+    static readonly MAX_SAFE_INTEGER_32 = Math.pow(2, 32) - 1;
+
+    static random(limit: number = 1): number {
+        if (limit > Number.MAX_SAFE_INTEGER) {
+            throw new Error('Random limit exceeds a safe integer maximum.');
+        }
+
+        const value = !crypto || limit > UtilsModule.MAX_SAFE_INTEGER_32 ? Math.random() :
+                crypto.getRandomValues(new Uint32Array(1))[0] / UtilsModule.MAX_SAFE_INTEGER_32;
+
+        return Math.round(value * limit);
+    }
+
+    /**
+     * Generates a MD5 hash from a value (object).
+     */
+    static md5(value: any, options?: any) {
+        return MD5(value, options);
+    }
+
+    /**
+     * Event and process manipulation...
+     */
+
+    /**
+     * Controls a set of keys (objects) being suspended.
+     */
+    private static _suspended = new Set<any>();
+
+    static suspended(key: any): boolean {
+        return UtilsModule._suspended.has(key);
+    }
+
+    static suspend(key: any, delay: number = -1): boolean {
+        if (delay > -1) {
+            setTimeout(() => UtilsModule.resume(key), delay);
+        }
+
+        return UtilsModule._suspended.has(key) ? true : !UtilsModule._suspended.add(key);
+    }
+
+    static resume(key: any): boolean {
+        return UtilsModule._suspended.delete(key);
+    }
+
+    /**
      * Stops a standard event (prevents default action).
      */
     static stopEvent(event: Event) {
@@ -61,91 +109,116 @@ export class UtilsModule {
     }
 
     /**
-     * Checks some defined non-blank argument.
+     * File and data manipulation...
      */
-    static some(...args): boolean {
-        return args.reduce((acc, part) => acc ||
-                (part != undefined ? /\S/.test(part) : false), false);
+
+    /**
+     * Opens a file in new window (download).
+     */
+    static openFile(file: File, name?: string): Window {
+        return window.open(URL.createObjectURL(file), name);
     }
 
     /**
-     * Deep object diff, returns changed "after" object (a) properties.
+     * Saves a file.
      */
-    static diff(a: any, b: any): null | any {
-        const changes = Object.is(a, b) ? null : Object.keys(a).reduce((acc, part) => {
-                if (!b[part] || typeof a[part] !== 'object') {
-                    return Object.is(a[part], b[part]) ? acc : Object.assign(acc, {[part]: a[part]});
-                }
-                else {
-                    const changes = UtilsModule.diff(a[part], b[part]);
-
-                    return !changes || !Object.keys(changes).length ? acc :
-                            Object.assign(acc, {[part]: changes});
-                }
-            }, {});
-
-        return changes;
+    static saveFile(file: File, name?: string) {
+        saveAs(file, name);
     }
+
+    /**
+     * Converts buffer to an ascii value (base64).
+     */
+    static btoa(buffer: ArrayBuffer): string {
+        const bytes = new Uint8Array(buffer).reduce((bytes, byte) => bytes + String.fromCharCode(byte), '');
+
+        return window.btoa(bytes);
+    }
+
+    /**
+     * Converts an ascii value (base64) to buffers.
+     */
+//TODO: offset progress
+    static atob(value: string, size: number = 4096): Uint8Array[] {
+        const chars = window.atob(value),
+            buffers: Uint8Array[] = [];
+
+        for (let offset = 0; offset < chars.length; offset += size) {
+            const slice = chars.slice(offset, offset + size),
+                numbers = new Array(slice.length);
+
+            for (let i = 0; i < slice.length; i += 1) {
+                 numbers[i] = slice.charCodeAt(i);
+            }
+
+            buffers.push(new Uint8Array(numbers));
+        }
+
+        return buffers;
+    }
+
+    /**
+     * Reads a file content as an observable.
+     */
+//TODO: reader.abort on unsubscribe
+//TODO: reader.progress
+    static read<T>(file: File, method: string = 'readAsArrayBuffer'): Observable<T> {
+        return new Observable((observer) => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                observer.next(reader.result);
+                observer.complete();
+            };
+
+            reader.onabort = () => {
+                observer.complete();
+            }
+
+            reader.onerror = () => {
+                observer.error(reader.error);
+            };
+
+            reader[method](file);
+        });
+    }
+
+    /**
+     * Creates a XML file.
+     */
+    static xmlFile(content: string, name: string = 'request.xml'): File {
+        return new File([content], name, {
+            type: 'text/xml'
+        });
+    }
+
+    /**
+     * Creates standard form data.
+     */
+    static formData(params?: any): FormData {
+        const data = new FormData();
+
+        Object.entries(params).forEach(([name, value]) => {
+            if (value instanceof File) {
+                data.append(name, <Blob>value, value.name);
+            }
+            else {
+                data.append(name, <string>value);
+            }
+        });
+
+        return data;
+    }
+
+    /**
+     * Object manipulation...
+     */
 
     /**
      * Patches an object content with value properties.
      */
     static patch(obj: any, value?: any): any {
         return value ? Object.assign(obj, {...obj as any, ...value}) : obj;
-    }
-
-    /**
-     * Compares object properties after (a) and before (b) changes
-     * and calls a callback with each change found.
-     *
-     * @returns an object after changes.
-     *
-     * @example
-     *      let current = this.form.value;
-     *
-     *      this.differ = this.form.valueChanges.subscribe((value) => {
-     *          current = utils.differ(value, current, {
-     *              personal: {
-     *                  name: (value) => this.updatePersonalName(value);
-     *              }
-     *          });
-     */
-    static differ(a: any, b: any, changes: any, result?: any): any {
-        const names = Object.getOwnPropertyNames(changes);
-
-        for (let name of names) {
-            if (!name) { //whole object
-                result ? changes[name](result) : changes[name](a, b);
-            }
-            else if (!a || !b || !a.hasOwnProperty(name) || !b.hasOwnProperty(name)) {
-                ;
-            }
-            else if (typeof changes[name] === 'object') {
-                UtilsModule.differ(a[name], b[name], changes[name], result);
-            }
-            else if (Object.is(a[name], b[name])) {
-                ;
-            }
-            else if (result) {
-                changes[name](Object.assign(result, {value: a[name], oldValue: b[name]}));
-            }
-            else {
-                changes[name](a[name], b[name]);
-            }
-        }
-
-        return a;
-    }
-
-    /**
-     * Checks a form group for value changes, compares properties
-     * and calls a callback with each change found.
-     */
-    static changer(control: AbstractControl, changes: any): Subscription {
-        let b = control.value;
-
-        return control.valueChanges.subscribe((a) =>
-                b = UtilsModule.differ(a, b, changes, {control, values: a, oldValues: b}));
     }
 
     /**
@@ -204,18 +277,24 @@ export class UtilsModule {
     /**
      * Deletes object properties, all or one by name.
      */
-    static delete(obj: any, ...args) {
+    static delete(obj: any, ...args): number {
+        let count: number = 0;
+
         for (let arg of args.length ? args : Object.keys(obj)) {
             const [ref, name] = UtilsModule.ref(obj, arg);
 
             if (ref && ref.hasOwnProperty(name)) {
                 delete ref[name];
+
+                count += 1;
             }
         }
+
+        return count;
     }
 
     /*
-     * Plucks an object property from a list.
+     * Plucks an object property from a list of objects.
      */
     static pluck(items: any[], name: string): any[] {
         return items.map((item) => UtilsModule.get(item, name));
@@ -231,9 +310,110 @@ export class UtilsModule {
     }
 
     /**
+     * Sorts an object by keys (strings).
+     * Recreates the keys of an original object, use a copy to keep the original.
+     */
+    static sortByKeys(o: any, fn?: (a: string, b: string) => number): any {
+        const keys = o ? Object.keys(o) : undefined;
+
+        if (keys) {
+            keys.sort(fn).forEach((key) => {
+                let value;
+
+                if (Array.isArray(o[key])) {
+                    value = o[key].sort();
+                }
+                else if (typeof o[key] === 'object') {
+                    value = UtilsModule.sortByKeys(o[key], fn);
+                }
+                else {
+                    value = o[key];
+                }
+
+                delete o[key];
+
+                o[key] = value;
+            });
+        }
+
+        return o;
+    }
+
+    /**
+     * Deep object diff, returns changed "after" object (a) properties.
+     */
+    static diff(a: any, b: any): null | any {
+        const changes = Object.is(a, b) ? null : Object.keys(a).reduce((acc, part) => {
+                if (!b[part] || typeof a[part] !== 'object') {
+                    return Object.is(a[part], b[part]) ? acc : Object.assign(acc, {[part]: a[part]});
+                }
+                else {
+                    const changes = UtilsModule.diff(a[part], b[part]);
+
+                    return !changes || !Object.keys(changes).length ? acc :
+                            Object.assign(acc, {[part]: changes});
+                }
+            }, {});
+
+        return changes;
+    }
+
+    /**
+     * Merges properties of one or more urls.
+     */
+    static readonly RELATIVE_ORIGIN = 'https://target';
+    static readonly RELATIVE_PATHNAME = '/';
+
+    static mergeUrl(arg, ...args): URL {
+        const url = new URL(arg);
+
+        for (arg of args) {
+            const target = new URL(arg, `${UtilsModule.RELATIVE_ORIGIN}/${UtilsModule.RELATIVE_PATHNAME}`),
+                relative = target.origin === UtilsModule.RELATIVE_ORIGIN &&
+                        !target.pathname.indexOf(`/${UtilsModule.RELATIVE_PATHNAME}`),
+                search = url.search && target.search;
+
+            if (relative) {
+                url.pathname += target.pathname.slice(1 + UtilsModule.RELATIVE_PATHNAME.length);
+            }
+
+            if (search) {
+                url.search += '&' + target.search.slice(1);
+            }
+        }
+
+        return url;
+    }
+
+    /**
+     * Format and conversion...
+     */
+
+    /**
+     * Converts a locale to the corresponding language.
+     */
+    static localeLang(locale: string): string {
+        return locale.split('-')[0];
+    }
+
+    /**
+     * Concats values into a sentence (trimmed string with single spaces).
+     */
+    static concat(...args): string {
+        return args.join(' ').trim().replace(/ +/, ' ');
+    }
+
+    /**
+     * Trims and replaces white spaces with a single space.
+     */
+    static trims(input: string): string | null {
+        return String(input).trim().replace(/\s+/g, ' ');
+    }
+
+    /**
      * Converts a value to the corresponding boolean.
      * Optional values to be inverted (e.g. '' to return true for an empty string).
-     * Date is treated as validity.
+     * Date is treated as it's validity.
      * Defined object is treated as number of properties.
      * Not-a-number is treated as false.
      */
@@ -296,13 +476,34 @@ export class UtilsModule {
     }
 
     /**
-     * Converts address properties to a standard postal address string.
+     * Converts number of bytes to file size with a corresponding unit.
+     * @see https://en.wikipedia.org/wiki/Megabyte
      */
-    static postal(item: any): string {
-        const {stat, psc, obec, castObce, ulice, cisloDomovni, cisloOrientacni} = item;
+    static readonly BYTES_UNITS = {
+        1000: ['bytes', 'kB', 'MB', 'GB', 'TB'], //upto tera
+        1024: ['bytes', 'KiB', 'MiB', 'GiB', 'TiB']
+    };
 
-//TODO
-        return `${ulice} ${cisloDomovni}/${cisloOrientacni}, ${psc} ${obec}, ${stat}`;
+    static bytes(value: number = 0, binary: boolean = false): string {
+        const sign = Math.sign(value),
+            multiplier = binary ? 1024 : 1000,
+            units = UtilsModule.BYTES_UNITS[multiplier],
+            separator = ' ';
+
+        let range = Math.abs(value),
+            convert = units.length,
+            unit: string;
+
+        for (unit of units) {
+            if (range < multiplier) {
+                break;
+            }
+            else if (convert -= 1) {
+                range /= multiplier;
+            }
+        }
+
+        return [sign * Math.round(range * 10) / 10, unit].join(separator);
     }
 
     /**
@@ -315,235 +516,31 @@ export class UtilsModule {
     }
 
     /**
-     * Converts a locale to the corresponding language.
+     * Converts address properties to a standard postal address string.
      */
-    static localeLang(locale: string): string {
-        return locale.split('-')[0];
+    static postal(item: any): string {
+        const {stat, psc, obec, castObce, ulice, cisloDomovni, cisloOrientacni} = item;
+
+//TODO
+        return `${ulice} ${cisloDomovni}/${cisloOrientacni}, ${psc} ${obec}, ${stat}`;
     }
 
     /**
-     * Concats values into a sentence (trimmed string with single spaces).
+     * Validation and normalization...
      */
-    static concat(...args): string {
-        return args.join(' ').trim().replace(/ +/, ' ');
+
+    /**
+     * Checks some defined non-blank argument.
+     */
+    static some(...args): boolean {
+        return args.reduce((acc, part) => acc ||
+                (part != undefined ? /\S/.test(part) : false), false);
     }
 
     /**
-     * Generates a random value.
-     */
-    static readonly MAX_SAFE_INTEGER_32 = Math.pow(2, 32) - 1;
-
-    static random(limit: number = 1): number {
-        if (limit > Number.MAX_SAFE_INTEGER) {
-            throw new Error('Random limit exceeds a safe integer maximum.');
-        }
-
-        const value = !crypto || limit > UtilsModule.MAX_SAFE_INTEGER_32 ? Math.random() :
-                crypto.getRandomValues(new Uint32Array(1))[0] / UtilsModule.MAX_SAFE_INTEGER_32;
-
-        return Math.round(value * limit);
-    }
-
-    /**
-     * Generates a MD5 hash from a value (object).
-     */
-    static md5(value: any, options?: any) {
-        return MD5(value, options);
-    }
-
-    /**
-     * Converts number of bytes to file size with a corresponding unit.
-     */
-    static readonly BYTES_UNIT = ['bytes', 'B'];
-    static readonly BYTES_PREFIX = ['', 'k', 'M', 'G', 'T'];
-    static readonly BYTES_MULTIPLE = 1000;
-    //static readonly BYTES_PREFIX = ['', 'Ki', 'Mi', 'Gi', 'Ti'];
-    //static readonly BYTES_MULTIPLE = 1024;
-
-    static bytes(value: number = 0): string {
-        let sign = Math.sign(value),
-            range = Math.abs(value),
-            convert = UtilsModule.BYTES_PREFIX.length,
-            prefix: string;
-
-        for (prefix of UtilsModule.BYTES_PREFIX) {
-            if (range < UtilsModule.BYTES_MULTIPLE) {
-                break;
-            }
-            else if (convert -= 1) {
-                range /= UtilsModule.BYTES_MULTIPLE;
-            }
-        }
-
-        return [sign * Math.round(range * 10) / 10,
-                prefix + UtilsModule.BYTES_UNIT[prefix ? 1 : 0]].join(' ');
-    }
-
-    /**
-     * Converts buffer to an ascii value (base64).
-     */
-    static btoa(buffer: ArrayBuffer): string {
-        const bytes = new Uint8Array(buffer).reduce((bytes, byte) => bytes + String.fromCharCode(byte), '');
-
-        return window.btoa(bytes);
-    }
-
-    /**
-     * Converts an ascii value (base64) to buffers.
-     */
-//TODO: offset progress
-    static atob(value: string, size: number = 4096): Uint8Array[] {
-        const chars = window.atob(value),
-            buffers: Uint8Array[] = [];
-
-        for (let offset = 0; offset < chars.length; offset += size) {
-            const slice = chars.slice(offset, offset + size),
-                numbers = new Array(slice.length);
-
-            for (let i = 0; i < slice.length; i += 1) {
-                 numbers[i] = slice.charCodeAt(i);
-            }
-
-            buffers.push(new Uint8Array(numbers));
-        }
-
-        return buffers;
-    }
-
-    /**
-     * Reads a file content as an observable.
-     */
-//TODO: reader.abort on unsubscribe
-//TODO: reader.progress
-    static read<T>(file: File, method: string = 'readAsArrayBuffer'): Observable<T> {
-        return new Observable((observer) => {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                observer.next(reader.result);
-                observer.complete();
-            };
-
-            reader.onabort = () => {
-                observer.complete();
-            }
-
-            reader.onerror = () => {
-                observer.error(reader.error);
-            };
-
-            reader[method](file);
-        });
-    }
-
-    /**
-     * Opens a file in new window (download).
-     */
-    static openFile(file: File, name?: string): Window {
-        return window.open(URL.createObjectURL(file), name);
-    }
-
-    /**
-     * Saves a file.
-     */
-    static saveFile(file: File, name?: string) {
-        saveAs(file, name);
-    }
-
-    /**
-     * Creates a XML file.
-     */
-    static xmlFile(content: string, name: string = 'request.xml'): File {
-        return new File([content], name, {
-            type: 'text/xml'
-        });
-    }
-
-    /**
-     * Creates standard form data.
-     */
-    static formData(params?: any): FormData {
-        const data = new FormData();
-
-        Object.entries(params).forEach(([name, value]) => {
-            if (value instanceof File) {
-                data.append(name, <Blob>value, value.name);
-            }
-            else {
-                data.append(name, <string>value);
-            }
-        });
-
-        return data;
-    }
-
-    /**
-     * Merges properties of one or more urls.
-     */
-    static readonly RELATIVE_ORIGIN = 'https://target';
-    static readonly RELATIVE_PATHNAME = '/';
-
-    static mergeUrl(arg, ...args): URL {
-        const url = new URL(arg);
-
-        for (arg of args) {
-            const target = new URL(arg, `${UtilsModule.RELATIVE_ORIGIN}/${UtilsModule.RELATIVE_PATHNAME}`),
-                relative = target.origin === UtilsModule.RELATIVE_ORIGIN &&
-                        !target.pathname.indexOf(`/${UtilsModule.RELATIVE_PATHNAME}`),
-                search = url.search && target.search;
-
-            if (relative) {
-                url.pathname += target.pathname.slice(1 + UtilsModule.RELATIVE_PATHNAME.length);
-            }
-
-            if (search) {
-                url.search += '&' + target.search.slice(1);
-            }
-        }
-
-        return url;
-    }
-
-    /**
-     * Sorts an object by keys (strings).
-     * Recreates the keys of an original object, use a copy to keep the original.
-     */
-    static sortByKeys(o: any, fn?: (a: string, b: string) => number): any {
-        const keys = o ? Object.keys(o) : undefined;
-
-        if (keys) {
-            keys.sort(fn).forEach((key) => {
-                let value;
-
-                if (Array.isArray(o[key])) {
-                    value = o[key].sort();
-                }
-                else if (typeof o[key] === 'object') {
-                    value = UtilsModule.sortByKeys(o[key], fn);
-                }
-                else {
-                    value = o[key];
-                }
-
-                delete o[key];
-
-                o[key] = value;
-            });
-        }
-
-        return o;
-    }
-
-    /**
-     * Trims and replaces white spaces with a single space.
-     */
-    static trims(input: string): string | null {
-        return String(input).trim().replace(/\s+/g, ' ');
-    }
-
-    /**
-     * Value validations.
+     * Value validations...
      * @see https://www.cnb.cz/cs/dohled_financni_trh/vykon_dohledu/informacni_povinnosti/algoritmy.html
+     *
      * @returns a normalized string value, or null for an invalid one.
      */
 

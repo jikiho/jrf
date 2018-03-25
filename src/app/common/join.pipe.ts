@@ -4,8 +4,6 @@
 //TODO: default separator
 import {Pipe, PipeTransform} from '@angular/core';
 
-import {UtilsModule as utils} from '../utils.module';
-
 @Pipe({
     name: 'join'
 })
