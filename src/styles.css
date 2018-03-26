@@ -533,9 +533,14 @@
         max-width: 51rem;
         min-width: 35rem;
         min-height: 10rem;
+        padding: 0.25rem 0.5rem 0.75rem;
         background: #dde7f0;
         border: 1px solid #999;
         border-radius: 0.25rem;
         box-shadow: 0 0 1.5px 1.5px #ccc;
+    }
+
+    dialog header {
+        margin-bottom: 0.25rem;
     }
 }

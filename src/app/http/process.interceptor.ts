@@ -43,11 +43,9 @@ export class ProcessInterceptor implements HttpInterceptor {
             url: request.urlWithParams
         });
 
-        /*
         if (this.config.debug) {
-            console.debug(`CANCEL ${request.method || 'REQUEST'}`, request.url, request);
+            //console.debug(`CANCEL ${request.method || 'REQUEST'}`, request.url, request);
         }
-        */
 
         return Observable.throw(error);
     }

@@ -137,25 +137,30 @@
                 </div>
             </div>
 </ng-container>
-<dialog #panelVyberAdresySidla>
-    <ng-container ngModelGroup="vyberAdresySidla">
-            <div class="row">
-                <div class="col-12">
-                    <h3>Výběr adresy sídla</h3>
-                </div>
-                <div class="col-12">
-                    <select name="item" [(ngModel)]="vyberAdresySidla.item" size="10">
-                        <option *ngFor="let item of vyberAdresySidla.items" [ngValue]="item">{{item | postal}}</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <button type="button" (click)="applyVyberAdresySidla()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
-                    <button type="button" (click)="closeVyberAdresySidla()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
-                    <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla?.length}}</small>
-                </div>
-            </div>
-    </ng-container>
-</dialog>
         </div>
     </form>
 </section>
+
+<dialog #panelVyberAdresySidla>
+    <form #formVyberAdresySidla="ngForm">
+        <header>
+            <h3>Výběr adresy sídla</h3>
+        </header>
+        <div class="grid gutterless">
+            <div class="row">
+                <div class="col-12">
+                    <select name="adresa" [(ngModel)]="vyberAdresySidla.adresa" size="10">
+                        <option *ngFor="let item of vyberAdresySidla.seznamAdres" [ngValue]="item">{{item | postal}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="applyVyberAdresySidla()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="closeVyberAdresySidla()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                    <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla.seznamAdres?.length}}</small>
+                </div>
+            </div>
+        </div>
+    </form>
+</dialog>

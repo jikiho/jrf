@@ -23,11 +23,6 @@ export class AppService {
     about$ = new BehaviorSubject<AboutModel>(null);
 
     /**
-     * Information about active route (stream).
-     */
-    route$ = new BehaviorSubject<any>(null);
-
-    /**
      * Application unique identification.
      */
     get id(): string {
@@ -62,21 +57,24 @@ export class AppService {
             private config: ConfigService, private process: ProcessService) {
         AppService.self = this;
 
-        //if (this.config.debug) {
+        if (!this.config.production || this.config.debug) {
             Object.assign(window, {app: this, utils});
-        //}
+        }
+
+        if (this.config.debug) {
+            this.router.events.subscribe((event: RouterEvent) => this.debugRouterEvent(event));
+        }
 
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
 
         this.collator = new Intl.Collator(locale);
 
         this.settleAbout();
-
-        this.router.events.subscribe((event: RouterEvent) =>
-                this.onRouterEvent(event));
     }
 
-    navigate(commands: any[], extras?: {}): Promise<boolean> {
+    navigate(url: any, extras?: {}): Promise<boolean> {
+        const commands = Array.isArray(url) ? url : [url];
+
         return this.router.navigate(commands, extras);
     }
 
@@ -184,33 +182,17 @@ export class AppService {
     }
 
     /**
-     * Handles router events.
+     * Debug router events.
      */
-    private onRouterEvent(event: RouterEvent) {
+    private debugRouterEvent(event: RouterEvent) {
         if (event instanceof NavigationEnd) {
-            this.route$.next({
-                //outlet: this.route.snapshot.outlet,
-                //component: this.route.snapshot.component.name,
-                params: this.route.snapshot.params,
-                query: this.route.snapshot.queryParams,
-                fragment: this.route.snapshot.fragment,
-                navigationId: this.router['navigationId'], //private
-                url: event.urlAfterRedirects
-            });
-
-            if (this.config.debug) {
-                console.debug('ROUTE', event.urlAfterRedirects, this.historyState);
-            }
+            console.debug('ROUTE', event.urlAfterRedirects, this.historyState);
         }
         else if (event instanceof NavigationCancel) {
-            if (this.config.debug) {
-                console.debug('CANCEL ROUTE', event.url, event.reason);
-            }
+            console.debug('CANCEL ROUTE', event.url, event.reason);
         }
         else if (event instanceof NavigationError) {
-            if (this.config.debug) {
-                //console.debug('FAILED ROUTE', event.url, this.router, this.route);
-            }
+            //console.debug('FAILED ROUTE', event.url, this.router, this.route);
         }
     }
 }

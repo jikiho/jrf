@@ -67,26 +67,6 @@
                     <small title="Počet vybraných živností">{{entry.zivnost?.length}}</small>
                 </div>
             </div>
-<dialog #panelVyberZivnosti>
-            <div class="row">
-                <div class="col-12">
-                    <h3>
-                        Výběr předmětů podnikání
-                        <small>(max. 3 v rámci změnového listu)</small>
-                    </h3>
-                </div>
-                <div class="col-12">
-                    <select multiple name="vybraneZivnosti" [(ngModel)]="vybraneZivnosti" size="10">
-                        <option *ngFor="let item of vyberZivnosti" [ngValue]="item">{{item?.Hodnota}}</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <button type="button" (click)="applyVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
-                    <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
-                    <small title="Počet vybraných a celkový počet živností">{{vybraneZivnosti?.length}}/{{vyberZivnosti?.length}}</small>
-                </div>
-            </div>
-</dialog>
             <div class="row">
                 <div class="col-12">
                     <h4>02 Původní údaj</h4>
@@ -118,3 +98,30 @@
         </div>
     </form>
 </section>
+
+<dialog #panelVyberZivnosti>
+    <form #formVyberZivnosti="ngForm">
+        <header>
+            <h3>
+                Výběr předmětů podnikání
+                <small>(max. 3 v rámci změnového listu)</small>
+            </h3>
+        </header>
+        <div class="grid gutterless">
+            <div class="row">
+                <div class="col-12">
+                    <select multiple name="zivnost" [(ngModel)]="vyberZivnosti.zivnost" size="10">
+                        <option *ngFor="let item of vyberZivnosti.seznamZivnosti" [ngValue]="item">{{item?.Hodnota}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="applyVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
+                    <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
+                    <small title="Počet vybraných a celkový počet živností">{{vyberZivnosti.zivnost?.length}}/{{vyberZivnosti.seznamZivnosti?.length}}</small>
+                </div>
+            </div>
+        </div>
+    </form>
+</dialog>

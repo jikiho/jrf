@@ -59,14 +59,17 @@
                     <button type="button" (click)="openVyberZivnosti()" title="Výběr živnosti, případně oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnost</button>
                 </div>
             </div>
+        </div>
+    </form>
+</section>
+
 <dialog #panelVyberZivnosti>
-    <ng-container ngModelGroup="vyberZivnosti">
+    <form #formVyberZivnosti="ngForm">
+        <header>
+            <h3>Výběr předmětu podnikání</h3>
+        </header>
+        <div class="grid gutterless">
             <div class="row">
-                <div class="col-12">
-                    <h3>
-                        Výběr předmětu podnikání
-                    </h3>
-                </div>
                 <div class="col-12" *ngIf="data.druhZivnosti$ | async as items">
                     <label>
                         <dfn>Druh živnosti</dfn>
@@ -76,7 +79,9 @@
                         </select>
                     </label>
                 </div>
-                <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items" [hidden]="vyberZivnosti.oboryCinnosti">
+            </div>
+            <div class="row" [hidden]="vyberZivnosti.oboryCinnosti">
+                <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
                         <select #inputSkupinaZivnosti name="skupinaZivnosti" [(ngModel)]="vyberZivnosti.skupinaZivnosti" [disabled]="!vyberZivnosti.druhZivnosti?.Kod">
@@ -85,6 +90,8 @@
                         </select>
                     </label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-12" *ngIf="data.zivnost$ | async as items">
                     <label>
                         <dfn>Předmět podnikání</dfn>
@@ -94,7 +101,9 @@
                         </select>
                     </label>
                 </div>
-                <div class="col-12" *ngIf="data.oborCinnosti$ | async as items" [hidden]="!vyberZivnosti.oboryCinnosti">
+            </div>
+            <div class="row" [hidden]="!vyberZivnosti.oboryCinnosti">
+                <div class="col-12" *ngIf="data.oborCinnosti$ | async as items">
                     <label>
                         <dfn>Obory činnosti</dfn>
                         <select name="oborCinnosti" [(ngModel)]="vyberZivnosti.oborCinnosti" multiple size="5" [disabled]="!vyberZivnosti.zivnost?.Kod">
@@ -105,13 +114,13 @@
                         </select>
                     </label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-12">
                     <button type="button" (click)="applyVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
                     <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
                 </div>
             </div>
-    </ng-container>
-</dialog>
         </div>
     </form>
-</section>
+</dialog>

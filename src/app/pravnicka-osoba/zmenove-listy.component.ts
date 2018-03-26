@@ -22,11 +22,16 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
 
-    vyberZivnosti = null;
-    vybraneZivnosti = null;
+    vyberZivnosti = {
+        seznamZivnosti: null,
+        zivnost: null
+    };
 
     @ViewChild('form')
     form: NgForm;
+
+    //@ViewChild('formVyberZivnosti')
+    //formVyberZivnosti: NgForm;
 
     private changes: Subscription[] = [];
 
@@ -57,23 +62,24 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      * Manages...
      */
     openVyberZivnosti() {
-        this.vyberZivnosti = this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
-            .filter((item) => item && item.Kod);
-        this.vybraneZivnosti = [...(this.content.entry.zivnost || [])];
+        utils.patch(this.vyberZivnosti, {
+            seznamZivnosti: this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
+                    .filter((item) => item && item.Kod),
+            zivnost: [...(this.content.entry.zivnost || [])]
+        });
 
         this.panelVyberZivnosti.nativeElement.showModal();
     }
 
     closeVyberZivnosti() {
-        this.vyberZivnosti = this.vybraneZivnosti = null;
-
+        // just close like escape
         this.panelVyberZivnosti.nativeElement.close();
     }
 
     applyVyberZivnosti() {
         const message = 'Omezení umožňuje vybrat nejvýše 3 živnosti.';
 
-        if (this.vybraneZivnosti.length > 3) {
+        if (this.vyberZivnosti.zivnost.length > 3) {
             this.app.alert(message);
         }
         else {
@@ -83,7 +89,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
 
     applierVyberZivnosti() {
         this.content.patch({
-            zivnost: this.vybraneZivnosti
+            zivnost: this.vyberZivnosti.zivnost
         });
 
         this.closeVyberZivnosti();

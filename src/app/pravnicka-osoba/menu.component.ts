@@ -30,7 +30,10 @@ export class MenuComponent {
 
         if (this.app.confirm(message).result) {
             this.data.create();
-//TODO: refresh content
+
+            this.app.navigate('/').then(() => {
+                this.app.navigate('/pravnicka-osoba/podnikatel');
+            });
         }
     }
 

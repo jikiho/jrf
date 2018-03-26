@@ -28,11 +28,6 @@ export class ContentModel<T> {
     index: number = -1;
 
     /**
-     * Current content entry number, starts from 1.
-     */
-    current: number;
-
-    /**
      * Last content entry index.
      *
      * @example select the last content entry
@@ -65,9 +60,6 @@ export class ContentModel<T> {
      */
     //private Model: T;
 
-//TODO
-    private app = AppService.self;
-
     constructor(private Model: Constructor<T>, limit: number = 1) {
         this.limit = limit;
         this.free = this.limit ? this.limit : -1;
@@ -97,7 +89,7 @@ export class ContentModel<T> {
             }
         }
         else {
-            this.app.alert(message);
+            AppService.self.alert(message);
         }
     }
 
@@ -108,7 +100,7 @@ export class ContentModel<T> {
     remove(index?: number) {
         const message = 'Dojde ke zrušení údajů, chcete pokračovat?';
 
-        if (this.app.confirm(message).result) {
+        if (AppService.self.confirm(message).result) {
             if (this.entry !== this.removeEntry(index)) {
                 ;
             }
@@ -234,7 +226,6 @@ export class ContentModel<T> {
         this.free = this.limit ? this.limit - this.length : -1;
         this.last = this.length - 1;
         this.index = entry ? index : -1;
-        this.current = this.index + 1;
         this.entry = entries[this.index];
 
         return entry;

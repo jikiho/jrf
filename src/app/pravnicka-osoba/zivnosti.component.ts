@@ -34,6 +34,9 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     @ViewChild('form')
     form: NgForm;
 
+    //@ViewChild('formVyberZivnosti')
+    //formVyberZivnosti: NgForm;
+
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,

@@ -26,12 +26,15 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     completeAdresaSidla = false;
 
     vyberAdresySidla = {
-        items: null,
-        item: null
+        seznamAdres: null,
+        adresa: null
     };
 
     @ViewChild('form')
     form: NgForm;
+
+    //@ViewChild('formVyberAdresySidla')
+    //formVyberAdresySidla: NgForm;
 
     private changes: Subscription[] = [];
 
@@ -78,7 +81,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         this.data.requestOvereniAdresy(value.adresaSidla).first()
             .subscribe(
                 (items) => {
-                    this.vyberAdresySidla.items = items;
+                    this.vyberAdresySidla.seznamAdres = items;
                     this.openVyberAdresySidla();
                 },
                 ([error, ...args]) => {
@@ -89,7 +92,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
 
     openVyberAdresySidla() {
         const message = 'Odpovídající adresa nebyla nalezena.',
-            items = this.vyberAdresySidla.items;
+            items = this.vyberAdresySidla.seznamAdres;
 
         if (!items || !items.length) {
             this.app.alert(message);
@@ -110,8 +113,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         this.panelVyberAdresySidla.nativeElement.close();
     }
 
-    applyVyberAdresySidla(item: any = this.vyberAdresySidla.item) {
-        this.form.controls.adresaSidla.patchValue(item);
+    applyVyberAdresySidla(value: any = this.vyberAdresySidla.adresa) {
+        this.form.controls.adresaSidla.patchValue(value);
 
         this.closeVyberAdresySidla();
     }
@@ -136,9 +139,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
             }
         });
 
-        if (previous !== this.completePodnikatel) {
-            this.cdr.markForCheck();
-        }
+        // apply complex content changes
+        this.cdr.markForCheck();
     }
 
     private updateAdresaSidla() {

@@ -56,26 +56,25 @@ export class DataService {
     };
 
     constructor(private app: AppService, private http: HttpService) {
+        this.create();
+
+        this.loadResources();
+    }
+
+    create() {
         this.content = new DataContentModel();
+    }
+
+    /**
+     * Loads data from resources.
+     */
+    private loadResources() {
         this.loadCiselnik('./assets/pravni-forma.xml', this.pravniForma$);
         this.loadCiselnik('./assets/uir-okres.xml', this.okres$);
         this.loadCiselnik('./assets/stat.xml', this.stat$, null, this.finishStat);
         this.loadCiselnik('./assets/druh-zivnosti.xml', this.druhZivnosti$);
         this.loadCiselnik('./assets/zivnost.xml', null, null, this.finishZivnost);
         this.loadCiselnik('./assets/obor-cinnosti.xml', this.oborCinnosti$, this.transformOborCinnosti);
-    }
-
-    /**
-     * Requests...
-     */
-
-    /**
-     * Creates a new content.
-     */
-    create(): DataContentModel {
-        this.content = new DataContentModel();
-
-        return this.content;
     }
 
     /**
