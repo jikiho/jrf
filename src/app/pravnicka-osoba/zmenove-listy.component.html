@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-12">
                     <button type="button" (click)="openVyberZivnosti()" title="Výběr živností, případně oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnosti</button>
-                    <small title="Počet vybraných živností">{{entry.zivnost?.length}}</small>
+                    <small title="Počet vybraných živností">{{entry.zivnost | numeric}}</small>
                 </div>
             </div>
             <div class="row">
@@ -119,7 +119,7 @@
                 <div class="col-12">
                     <button type="button" (click)="applyVyberZivnosti()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
                     <button type="button" (click)="closeVyberZivnosti()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
-                    <small title="Počet vybraných a celkový počet živností">{{vyberZivnosti.zivnost?.length}}/{{vyberZivnosti.seznamZivnosti?.length}}</small>
+                    <small title="Počet vybraných a celkový počet živností">{{vyberZivnosti.zivnost | numeric}}/{{vyberZivnosti.seznamZivnosti | numeric}}</small>
                 </div>
             </div>
         </div>

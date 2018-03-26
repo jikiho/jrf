@@ -158,7 +158,7 @@
                 <div class="col-12">
                     <button type="button" (click)="applyVyberAdresySidla()" title="Potvrzení výběru"><i class="fa fa-fw fa-check"></i>Potvrdit výběr</button>
                     <button type="button" (click)="closeVyberAdresySidla()" title="Zavření výběru"><i class="fa fa-fw fa-ban"></i>Zavřít výběr</button>
-                    <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla.seznamAdres?.length}}</small>
+                    <small title="Počet zobrazených odpovídajících adres">{{vyberAdresySidla.seznamAdres | numeric}}</small>
                 </div>
             </div>
         </div>
