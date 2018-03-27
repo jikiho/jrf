@@ -63,10 +63,10 @@ export class ContentToolbarComponent {
     addLabel: string = 'Přidat údaje';
 
     @Input()
-    removeConfirmMessage: string = 'Dojde ke zrušení údajů, chcete pokračovat?';
+    removeConfirmMessage: string = 'Dojde ke smazání údajů, chcete pokračovat?';
 
     @Input()
-    removeAllConfirmMessage: string = 'Dojde ke zrušení všech záznamů, chcete pokračovat?';
+    removeAllConfirmMessage: string = 'Dojde ke smazání všech záznamů, chcete pokračovat?';
 
     @Input()
     removeTitle: string = 'Smazání údajů';

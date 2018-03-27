@@ -3,11 +3,11 @@
         <div class="grid gutterless">
             <div class="row bar">
                 <div class="col-12">
-                    <button *ngIf="!content.single" type="button" (click)="content.previous()" title="{{previousTitle}} (Ctrl-Up)"><b class="fa fa-fw fa-chevron-up"></b></button>
+                    <button *ngIf="!content.single" type="button" (click)="content.previous()" title="{{previousTitle}} (Alt-PgUp)"><b class="fa fa-fw fa-chevron-up"></b></button>
                     <button *ngIf="!content.single" type="button" (click)="content.select()" title="{{selectTitle}}">
                         <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
                     </button>
-                    <button *ngIf="!content.single" type="button" (click)="content.next()" title="{{nextTitle}} (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
+                    <button *ngIf="!content.single" type="button" (click)="content.next()" title="{{nextTitle}} (Alt-PgDown)"><b class="fa fa-fw fa-chevron-down"></b></button>
                     <button *ngIf="!content.single" type="button" (click)="add()" title="{{addTitle}} (Alt-A)"><i class="fa fa-fw fa-plus"></i>{{addLabel}}</button>
                     <button type="button" (click)="$event.shiftKey ? removeAll() : remove()" title="{{removeTitle}} (Alt-R)"><i class="fa fa-fw fa-remove"></i>{{removeLabel}}</button>
                 </div>
