@@ -21,20 +21,6 @@ export class UtilsModule {
     }
 
     /**
-     * Damb callbacks.
-     */
-    static noop(): void {
-    }
-
-    static true(): boolean {
-        return true;
-    }
-
-    static false(): boolean {
-        return false;
-    }
-
-    /**
      * Generates a random value.
      */
     static readonly MAX_SAFE_INTEGER_32 = Math.pow(2, 32) - 1;

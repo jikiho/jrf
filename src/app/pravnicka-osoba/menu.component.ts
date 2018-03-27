@@ -44,11 +44,12 @@ export class MenuComponent {
         }
     }
 
-    load() {
+    load(input: HTMLInputElement) {
         const message = 'Načtení údajů podání proběhlo v pořádku.',
-            input: HTMLInputElement = this.inputLoadFile.nativeElement,
             files = Array.from(input.files),
             file = files[0];
+
+        input.value = '';
 
         if (file) {
             this.data.content.load(file)

@@ -3,7 +3,7 @@
         <li><a routerLink="../create..." (click)="create()" title="Vytvoření nového podání (Alt-N)">Nové podání</a></li>
         <li>
             <a routerLink="../load..." (click)="loadFile()" title="Načtení údajů podání ze souboru (Alt-O)">Načíst podání</a>
-            <input type="file" accept="text/xml" #inputLoadFile hidden (change)="load($event)">
+            <input type="file" accept="text/xml" #inputLoadFile hidden (change)="load($event.target)">
         </li>
         <li><a routerLink="../save..." (click)="save()" title="Uložení údajů podání do souboru (Alt-S)">Uložit podání</a></li>
         <li><a routerLink="../check..." (click)="check()" title="Kontrola údajů podání">Zkontrolovat údaje</a></li>

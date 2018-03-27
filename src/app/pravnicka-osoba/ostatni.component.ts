@@ -57,12 +57,13 @@ export class OstatniComponent implements OnInit, OnDestroy {
         this.inputAddPrilohaFile.nativeElement.click();
     }
 
-    addPriloha() {
+    addPriloha(input: HTMLInputElement) {
         const message = 'Není možné přidat znvou stejnou elektronickou přílohu.',
-            input: HTMLInputElement = this.inputAddPrilohaFile.nativeElement,
             files = Array.from(input.files),
             entry = this.content.entry,
             items = entry.prilohy;
+
+        input.value = '';
 
         for (let file of files) {
             const hash = this.hash(file);
@@ -83,8 +84,6 @@ export class OstatniComponent implements OnInit, OnDestroy {
                 });
             }
         }
-
-        input.value = '';
     }
 
     /**
