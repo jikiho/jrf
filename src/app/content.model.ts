@@ -27,6 +27,11 @@ export class ContentModel<T> {
     index: number = -1;
 
     /**
+     * Current content entry number, starts from 1.
+     */
+    current: number;
+
+    /**
      * Current content entry.
      */
     entry: T;
@@ -203,6 +208,7 @@ export class ContentModel<T> {
         this.length = entries.length;
         this.free = this.limit ? this.limit - this.length : -1;
         this.index = entry ? index : -1;
+        this.current = this.index + 1;
         this.entry = entries[this.index];
 
         return entry;
