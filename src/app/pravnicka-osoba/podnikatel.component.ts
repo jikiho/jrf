@@ -10,6 +10,7 @@ import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {PodnikatelModel} from './podnikatel.model';
+import {PodnikatelService} from './podnikatel.service';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
@@ -39,7 +40,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, public data: DataService) {
+            private app: AppService, public data: DataService, private service: PodnikatelService) {
     }
 
     ngOnInit() {
@@ -73,21 +74,28 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * "Vyber podnikatele" request and management.
+     */
+    requestVyberPodnikatele() {
+        const value = this.content.entry.value.podnikatel;
+
+        this.app.alert(value);
+    }
+
+    /**
      * "Vyber adresy sidla" request and management.
      */
     requestVyberAdresySidla() {
-        const value = this.content.entry.value;
+        const value = this.content.entry.value.adresaSidla;
 
-        this.data.requestOvereniAdresy(value.adresaSidla).first()
-            .subscribe(
-                (items) => {
-                    this.vyberAdresySidla.seznamAdres = items;
-                    this.openVyberAdresySidla();
-                },
-                ([error, ...args]) => {
-                    this.app.failure(...args, error);
-                }
-            );
+        this.service.requestOvereniAdresy(value)
+            .then((items) => {
+                this.vyberAdresySidla.seznamAdres = items;
+                this.openVyberAdresySidla();
+            })
+            .catch(({message, error}) => {
+                this.app.failure(message, error);
+            });
     }
 
     openVyberAdresySidla() {

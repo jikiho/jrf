@@ -21,6 +21,20 @@ export class UtilsModule {
     }
 
     /**
+     * Damb callbacks.
+     */
+    static noop(): void {
+    }
+
+    static true(): boolean {
+        return true;
+    }
+
+    static false(): boolean {
+        return false;
+    }
+
+    /**
      * Generates a random value.
      */
     static readonly MAX_SAFE_INTEGER_32 = Math.pow(2, 32) - 1;
@@ -158,25 +172,24 @@ export class UtilsModule {
     }
 
     /**
-     * Reads a file content as an observable.
+     * Reads a file content as a promise.
      */
 //TODO: reader.abort on unsubscribe
 //TODO: reader.progress
-    static read<T>(file: File, method: string = 'readAsArrayBuffer'): Observable<T> {
-        return new Observable((observer) => {
+    static read<T>(file: File, method: string = 'readAsArrayBuffer'): Promise<T> {
+        return new Promise((resolve, reject) => {
             const reader = new FileReader();
 
             reader.onload = () => {
-                observer.next(reader.result);
-                observer.complete();
+                resolve(reader.result);
             };
 
             reader.onabort = () => {
-                observer.complete();
+                resolve();
             }
 
             reader.onerror = () => {
-                observer.error(reader.error);
+                reject(reader.error);
             };
 
             reader[method](file);

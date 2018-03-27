@@ -122,8 +122,8 @@
 </ng-container>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="input_file.click()" title="Výběr elektronických příloh"><i class="fa fa-bars"></i>Vybrat přilohy</button>
-                    <input type="file" multiple accept="image/*, application/pdf" #input_file hidden (change)="addPriloha($event.target)">
+                    <button type="button" (click)="addPrilohaFile()" title="Výběr elektronických příloh"><i class="fa fa-bars"></i>Vybrat přilohy</button>
+                    <input type="file" multiple accept="image/*, application/pdf" #inputAddPrilohaFile hidden (change)="addPriloha($event)">
                     <small title="Počet a celková velikost elektronických příloh">{{entry.prilohy | numeric}} ({{entry.velikostPriloh | bytes}})</small>
                 </div>
             </div>

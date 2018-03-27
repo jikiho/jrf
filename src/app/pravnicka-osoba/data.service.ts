@@ -1,29 +1,21 @@
 /**
  * "Pravnicka osoba" feature data service.
  */
-//TODO: load/parse error handling
 import {Injectable} from '@angular/core';
-import {Observable, BehaviorSubject} from 'rxjs/Rx';
-import {Builder, Parser} from 'xml2js';
+import {BehaviorSubject} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
-import {DataContentModel} from './data-content.model';
+import {ContentsModel} from './contents.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
-//import {XmlModel} from './xml.model';
+import {xmlParser} from '../feature.module';
 
 @Injectable()
 export class DataService {
-    builder = new Builder();
-
-    parser = new Parser({
-        explicitArray: false
-    });
-
     /**
      * Features content.
      */
-    content: DataContentModel;
+    content = new ContentsModel();
 
     /**
      * List...
@@ -56,13 +48,7 @@ export class DataService {
     };
 
     constructor(private app: AppService, private http: HttpService) {
-        this.create();
-
         this.loadResources();
-    }
-
-    create() {
-        this.content = new DataContentModel();
     }
 
     /**
@@ -83,7 +69,7 @@ export class DataService {
     private loadCiselnik(url: string, subject?: BehaviorSubject<any[]>, tr?: Function, fn?: Function) {
         this.http.getXml(url).subscribe(
             (response) => {
-                this.parser.parseString(response.body, (error, result) => {
+                xmlParser.parseString(response.body, (error, result) => {
                     if (error) {
                         this.app.failure(`Resource XML parsing failed: "${url}"`, error);
                     }
@@ -113,7 +99,7 @@ export class DataService {
     /**
      * Analyzes options and updates corresponding counts and defaults.
      */
-    private analyze(items: any[], key: string, counts: any = {}, defaults: any = {}) {
+    private analyzeCiselnik(items: any[], key: string, counts: any = {}, defaults: any = {}) {
         items.forEach((item) => {
             const value = item[key];
 
@@ -183,82 +169,11 @@ export class DataService {
             Hodnota: undefined
         });
 
-        this.analyze(groups, 'Druh', this.counts, this.defaults);
-        this.analyze(values, 'Skupina', this.counts, this.defaults);
+        this.analyzeCiselnik(groups, 'Druh', this.counts, this.defaults);
+        this.analyzeCiselnik(values, 'Skupina', this.counts, this.defaults);
 
         this.skupinaZivnosti$.next(groups);
 
         this.zivnost$.next(values);
-    }
-
-    /**
-     * "Overeni adresy" request.
-     */
-    requestOvereniAdresy(value: any): Observable<any> {
-        const url = 'api:', //resource
-            content = this.xmlOvereniAdresy(value),
-            file = utils.xmlFile(content),
-            body = utils.formData({
-                VSS_SERV: 'ZUMJRFADR',
-                filename: file
-            });
-
-        return new Observable((observer) => {
-            this.http.postXml(url, body).subscribe(
-                (response) => {
-                    this.parser.parseString(response.body, (error, result) => {
-                        if (error) {
-                            observer.error(error);
-                        }
-                        else {
-                            observer.next(this.mapOvereniAdresy(result));
-                            observer.complete();
-                        }
-                    });
-                },
-                (error) => {
-                    observer.error([error, `Resource loading failure: "${url}"`]);
-                }
-            );
-        });
-    }
-
-    private xmlOvereniAdresy(value: any): string {
-        return this.builder.buildObject({
-            KlientPozadavek: {
-                $: {
-                    version: '1.0',
-                    xmlns: 'urn:cz:isvs:rzp:schemas:Podani:v1'
-                },
-                OvereniAdresy: {
-                    Stat: {
-                        $: {
-                            kod: value.stat || this.refs.stat.CZ.Kod
-                        }
-                    },
-                    Obec: value.obec,
-                    CastObce: value.castObce,
-                    Ulice: value.ulice,
-                    CisloDomovni: value.cisloDomovni,
-                    CisloOrientacni: value.cisloOrientacni,
-                    PSC: value.psc
-                }
-            }
-        });
-    }
-
-    private mapOvereniAdresy(result: any): any {
-        let data = result.KlientOdpoved.OvereniAdresy.Adresa,
-            items = Array.isArray(data) ? data : data && [data] || [];
-
-        return items.map((item) => ({
-            stat: item.Stat.$.kod,
-            obec: item.Obec._,
-            castObce: item.CastObce._,
-            ulice: item.Ulice,
-            cisloDomovni: item.CisloDomovni,
-            cisloOrientacni: item.CisloOrientacni,
-            psc: item.PSC
-        }));
     }
 }

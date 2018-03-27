@@ -8,8 +8,8 @@
                         <output *ngIf="content.current">{{content.current}}/</output><output>{{content.length}}</output>
                     </button>
                     <button *ngIf="!content.single" type="button" (click)="content.next()" title="{{nextTitle}} (Ctrl-Down)"><b class="fa fa-fw fa-chevron-down"></b></button>
-                    <button *ngIf="!content.single" type="button" (click)="content.create()" title="{{addTitle}} (Alt-N)"><i class="fa fa-fw fa-plus"></i>{{addLabel}}</button>
-                    <button type="button" (click)="content.remove()" title="{{removeTitle}} (Alt-R)"><i class="fa fa-fw fa-remove"></i>{{removeLabel}}</button>
+                    <button *ngIf="!content.single" type="button" (click)="add()" title="{{addTitle}} (Alt-A)"><i class="fa fa-fw fa-plus"></i>{{addLabel}}</button>
+                    <button type="button" (click)="$event.shiftKey ? removeAll() : remove()" title="{{removeTitle}} (Alt-R)"><i class="fa fa-fw fa-remove"></i>{{removeLabel}}</button>
                 </div>
             </div>
             <div class="row gutterless" *ngIf="list">
@@ -29,7 +29,7 @@
                                 </td>
                                 <ng-container *ngTemplateOutlet="body; context: {$implicit: item}"></ng-container>
                                 <td class="compact">
-                                    <button type="button" (click)="content.remove(i)" title="{{removeTitle}}"><b class="fa fa-remove"></b></button>
+                                    <button type="button" (click)="remove(i)" title="{{removeTitle}}"><b class="fa fa-remove"></b></button>
                                 </td>
                             </tr>
                         </tbody>

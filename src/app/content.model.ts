@@ -4,7 +4,6 @@
 import {NgForm} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs/Rx';
 
-import {AppService} from './app.service';
 import {UtilsModule as utils} from './utils.module';
 
 interface Constructor<T> {
@@ -15,7 +14,7 @@ export class ContentModel<T> {
     /**
      * List of content entries.
      */
-    entries: T[] = [];
+    entries: T[];
 
     /**
      * List length.
@@ -26,14 +25,6 @@ export class ContentModel<T> {
      * Index of a current content entry.
      */
     index: number = -1;
-
-    /**
-     * Last content entry index.
-     *
-     * @example select the last content entry
-     *      content.select(content.last);
-     */
-    last: number;
 
     /**
      * Current content entry.
@@ -65,9 +56,21 @@ export class ContentModel<T> {
         this.free = this.limit ? this.limit : -1;
         this.single = this.limit === 1;
 
-        if (!this.length) {
-            this.createEntry(); //first entry
+        if (!this.entries || !this.entries.length) {
+            this.create();
         }
+    }
+
+    /**
+     * Creates a new content.
+     */
+    create(content?: any): T {
+        const values = Array.isArray(content) ? content : [content],
+            entries = values.map((value) => new this.Model(value));
+
+        this.entries = entries;
+
+        return this.select(0);
     }
 
     /**
@@ -78,57 +81,51 @@ export class ContentModel<T> {
     }
 
     /**
-     * Creates a new current content entry.
+     * Adds a new current content entry.
      */
-    create(value?: any) {
-        const message = 'Omezení neumožňuje přidat nový záznam.';
-
-        if (this.free) {
-            if (this.createEntry(value)) {
-                ;
-            }
-        }
-        else {
-            AppService.self.alert(message);
-        }
-    }
-
-    save() {
-//TODO: check validity
-    }
-
-    remove(index?: number) {
-        const message = 'Dojde ke zrušení údajů, chcete pokračovat?';
-
-        if (AppService.self.confirm(message).result) {
-            if (this.entry !== this.removeEntry(index)) {
-                ;
-            }
-        }
-    }
-
-    select(index?: number) {
-        if (this.selectEntry(index)) {
-            ;
-        }
-    }
-
-    previous() {
-        if (this.previousEntry()) {
-            ;
-        }
-    }
-
-    next() {
-        if (this.nextEntry()) {
-            ;
-        }
+    add(value?: any): T {
+        return this.addEntry(value);
     }
 
     /**
-     * Creates a new current content entry.
+     * Removes a content entry.
+     *
+     * @example determine a current entry change
+     *      if (content.entry !== content.remove()) {
+     *          console.log('New current content entry', content.entry);
+     *      }
      */
-    private createEntry(value?: any): T {
+    remove(index?: number): T {
+        return this.removeEntry(index);
+    }
+
+    /**
+     * Selects a content entry...
+     */
+    select(index?: number): T {
+        return this.selectEntry(index);
+    }
+
+    first(): T {
+        return this.select(0);
+    }
+
+    last(): T {
+        return this.select(this.length - 1);
+    }
+
+    previous(): T {
+        return this.selectNthEntry(-1);
+    }
+
+    next() {
+        return this.selectNthEntry(1);
+    }
+
+    /**
+     * Adds a new current content entry.
+     */
+    private addEntry(value?: any): T {
         if (this.free) {
             const entries = this.entries,
                 entry = new this.Model(value), //model class
@@ -141,11 +138,6 @@ export class ContentModel<T> {
     /**
      * Removes a content entry.
      * Recalculates the new selected content entry index.
-     *
-     * @example determine a current entry change
-     *      if (content.entry !== content.remove()) {
-     *          console.log('New current content entry', content.entry);
-     *      }
      */
     private removeEntry(index: number = this.index): T {
         const entries = this.entries,
@@ -156,7 +148,7 @@ export class ContentModel<T> {
         }
 
         if (!entries.length) {
-            return this.createEntry();
+            return this.addEntry();
         }
 
         if (entries.length <= this.index) {
@@ -190,27 +182,13 @@ export class ContentModel<T> {
     }
 
     /**
-     * Shifts a selected content entry index to an existing one.
+     * Selects N-th next or previous existing content entry.
      */
-    private shift(value: number): T {
+    private selectNthEntry(value: number = 1): T {
         const entries = this.entries,
             index = Math.min(entries.length - 1, Math.max(0, this.index + value));
 
         return this.update(entries, index);
-    }
-
-    /**
-     * Selects the previous content entry.
-     */
-    private previousEntry(): T {
-        return this.shift(-1);
-    }
-
-    /**
-     * Selects the next content entry.
-     */
-    private nextEntry(): T {
-        return this.shift(1);
     }
 
     /**
@@ -224,7 +202,6 @@ export class ContentModel<T> {
 
         this.length = entries.length;
         this.free = this.limit ? this.limit - this.length : -1;
-        this.last = this.length - 1;
         this.index = entry ? index : -1;
         this.entry = entries[this.index];
 

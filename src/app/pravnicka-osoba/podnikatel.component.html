@@ -60,7 +60,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" [disabled]="!completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
+                    <button type="button" (click)="requestVyberPodnikatele()" [disabled]="!completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
                 </div>
             </div>
 </ng-container>

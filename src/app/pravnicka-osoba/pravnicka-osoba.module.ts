@@ -9,6 +9,7 @@ import {FeatureModule} from '../feature.module';
 import {MenuComponent} from './menu.component';
 import {OstatniComponent} from './ostatni.component';
 import {PodnikatelComponent} from './podnikatel.component';
+import {PodnikatelService} from './podnikatel.service';
 //import {PravnickaOsobaRoutingModule} from './pravnicka-osoba-routing.module';
 import {ZivnostiComponent} from './zivnosti.component';
 import {ZmenoveListyComponent} from './zmenove-listy.component';
@@ -27,7 +28,8 @@ import {ZmenoveListyComponent} from './zmenove-listy.component';
         //PravnickaOsobaRoutingModule
     ],
     providers: [
-        DataService
+        DataService,
+        PodnikatelService
     ]
 })
 export class PravnickaOsobaModule {

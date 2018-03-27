@@ -19,40 +19,89 @@ export class MenuComponent {
     @ViewChild('links')
     private scope: ElementRef;
 
+    @ViewChild('inputLoadFile')
+    private inputLoadFile: ElementRef;
+
     constructor(private app: AppService, public data: DataService) {
     }
 
     /**
-     * Creates a new content.
+     * Manages...
      */
     create() {
-        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+        const message = 'Vytvoření nového podání proběhlo v pořádku.';
 
-        if (this.app.confirm(message).result) {
-            this.data.create();
+        if (this.loose()) {
+            if (this.data.content.create()) {
+                this.refresh(message);
+            }
+        }
+    }
 
-            this.app.navigate('/').then(() => {
-                this.app.navigate('/pravnicka-osoba/podnikatel');
-            });
+    loadFile() {
+        if (this.loose()) {
+            this.inputLoadFile.nativeElement.click();
+        }
+    }
+
+    load() {
+        const message = 'Načtení údajů podání proběhlo v pořádku.',
+            input: HTMLInputElement = this.inputLoadFile.nativeElement,
+            files = Array.from(input.files),
+            file = files[0];
+
+        if (file) {
+            this.data.content.load(file)
+                .then((content) => {
+                    if (this.data.content.create(content)) {
+                        this.refresh(message);
+                    }
+                })
+                .catch(({message, error}) => {
+                    this.app.failure(message, error);
+                });
+        }
+    }
+
+    save() {
+        const message = 'Uložení údajů podání proběhlo v pořádku.';
+
+        if (this.data.content.save()) {
+            this.app.alert(message);
+        }
+    }
+
+    check() {
+        const message = ['Kontrola údajů podání proběhla v pořádku.', 'Podání obsahuje chyby.'],
+            errors = this.data.content.validate();
+
+        if (!errors) {
+            this.app.alert(message[0]);
+        }
+        else {
+            this.app.alert([message[1], ...errors]);
         }
     }
 
     /**
-     * Loads the content from a file.
+     * Checks loosing content.
      */
-    load() {
+    private loose(): boolean {
+        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+
+        return !this.data.content.dirty ||
+                this.app.confirm(message).result;
     }
 
     /**
-     * Saves the content to a file.
+     * Refreshes contents.
      */
-    save() {
-    }
+    private refresh(message?: string) {
+        this.app.renavigate('/pravnicka-osoba/podnikatel');
 
-    /**
-     * Checks the content.
-     */
-    check() {
+        if (message) {
+            setTimeout(() => this.app.alert(message));
+        }
     }
 
     /**
@@ -79,8 +128,29 @@ export class MenuComponent {
     /**
      * Controls...
      */
-    @HostListener('document:keydown.alt.pageup', ['$event', '-1'])
-    @HostListener('document:keydown.alt.pagedown', ['$event', '1'])
+    @HostListener('document:keydown.alt.n', ['$event'])
+    private createOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.create();
+        }
+    }
+
+    @HostListener('document:keydown.alt.o', ['$event'])
+    private loadOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.loadFile();
+        }
+    }
+
+    @HostListener('document:keydown.alt.s', ['$event'])
+    private saveOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.save();
+        }
+    }
+
+    @HostListener('document:keydown.alt.arrowleft', ['$event', '-1'])
+    @HostListener('document:keydown.alt.arrowright', ['$event', '1'])
     private shiftOnKey(event: KeyboardEvent, value: string) {
         if (utils.keydown(event)) {
             this.shift(parseInt(value));

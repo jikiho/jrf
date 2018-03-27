@@ -15,8 +15,6 @@ import {UtilsModule as utils} from './utils.module';
 
 @Injectable()
 export class AppService {
-    static self: AppService;
-
     /**
      * Information about the application (stream).
      */
@@ -55,8 +53,6 @@ export class AppService {
     constructor(@Inject(LOCALE_ID) public readonly locale: string, //locale string
             private router: Router, private route: ActivatedRoute, private location: PlatformLocation,
             private config: ConfigService, private process: ProcessService) {
-        AppService.self = this;
-
         if (!this.config.production || this.config.debug) {
             Object.assign(window, {app: this, utils});
         }
@@ -72,10 +68,22 @@ export class AppService {
         this.settleAbout();
     }
 
+    /**
+     * Navigates the a route.
+     */
     navigate(url: any, extras?: {}): Promise<boolean> {
         const commands = Array.isArray(url) ? url : [url];
 
         return this.router.navigate(commands, extras);
+    }
+
+    /**
+     * Renavigates to a route to reset a content.
+     */
+    renavigate(url: any, extras?: {}): Promise<boolean> {
+        return this.router.navigate(['/'], {skipLocationChange: true}).then(() => {
+            return this.navigate(url, extras);
+        });
     }
 
     /**

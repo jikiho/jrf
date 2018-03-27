@@ -2,7 +2,7 @@
  * "Pravnicka osoba - Ostatni" feature component.
  */
 //TODO: zero on reset, now empty value
-import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, HostListener} from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 
@@ -24,6 +24,9 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
     @ViewChild('form')
     form: NgForm;
+
+    @ViewChild('inputAddPrilohaFile')
+    private inputAddPrilohaFile: ElementRef;
 
     private changes: Subscription[] = [];
 
@@ -50,11 +53,16 @@ export class OstatniComponent implements OnInit, OnDestroy {
     /**
      * Adds...
      */
-    addPriloha(input: HTMLInputElement) {
+    addPrilohaFile() {
+        this.inputAddPrilohaFile.nativeElement.click();
+    }
+
+    addPriloha() {
         const message = 'Není možné přidat znvou stejnou elektronickou přílohu.',
+            input: HTMLInputElement = this.inputAddPrilohaFile.nativeElement,
+            files = Array.from(input.files),
             entry = this.content.entry,
-            items = entry.prilohy,
-            files = Array.from(input.files);
+            items = entry.prilohy;
 
         for (let file of files) {
             const hash = this.hash(file);
