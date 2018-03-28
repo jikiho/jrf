@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-12">
                     <button type="button" (click)="openVyberZivnosti()" title="Výběr živností, případně oborů činnosti"><i class="fa fa-bars"></i>Vybrat živnosti</button>
-                    <small title="Počet vybraných živností">{{entry.zivnost | numeric}}</small>
+                    <small title="Počet vybraných živností">{{entry.zivnost.length}}/{{vyberZivnosti.seznamZivnosti | numeric}}</small>
                 </div>
             </div>
             <div class="row">

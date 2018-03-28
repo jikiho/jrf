@@ -52,6 +52,11 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
                 .debounceTime(1) //reset
                 .subscribe(() => this.updateUdaj()));
         });
+
+        Object.assign(this.vyberZivnosti, {
+            seznamZivnosti: this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
+                    .filter((item) => item && item.Kod)
+        });
     }
 
     ngOnDestroy() {
@@ -65,8 +70,6 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      */
     openVyberZivnosti() {
         Object.assign(this.vyberZivnosti, {
-            seznamZivnosti: this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
-                    .filter((item) => item && item.Kod),
             zivnost: [...(this.content.entry.zivnost || [])]
         });
 

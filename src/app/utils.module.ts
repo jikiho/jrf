@@ -214,6 +214,13 @@ export class UtilsModule {
      */
 
     /**
+     * Checks if...
+     */
+    static objectLiteral(obj: any): boolean {
+        return obj && typeof obj === 'object' && obj.constructor === 'Object';
+    }
+
+    /**
      * Patches an object content.
      */
     static patch(obj: any, ...args): any {
@@ -224,11 +231,11 @@ export class UtilsModule {
                 if (!whole && !part.propertyIsEnumerable(name)) {
                     ;
                 }
-                else if (!acc[name] || typeof acc[name] !== 'object') {
-                    acc[name] = whole ? part : part[name];
+                else if (UtilsModule.objectLiteral(acc[name])) {
+                    UtilsModule.patch(acc[name], whole ? part : part[name]);
                 }
                 else {
-                    UtilsModule.patch(acc[name], whole ? part : part[name]);
+                    acc[name] = whole ? part : part[name];
                 }
             }
 
