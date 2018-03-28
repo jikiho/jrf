@@ -214,10 +214,19 @@ export class UtilsModule {
      */
 
     /**
-     * Checks if...
+     * Checks if a value is an object.
+     * Optional object prototypes to be accepted (true, or a function or it's name).
      */
-    static objectLiteral(obj: any): boolean {
-        return obj && typeof obj === 'object' && obj.constructor === 'Object';
+    static isObject(value: any, ...args): boolean {
+        if (!value || ['object', 'function'].indexOf(typeof value) === -1) {
+            return false;
+        }
+        else if (args.length) {
+            return args.findIndex((arg) => arg === true || (typeof arg === 'function' ?
+                    value instanceof arg : value.constructor.name === arg)) > -1;
+        }
+
+        return value.constructor === Object;
     }
 
     /**
@@ -231,7 +240,7 @@ export class UtilsModule {
                 if (!whole && !part.propertyIsEnumerable(name)) {
                     ;
                 }
-                else if (UtilsModule.objectLiteral(acc[name])) {
+                else if (UtilsModule.isObject(acc[name])) {
                     UtilsModule.patch(acc[name], whole ? part : part[name]);
                 }
                 else {

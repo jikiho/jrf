@@ -151,6 +151,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 ico: value.ico
             }
         });
+console.log("podnikatel", this.content.entry.state);
 
         // apply complex content changes
         this.cdr.markForCheck();
@@ -165,6 +166,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                         utils.some(value.cisloDomovni, value.cisloOrientacni)
             }
         });
+console.log("adresaSidla", this.content.entry.state);
 
         // apply complex content changes
         this.cdr.markForCheck();

@@ -75,11 +75,11 @@ export class InputValidDirective implements Validator {
         this.control = control;
 
         if (control.pristine) {
-            if (this.pristine) {
-                value = '';
-            }
-            else {
+            if (!this.pristine) {
                 return null;
+            }
+            else if (!value) {
+                value = '';
             }
         }
 
