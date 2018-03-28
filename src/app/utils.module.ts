@@ -214,10 +214,26 @@ export class UtilsModule {
      */
 
     /**
-     * Patches an object content with value properties.
+     * Patches an object content.
      */
-    static patch(obj: any, value?: any): any {
-        return value ? Object.assign(obj, {...obj as any, ...value}) : obj;
+    static patch(obj: any, ...args): any {
+        return args.reduce((acc, part) => {
+            const whole = false; //part === null
+
+            for (let name of Object.keys(acc)) {
+                if (!whole && !part.propertyIsEnumerable(name)) {
+                    ;
+                }
+                else if (!acc[name] || typeof acc[name] !== 'object') {
+                    acc[name] = whole ? part : part[name];
+                }
+                else {
+                    UtilsModule.patch(acc[name], whole ? part : part[name]);
+                }
+            }
+
+            return acc;
+        }, obj);
     }
 
     /**

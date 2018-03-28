@@ -15,8 +15,8 @@
     <th width="25%"><abbr title="identifikační číslo osoby">IČO</abbr></th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.overview.nazev}}</td>
-    <td>{{item.overview.ico}}</td>
+    <td>{{item.state.nazev}}</td>
+    <td>{{item.state.ico}}</td>
 </ng-template>
 
 <section *ngIf="content.entry as entry">
@@ -60,7 +60,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="requestVyberPodnikatele()" [disabled]="!completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
+                    <button type="button" (click)="requestVyberPodnikatele()" [disabled]="!entry.state.completePodnikatel"><i class="fa fa-fw fa-search"></i>Doplnit podnikatele</button>
                 </div>
             </div>
 </ng-container>
@@ -132,7 +132,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button type="button" (click)="requestVyberAdresySidla()" [disabled]="!completeAdresaSidla"><i class="fa fa-fw fa-search"></i>Doplnit adresu</button>
+                    <button type="button" (click)="requestVyberAdresySidla()" [disabled]="!entry.state.completeAdresaSidla"><i class="fa fa-fw fa-search"></i>Doplnit adresu</button>
                     <button type="button" (click)="clearAdresaSidla()" title="Smazání údajů adresy sídla"><i class="fa fa-fw fa-remove"></i>Smazat adresu</button>
                 </div>
             </div>

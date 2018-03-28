@@ -15,10 +15,6 @@ export class ResponseInterceptor implements HttpInterceptor {
         return next.handle(request)
             .do((response) => {
                 if (response instanceof HttpResponse) {
-                    this.app.about({
-                        responsed: new Date()
-                    });
-
                     if (this.config.debug) {
                         console.debug('RESPONSE', response.status,
                                 response.url || request.urlWithParams, response);

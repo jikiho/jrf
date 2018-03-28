@@ -14,6 +14,10 @@ export class OstatniPrilohaModel extends Model<OstatniPrilohaModel> {
 }
 
 export class OstatniModel {
+    state = {
+        pocetPriloh: 0
+    };
+
     pocetPriloh = {fu: 0, zu: 0, up: 0};
 
     velikostPriloh = 0;
@@ -23,8 +27,4 @@ export class OstatniModel {
     value = {
         uradyPrilohy: {}
     };
-
-    overview = {
-        pocetPriloh: 0
-    }
 }

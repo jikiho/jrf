@@ -4,7 +4,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule as NgBrowserModule} from '@angular/platform-browser';
 
-import {AboutComponent} from './about.component';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AppService} from './app.service';
@@ -20,7 +19,6 @@ import {WindowModule} from './window.module';
 
 @NgModule({
     declarations: [
-        AboutComponent,
         AppComponent
     ],
     imports: [

@@ -20,8 +20,8 @@
     <th width="75%">předmět podnikání</th>
 </ng-template>
 <ng-template #tbody let-item>
-    <td>{{item.overview.kodZivnosti}}</td>
-    <td>{{item.overview.predmetPodnikani}}</td>
+    <td>{{item.state.kodZivnosti}}</td>
+    <td>{{item.state.predmetPodnikani}}</td>
 </ng-template>
 
 <section *ngIf="content.entry as entry">

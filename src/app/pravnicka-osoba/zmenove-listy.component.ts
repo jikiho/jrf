@@ -45,6 +45,8 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             const control = this.form.control;
 
+            this.updateUdaj();
+
             this.changes.push(control.get('puvodniUdaj').valueChanges
                 .merge(control.get('novyUdaj').valueChanges)
                 .debounceTime(1) //reset
@@ -62,7 +64,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
      * Manages...
      */
     openVyberZivnosti() {
-        utils.patch(this.vyberZivnosti, {
+        Object.assign(this.vyberZivnosti, {
             seznamZivnosti: this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
                     .filter((item) => item && item.Kod),
             zivnost: [...(this.content.entry.zivnost || [])]
@@ -127,8 +129,10 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         const value = this.content.entry.value;
 
         this.content.patch({
-            overview: utils.some(value.puvodniUdaj, value.novyUdaj) ?
-                    [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
+            state: {
+                udaje: utils.some(value.puvodniUdaj, value.novyUdaj) ?
+                        [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
+            }
         });
 
         // apply complex content changes

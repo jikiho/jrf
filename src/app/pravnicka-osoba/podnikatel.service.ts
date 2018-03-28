@@ -19,7 +19,9 @@ export class PodnikatelService {
      */
     requestOvereniAdresy(value: any): Promise<any> {
         const url = 'api:', //resource
-            content = this.xmlOvereniAdresy(value),
+            content = PodnikatelService.xmlOvereniAdresy(value, {
+                stat: this.data.refs.stat.CZ.Kod
+            }),
             file = utils.xmlFile(content),
             body = utils.formData({
                 VSS_SERV: 'ZUMJRFADR',
@@ -34,7 +36,7 @@ export class PodnikatelService {
                             reject(error);
                         }
                         else {
-                            resolve(this.transformOvereniAdresy(result));
+                            resolve(PodnikatelService.valueOvereniAdresy(result));
                         }
                     });
                 },
@@ -48,7 +50,10 @@ export class PodnikatelService {
         });
     }
 
-    private xmlOvereniAdresy(value: any): string {
+    /**
+     * Transforms a value for XML builder.
+     */
+    static xmlOvereniAdresy(value: any, defaults: any = {}): string {
         return xmlBuilder.buildObject({
             KlientPozadavek: {
                 $: {
@@ -58,7 +63,7 @@ export class PodnikatelService {
                 OvereniAdresy: {
                     Stat: {
                         $: {
-                            kod: value.stat || this.data.refs.stat.CZ.Kod
+                            kod: value.stat || defaults.stat
                         }
                     },
                     Obec: value.obec,
@@ -72,7 +77,10 @@ export class PodnikatelService {
         });
     }
 
-    private transformOvereniAdresy(result: any): any {
+    /**
+     * Transforms XML parser result to a value.
+     */
+    static valueOvereniAdresy(result: any): any {
         let data = result.KlientOdpoved.OvereniAdresy.Adresa,
             items = Array.isArray(data) ? data : data && [data] || [];
 

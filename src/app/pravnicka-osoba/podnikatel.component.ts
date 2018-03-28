@@ -23,9 +23,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
      */
     content: ContentModel<PodnikatelModel> = this.data.content.podnikatel;
 
-    completePodnikatel = false;
-    completeAdresaSidla = false;
-
     vyberAdresySidla = {
         seznamAdres: null,
         adresa: null
@@ -47,10 +44,14 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             const control = this.form.control;
 
+            this.updatePodnikatel();
+
             this.changes.push(control.get('podnikatel.nazev').valueChanges
                 .merge(control.get('podnikatel.ico').valueChanges)
                 .debounceTime(1) //reset...
                 .subscribe(() => this.updatePodnikatel()));
+
+            this.updateAdresaSidla();
 
             this.changes.push(control.get('adresaSidla.ulice').valueChanges
                 .merge(control.get('adresaSidla.cisloDomovni').valueChanges)
@@ -122,7 +123,13 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     applyVyberAdresySidla(value: any = this.vyberAdresySidla.adresa) {
-        this.form.controls.adresaSidla.patchValue(value);
+        this.content.patch({
+            value: {
+                adresaSidla: {
+                    ...value
+                }
+            }
+        });
 
         this.closeVyberAdresySidla();
     }
@@ -135,13 +142,11 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
      * Updates...
      */
     private updatePodnikatel() {
-        const value = this.content.entry.value.podnikatel,
-            previous = this.completePodnikatel;
-
-        this.completePodnikatel = utils.some(value.nazev, value.ico);
+        const value = this.content.entry.value.podnikatel;
 
         this.content.patch({
-            overview: {
+            state: {
+                completePodnikatel: utils.some(value.nazev, value.ico),
                 nazev: value.nazev,
                 ico: value.ico
             }
@@ -152,15 +157,17 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     private updateAdresaSidla() {
-        const value = this.content.entry.value.adresaSidla,
-            previous = this.completeAdresaSidla;
+        const value = this.content.entry.value.adresaSidla;
 
-        this.completeAdresaSidla = utils.some(value.ulice) && utils.some(value.obec) &&
-                utils.some(value.cisloDomovni, value.cisloOrientacni);
+        this.content.patch({
+            state: {
+                completeAdresaSidla: utils.some(value.ulice) && utils.some(value.obec) &&
+                        utils.some(value.cisloDomovni, value.cisloOrientacni)
+            }
+        });
 
-        if (previous !== this.completeAdresaSidla) {
-            this.cdr.markForCheck();
-        }
+        // apply complex content changes
+        this.cdr.markForCheck();
     }
 
     private updateAdresaSidlaOkres() {
@@ -169,8 +176,12 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
         if (value) {
             utils.suspend(this.content.entry.value.adresaSidla.okres, 0);
 
-            this.form.controls.adresaSidla.patchValue({
-                stat: this.data.refs.stat.CZ.Kod
+            this.content.patch({
+                value: {
+                    adresaSidla: {
+                        stat: this.data.refs.stat.CZ.Kod
+                    }
+                }
             });
         }
     }
@@ -180,8 +191,12 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
 
         if (value !== this.data.refs.stat.CZ.Kod) {
             if (!utils.suspended(this.content.entry.value.adresaSidla.okres)) {
-                this.form.controls.adresaSidla.patchValue({
-                    okres: null
+                this.content.patch({
+                    value: {
+                        adresaSidla: {
+                            okres: null
+                        }
+                    }
                 });
             }
         }

@@ -53,8 +53,8 @@ export class MenuComponent {
 
         if (file) {
             this.data.content.load(file)
-                .then((content) => {
-                    if (this.data.content.create(content)) {
+                .then((value) => {
+                    if (this.data.content.create(value)) {
                         this.refresh(message);
                     }
                 })
@@ -88,7 +88,7 @@ export class MenuComponent {
      * Checks loosing content.
      */
     private loose(): boolean {
-        const message = 'Dojde ke smazání údajů podání, chcete pokračovat?';
+        const message = 'Dojde ke zrušení údajů podání, chcete pokračovat?';
 
         return !this.data.content.dirty ||
                 this.app.confirm(message).result;
@@ -101,7 +101,7 @@ export class MenuComponent {
         this.app.renavigate('/pravnicka-osoba/podnikatel');
 
         if (message) {
-            setTimeout(() => this.app.alert(message));
+            setTimeout(() => this.app.alert(message), 250);
         }
     }
 

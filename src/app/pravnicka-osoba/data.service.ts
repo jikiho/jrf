@@ -1,6 +1,8 @@
 /**
  * "Pravnicka osoba" feature data service.
  */
+//TODO: store and work with item.kod instead of item
+//TODO: static...
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 

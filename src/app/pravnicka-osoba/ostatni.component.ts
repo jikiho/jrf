@@ -142,10 +142,10 @@ export class OstatniComponent implements OnInit, OnDestroy {
         });
 
         this.content.patch({
-            pocetPriloh: count,
-            overview: {
+            state: {
                 pocetPriloh: totalCount
-            }
+            },
+            pocetPriloh: count
         });
 
         // apply complex content changes

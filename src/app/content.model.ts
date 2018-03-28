@@ -1,6 +1,7 @@
 /**
  * Feature content model.
  */
+//TODO: reset form (pristine controls) on update
 import {NgForm} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs/Rx';
 
@@ -14,7 +15,7 @@ export class ContentModel<T> {
     /**
      * List of content entries.
      */
-    entries: T[];
+    entries: T[] = [];
 
     /**
      * List length.
@@ -62,24 +63,24 @@ export class ContentModel<T> {
         this.single = this.limit === 1;
 
         if (!this.entries || !this.entries.length) {
-            this.create();
+            this.addEntry();
         }
     }
 
     /**
-     * Creates a new content.
+     * Creates new content.
      */
-    create(content?: any): T {
-        const values = Array.isArray(content) ? content : [content],
+    create(value?: any): T {
+        const values = Array.isArray(value) ? value : [value],
             entries = values.map((value) => new this.Model(value));
 
         this.entries = entries;
 
-        return this.select(0);
+        return this.selectEntry(0);
     }
 
     /**
-     * Patches a current content entry with value properties.
+     * Patches a current content entry with a value.
      */
     patch(value?: any): T {
         return utils.patch(this.entry, value);
@@ -133,7 +134,7 @@ export class ContentModel<T> {
     private addEntry(value?: any): T {
         if (this.free) {
             const entries = this.entries,
-                entry = new this.Model(value), //model class
+                entry = new this.Model(value),
                 length = entries.push(entry);
 
             return this.update(entries, length - 1);

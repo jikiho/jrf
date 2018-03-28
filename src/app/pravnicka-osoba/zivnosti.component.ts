@@ -70,7 +70,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         const entry = this.content.entry,
             value = entry.druhZivnosti;
 
-        utils.patch(this.vyberZivnosti, {
+        Object.assign(this.vyberZivnosti, {
             druhZivnosti: value,
             skupinaZivnosti: entry.skupinaZivnosti,
             zivnost: entry.zivnost,
@@ -116,14 +116,14 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         }
 
         this.content.patch({
+            state: {
+                kodZivnosti,
+                predmetPodnikani
+            },
             druhZivnosti: this.vyberZivnosti.druhZivnosti,
             skupinaZivnosti: this.vyberZivnosti.skupinaZivnosti,
             zivnost: this.vyberZivnosti.zivnost,
-            oborCinnosti: this.vyberZivnosti.oborCinnosti,
-            overview: {
-                kodZivnosti,
-                predmetPodnikani
-            }
+            oborCinnosti: this.vyberZivnosti.oborCinnosti
         });
 
         this.closeVyberZivnosti();
@@ -136,7 +136,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         const value = this.vyberZivnosti.druhZivnosti,
             skupinaZivnosti = value && this.data.defaults[value.Kod] || null;
 
-        utils.patch(this.vyberZivnosti, {
+        Object.assign(this.vyberZivnosti, {
             skupinaZivnosti,
             zivnost: null,
             oborCinnosti: null,
@@ -155,7 +155,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         const value = this.vyberZivnosti.skupinaZivnosti,
             zivnost = value && this.data.defaults[value.Kod] || null;
 
-        utils.patch(this.vyberZivnosti, {
+        Object.assign(this.vyberZivnosti, {
             zivnost,
             oborCinnosti: null
         });
@@ -169,7 +169,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     }
 
     private updateZivnost() {
-        utils.patch(this.vyberZivnosti, {
+        Object.assign(this.vyberZivnosti, {
             oborCinnosti: null
         });
 

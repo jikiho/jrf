@@ -30,11 +30,11 @@ export class ContentsModel {
     /**
      * Creates new contents.
      */
-    create(content: any = {}): ContentsModel {
-        this.podnikatel.create(content.podnikatel);
-        this.zivnosti.create(content.zivnosti);
-        this.ostatni.create(content.ostatni);
-        this.zmenoveListy.create(content.zmenoveListy);
+    create(value: any = {}): ContentsModel {
+        this.podnikatel.create(value.podnikatel);
+        this.zivnosti.create(value.zivnosti);
+        this.ostatni.create(value.ostatni);
+        this.zmenoveListy.create(value.zmenoveListy);
 
         return this;
     }
@@ -54,7 +54,12 @@ export class ContentsModel {
                             });
                         }
                         else {
-                            resolve(this.create(this.transformLoad(result)));
+                            resolve({
+                                podnikatel: PodnikatelModel.value(result),
+                                //zivnosti: ZivnostModel.value(result),
+                                //ostatni: OstatniModel.value(result),
+                                //zmenoveListy: ZmenovyListModel.value(result)
+                            });
                         }
                     });
                 })
@@ -65,12 +70,6 @@ export class ContentsModel {
                     });
                 });
         });
-    }
-
-    private transformLoad(result: any): any {
-        let data = result;
-
-        return {};
     }
 
     /**

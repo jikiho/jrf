@@ -4,10 +4,9 @@
 import {Injectable, Inject, LOCALE_ID, Component} from '@angular/core';
 import {PlatformLocation} from '@angular/common';
 //import {Title} from '@angular/platform-browser';
-import {Router, ActivatedRoute, NavigationExtras, RouterEvent, NavigationEnd, NavigationCancel, NavigationError} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Observable, BehaviorSubject} from 'rxjs/Rx';
 
-import {AboutModel} from './about.model';
 import {ConfigService} from './config.service';
 import {HistoryStateModel} from './history-state.model';
 import {ProcessService, TaskModel} from './process.service';
@@ -16,16 +15,9 @@ import {UtilsModule as utils} from './utils.module';
 @Injectable()
 export class AppService {
     /**
-     * Information about the application (stream).
-     */
-    about$ = new BehaviorSubject<AboutModel>(null);
-
-    /**
      * Application unique identification.
      */
-    get id(): string {
-        return this.about$.getValue().id;
-    }
+    id: string;
 
     /**
      * Navigation history state.
@@ -57,15 +49,9 @@ export class AppService {
             Object.assign(window, {app: this, utils});
         }
 
-        if (this.config.debug) {
-            this.router.events.subscribe((event: RouterEvent) => this.debugRouterEvent(event));
-        }
-
         document.documentElement.setAttribute('lang', utils.localeLang(locale));
 
         this.collator = new Intl.Collator(locale);
-
-        this.settleAbout();
     }
 
     /**
@@ -146,61 +132,5 @@ export class AppService {
             handler,
             cancelable: false
         });
-    }
-
-    /**
-     * Updates information about the aplication.
-     */
-    about(...args) {
-        const about = this.about$.getValue();
-
-        this.about$.next(new AboutModel(about, ...args));
-    }
-
-    /**
-     * Initializes and handles information about the application.
-     */
-    private settleAbout() {
-        const started = new Date(),
-            base = this.location.getBaseHrefFromDOM() || '';
-
-        this.about({
-            backend: {
-                full: undefined
-            },
-            frontend: {
-                full: utils.concat(this.config.version, this.config.build) || undefined
-            },
-            id: utils.md5([window.navigator.userAgent, started]),
-            locale: this.locale,
-            base: new URL(base, window.location.origin),
-            location: window.location,
-            navigator: window.navigator,
-            viewport: window['visualViewport'],
-            started
-        });
-
-        this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .subscribe((event: NavigationEnd) => this.about()); //update location
-
-        Observable.fromEvent(window, 'resize')
-            .map((event: Event) => event.target['visualViewport'])
-            .subscribe((viewport) => this.about(viewport)); //update viewport
-    }
-
-    /**
-     * Debug router events.
-     */
-    private debugRouterEvent(event: RouterEvent) {
-        if (event instanceof NavigationEnd) {
-            console.debug('ROUTE', event.urlAfterRedirects, this.historyState);
-        }
-        else if (event instanceof NavigationCancel) {
-            console.debug('CANCEL ROUTE', event.url, event.reason);
-        }
-        else if (event instanceof NavigationError) {
-            //console.debug('FAILED ROUTE', event.url, this.router, this.route);
-        }
     }
 }
