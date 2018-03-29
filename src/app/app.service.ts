@@ -57,7 +57,7 @@ export class AppService {
     /**
      * Navigates the a route.
      */
-    navigate(url: any, extras?: {}): Promise<boolean> {
+    navigate(url: any = '/', extras?: {}): Promise<boolean> {
         const commands = Array.isArray(url) ? url : [url];
 
         return this.router.navigate(commands, extras);

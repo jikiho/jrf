@@ -8,6 +8,7 @@ import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
+import {ContentsService} from './contents.service';
 import {DataService} from './data.service';
 import {UtilsModule as utils} from '../utils.module';
 import {ZivnostModel} from './zivnost.model';
@@ -20,7 +21,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<ZivnostModel> = this.data.content.zivnosti;
+    content: ContentModel<ZivnostModel> = this.contents.zivnosti;
 
     vyberZivnosti = {
         druhZivnosti: null,
@@ -40,7 +41,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, public data: DataService) {
+            private app: AppService, private contents: ContentsService, public data: DataService) {
     }
 
     ngOnInit() {

@@ -27,4 +27,8 @@ export class OstatniModel {
     value = {
         uradyPrilohy: {}
     };
+
+    constructor(value: any) {
+        Object.assign(this, value);
+    }
 }

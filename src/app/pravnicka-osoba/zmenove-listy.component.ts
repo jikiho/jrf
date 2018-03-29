@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
-import {DataService} from './data.service';
+import {ContentsService} from './contents.service';
 import {UtilsModule as utils} from '../utils.module';
 import {ZmenovyListModel} from './zmenovy-list.model';
 
@@ -20,7 +20,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<ZmenovyListModel> = this.data.content.zmenoveListy;
+    content: ContentModel<ZmenovyListModel> = this.contents.zmenoveListy;
 
     vyberZivnosti = {
         seznamZivnosti: null,
@@ -36,7 +36,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, public data: DataService) {
+            private app: AppService, private contents: ContentsService) {
     }
 
     ngOnInit() {
@@ -54,7 +54,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
         });
 
         Object.assign(this.vyberZivnosti, {
-            seznamZivnosti: this.data.content.zivnosti.entries.map((entry) => entry.zivnost)
+            seznamZivnosti: this.contents.zivnosti.entries.map((entry) => entry.zivnost)
                     .filter((item) => item && item.Kod)
         });
     }
@@ -123,7 +123,7 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     private updateZivnosti() {
         this.content.entries.forEach((entry) => {
             entry.zivnost = entry.zivnost.filter((item) =>
-                    this.data.content.zivnosti.entries.find((entry) =>
+                    this.contents.zivnosti.entries.find((entry) =>
                             entry.zivnost && entry.zivnost.Kod === item.Kod));
         });
     }

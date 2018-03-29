@@ -8,7 +8,7 @@ import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
-import {DataService} from './data.service';
+import {ContentsService} from './contents.service';
 import {OstatniModel, OstatniPrilohaModel} from './ostatni.model';
 import {UtilsModule as utils} from '../utils.module';
 
@@ -20,7 +20,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<OstatniModel> = this.data.content.ostatni;
+    content: ContentModel<OstatniModel> = this.contents.ostatni;
 
     @ViewChild('form')
     form: NgForm;
@@ -31,7 +31,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, public data: DataService) {
+            private app: AppService, private contents: ContentsService) {
     }
 
     ngOnInit() {

@@ -4,13 +4,14 @@
 //TODO: separate dialog form
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
+import {ContentsService} from './contents.service';
 import {DataService} from './data.service';
+import {PodnikatelDataService} from './podnikatel-data.service';
 import {PodnikatelModel} from './podnikatel.model';
-import {PodnikatelService} from './podnikatel.service';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
@@ -21,7 +22,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     /**
      * Feature content.
      */
-    content: ContentModel<PodnikatelModel> = this.data.content.podnikatel;
+    content: ContentModel<PodnikatelModel> = this.contents.podnikatel;
 
     vyberAdresySidla = {
         seznamAdres: null,
@@ -37,7 +38,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, public data: DataService, private service: PodnikatelService) {
+            private app: AppService, private contents: ContentsService, public data: DataService,
+            private podnikatelData: PodnikatelDataService) {
     }
 
     ngOnInit() {
@@ -89,7 +91,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     requestVyberAdresySidla() {
         const value = this.content.entry.value.adresaSidla;
 
-        this.service.requestOvereniAdresy(value)
+        this.podnikatelData.requestOvereniAdresy(value)
             .then((items) => {
                 this.vyberAdresySidla.seznamAdres = items;
                 this.openVyberAdresySidla();
@@ -151,7 +153,6 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 ico: value.ico
             }
         });
-console.log("podnikatel", this.content.entry.state);
 
         // apply complex content changes
         this.cdr.markForCheck();
@@ -166,7 +167,6 @@ console.log("podnikatel", this.content.entry.state);
                         utils.some(value.cisloDomovni, value.cisloOrientacni)
             }
         });
-console.log("adresaSidla", this.content.entry.state);
 
         // apply complex content changes
         this.cdr.markForCheck();

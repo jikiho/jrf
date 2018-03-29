@@ -1,25 +1,60 @@
 /**
- * "Pravnicka osoba - Podnikatel" feature service.
+ * "Pravnicka osoba - Podnikatel" feature data service.
  */
 import {Injectable} from '@angular/core';
 
-import {AppService} from '../app.service';
 import {DataService} from './data.service';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
 import {xmlBuilder, xmlParser} from '../feature.module';
 
 @Injectable()
-export class PodnikatelService {
-    constructor(private app: AppService, private data: DataService, private http: HttpService) {
+export class PodnikatelDataService {
+    constructor(private data: DataService, private http: HttpService) {
     }
 
     /**
-     * Request "overeni adresy".
+     * Prepares a model value for XML builder.
+     */
+    prepareValue(value: any): string {
+        return '';
+    }
+
+    /**
+     * Finishes a model value from XML parser result.
+     */
+    finishValue(result: any): any {
+        const data = result.Podani.NovaOpravneniPO,
+            podnikatel = utils.get(data, 'ZakladniCastPO.Podnikatel') || {},
+            adresaSidla = utils.get(data, 'ZakladniCastPO.SidloAdresa') || {};
+
+        return {
+            value: {
+                podnikatel: {
+                    nazev: podnikatel.ObchodniJmeno,
+                    pravniForma: podnikatel.PravniForma.$.kod,
+                    ico: podnikatel.ICO
+                },
+                adresaSidla: {
+                    ulice: adresaSidla.UliceNazev,
+                    cisloDomovni: adresaSidla.CisloDomovniHodnota,
+                    cisloOrientacni: [adresaSidla.CisloOrientacni, adresaSidla.CisloOrientacniZnak].join(''),
+                    psc: adresaSidla.PSC,
+                    obec: adresaSidla.ObecNazev,
+                    castObce: adresaSidla.CastObceNazev,
+                    okres: adresaSidla.OkresKod,
+                    stat: adresaSidla.StatKod
+                }
+            }
+        };
+    }
+
+    /**
+     * Requests "overeni adresy".
      */
     requestOvereniAdresy(value: any): Promise<any> {
         const url = 'api:', //resource
-            content = PodnikatelService.xmlOvereniAdresy(value, {
+            content = this.prepareOvereniAdresy(value, {
                 stat: this.data.refs.stat.CZ.Kod
             }),
             file = utils.xmlFile(content),
@@ -36,7 +71,7 @@ export class PodnikatelService {
                             reject(error);
                         }
                         else {
-                            resolve(PodnikatelService.valueOvereniAdresy(result));
+                            resolve(this.finishOvereniAdresy(result));
                         }
                     });
                 },
@@ -51,9 +86,9 @@ export class PodnikatelService {
     }
 
     /**
-     * Transforms a value for XML builder.
+     * Prepares a value for XML builder.
      */
-    static xmlOvereniAdresy(value: any, defaults: any = {}): string {
+    private prepareOvereniAdresy(value: any, defaults: any = {}): string {
         return xmlBuilder.buildObject({
             KlientPozadavek: {
                 $: {
@@ -78,9 +113,9 @@ export class PodnikatelService {
     }
 
     /**
-     * Transforms XML parser result to a value.
+     * Finishes a value from XML parser result.
      */
-    static valueOvereniAdresy(result: any): any {
+    private finishOvereniAdresy(result: any): any {
         let data = result.KlientOdpoved.OvereniAdresy.Adresa,
             items = Array.isArray(data) ? data : data && [data] || [];
 

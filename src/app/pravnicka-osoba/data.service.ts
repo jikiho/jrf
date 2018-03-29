@@ -2,23 +2,16 @@
  * "Pravnicka osoba" feature data service.
  */
 //TODO: store and work with item.kod instead of item
-//TODO: static...
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
-import {ContentsModel} from './contents.model';
 import {HttpService} from '../http/http.service';
 import {UtilsModule as utils} from '../utils.module';
 import {xmlParser} from '../feature.module';
 
 @Injectable()
 export class DataService {
-    /**
-     * Features content.
-     */
-    content = new ContentsModel();
-
     /**
      * List...
      */

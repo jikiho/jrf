@@ -4,7 +4,7 @@
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener} from '@angular/core';
 
 import {AppService} from '../app.service';
-import {DataService} from './data.service';
+import {ContentsService} from './contents.service';
 import {UtilsModule as utils} from '../utils.module';
 
 @Component({
@@ -22,7 +22,7 @@ export class MenuComponent {
     @ViewChild('inputLoadFile')
     private inputLoadFile: ElementRef;
 
-    constructor(private app: AppService, public data: DataService) {
+    constructor(private app: AppService, private contents: ContentsService) {
     }
 
     /**
@@ -32,7 +32,7 @@ export class MenuComponent {
         const message = 'Vytvoření nového podání proběhlo v pořádku.';
 
         if (this.loose()) {
-            if (this.data.content.create()) {
+            if (this.contents.create()) {
                 this.refresh(message);
             }
         }
@@ -52,9 +52,9 @@ export class MenuComponent {
         input.value = '';
 
         if (file) {
-            this.data.content.load(file)
+            this.contents.load(file)
                 .then((value) => {
-                    if (this.data.content.create(value)) {
+                    if (this.contents.create(value)) {
                         this.refresh(message);
                     }
                 })
@@ -67,14 +67,14 @@ export class MenuComponent {
     save() {
         const message = 'Uložení údajů podání proběhlo v pořádku.';
 
-        if (this.data.content.save()) {
+        if (this.contents.save()) {
             this.app.alert(message);
         }
     }
 
     check() {
         const message = ['Kontrola údajů podání proběhla v pořádku.', 'Podání obsahuje chyby.'],
-            errors = this.data.content.validate();
+            errors = this.contents.validate();
 
         if (!errors) {
             this.app.alert(message[0]);
@@ -84,13 +84,21 @@ export class MenuComponent {
         }
     }
 
+    close() {
+        if (this.loose()) {
+            if (this.contents.create()) {
+                this.app.navigate();
+            }
+        }
+    }
+
     /**
-     * Checks loosing content.
+     * Checks loosing contents.
      */
     private loose(): boolean {
         const message = 'Dojde ke zrušení údajů podání, chcete pokračovat?';
 
-        return !this.data.content.dirty ||
+        return !this.contents.dirty ||
                 this.app.confirm(message).result;
     }
 
@@ -147,6 +155,13 @@ export class MenuComponent {
     private saveOnKey(event: KeyboardEvent) {
         if (utils.keydown(event)) {
             this.save();
+        }
+    }
+
+    @HostListener('document:keydown.alt.w', ['$event'])
+    private closeOnKey(event: KeyboardEvent) {
+        if (utils.keydown(event)) {
+            this.close();
         }
     }
 

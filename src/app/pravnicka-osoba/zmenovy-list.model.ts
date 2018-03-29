@@ -12,4 +12,8 @@ export class ZmenovyListModel {
         puvodniUdaj: null,
         novyUdaj: null
     };
+
+    constructor(value: any) {
+        Object.assign(this, value);
+    }
 }

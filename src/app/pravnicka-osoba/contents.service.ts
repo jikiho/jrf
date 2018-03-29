@@ -1,8 +1,11 @@
 /**
- * "Pravnicka osoba" feature contents model.
+ * "Pravnicka osoba" feature contents service.
  */
+import {Injectable} from '@angular/core';
+
 import {ContentModel} from '../content.model';
 import {OstatniModel} from './ostatni.model';
+import {PodnikatelDataService} from './podnikatel-data.service';
 import {PodnikatelModel} from './podnikatel.model';
 import {UtilsModule as utils} from '../utils.module';
 //import {XmlModel} from './xml.model';
@@ -10,7 +13,8 @@ import {xmlParser} from '../feature.module';
 import {ZivnostModel} from './zivnost.model';
 import {ZmenovyListModel} from './zmenovy-list.model';
 
-export class ContentsModel {
+@Injectable()
+export class ContentsService {
     /**
      * Feature contents.
      */
@@ -18,6 +22,9 @@ export class ContentsModel {
     zivnosti = new ContentModel(ZivnostModel, 0);
     ostatni = new ContentModel(OstatniModel);
     zmenoveListy = new ContentModel(ZmenovyListModel, 3);
+
+    constructor(private podnikatelData: PodnikatelDataService) {
+    }
 
     /**
      * Flag...
@@ -30,13 +37,13 @@ export class ContentsModel {
     /**
      * Creates new contents.
      */
-    create(value: any = {}): ContentsModel {
+    create(value: any = {}): boolean {
         this.podnikatel.create(value.podnikatel);
         this.zivnosti.create(value.zivnosti);
         this.ostatni.create(value.ostatni);
         this.zmenoveListy.create(value.zmenoveListy);
 
-        return this;
+        return true;
     }
 
     /**
@@ -55,10 +62,8 @@ export class ContentsModel {
                         }
                         else {
                             resolve({
-                                podnikatel: PodnikatelModel.value(result),
-                                //zivnosti: ZivnostModel.value(result),
-                                //ostatni: OstatniModel.value(result),
-                                //zmenoveListy: ZmenovyListModel.value(result)
+                                podnikatel: this.podnikatelData.finishValue(result)
+//TODO: zivnosti, ostatni, zmenoveListy
                             });
                         }
                     });
