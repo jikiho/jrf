@@ -85,11 +85,6 @@ export class ContentsService {
         return true;
     }
 
-    private transformSave(): any {
-//TODO
-        return {};
-    }
-
     /**
      * Validates contents.
      */
