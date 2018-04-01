@@ -1,1 +1,0 @@
-<small *ngIf="control && control.errors && control.dirty" class="wrap invalid">{{control.errors | invalid:invalid:required:numeric:date:pattern:like:unlike:min:max}}</small>

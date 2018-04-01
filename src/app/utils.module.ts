@@ -590,6 +590,24 @@ export class UtilsModule {
     }
 
     /**
+     * Regular expression pattern.
+     */
+    static validPattern(pattern: RegExp, input: string, errors: any, format?: Function): string | null {
+        const match = input.match(pattern);
+
+        if (!match) {
+            errors['pattern'] = {
+                actualValue: input,
+                requiredPattern: pattern
+            }
+
+            return null;
+        }
+
+        return format ? format(match) : input;
+    }
+
+    /**
      * Number value, float or integer.
      */
     static validNumber(input: string): string | null {
@@ -614,7 +632,7 @@ export class UtilsModule {
      */
 //TODO: parsing and format
     static validDate(input: string): string | null {
-        const match = input.match(/^\s*(([0-3])?(\d))\. ?(([0-1])?(\d))\. ?((\d{2})?(\d{2}))?\s*$/);
+        const match = input.match(/^\s*(([0-3])?(\d))\.\s*(([0-1])?(\d))\.\s*((\d{2})?(\d{2}))?\s*$/);
 
         let value = match && match[1],
             valid = false;
@@ -635,7 +653,7 @@ export class UtilsModule {
      */
 //TODO: simple validation + async. request
     static validPsc(input: string): string | null {
-        const match = input.match(/^\s*(\d{3}) ?(\d{2})\s*$/);
+        const match = input.match(/^\s*(\d{3})\s*(\d{2})\s*$/);
 
         let value = match ? `${match[1]}${match[2]}` : '',
             valid = false;

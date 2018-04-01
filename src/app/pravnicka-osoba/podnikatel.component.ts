@@ -77,6 +77,14 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * Checks valid "cislo orientacni".
+     */
+    validCisloOrientacni(input: string, errors: any): string | null {
+        return utils.validPattern(/^\s*([1-9]\d*)\s*([A-Za-z]?)\s*$/, input, errors,
+                (match) => `${match[1]}${match[2]}`);
+    }
+
+    /**
      * "Vyber podnikatele" request and management.
      */
     requestVyberPodnikatele() {

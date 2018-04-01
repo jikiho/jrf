@@ -44,7 +44,7 @@ export class InputValidDirective implements Validator {
 
     /**
      * One or more validators, or "off" for none.
-     * "number", ""number|any", "[callback]", "['number', callback]"
+     * "number", "number|any", "[callback]", "[/regexp/]", "['number', callback...]"
      */
     @Input()
     private set valid(value: any) {
@@ -71,10 +71,10 @@ export class InputValidDirective implements Validator {
     validate(control: AbstractControl): ValidationErrors {
         let value = control.value;
 
-        this.validValue = undefined;
+        this.validValue = utils.trims(value || ''); //undefined
         this.control = control;
 
-        if (control.pristine) {
+        if (!utils.some(value)) { //control.pristine
             if (!this.pristine) {
                 return null;
             }
@@ -108,7 +108,7 @@ export class InputValidDirective implements Validator {
             }
             else if (!Object.keys(errors).length) {
                 errors = {
-                    [String(item)]: {
+                    [callback ? 'callback' : String(item)]: {
                         actualValue: input
                     }
                 };

@@ -18,6 +18,8 @@ import {FormValidateDirective} from './form-validate.directive';
 import {HiddenDirective} from './hidden.directive';
 import {InputFileDirective} from './input-file.directive';
 import {InputValidDirective} from './input-valid.directive';
+import {InvalidComponent} from './invalid.component';
+import {InvalidPipe} from './invalid.pipe';
 import {JoinPipe} from './join.pipe';
 import {NumericPipe} from './numeric.pipe';
 import {PluckPipe} from './pluck.pipe';
@@ -48,6 +50,8 @@ import {UnavailablePipe} from './unavailable.pipe';
         HiddenDirective,
         InputFileDirective,
         InputValidDirective,
+        InvalidComponent,
+        InvalidPipe,
         JoinPipe,
         NumericPipe,
         PluckPipe,
@@ -72,6 +76,8 @@ import {UnavailablePipe} from './unavailable.pipe';
         HiddenDirective,
         InputFileDirective,
         InputValidDirective,
+        InvalidComponent,
+        InvalidPipe,
         JoinPipe,
         NgCommonModule,
         NgFormsModule,

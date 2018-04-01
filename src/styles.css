@@ -354,6 +354,16 @@
         color: #e33;
     }
 
+    output.invalid {
+        position: absolute;
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+        border-radius: 0.25rem;
+        border-bottom: 1px solid #f33;
+        background: rgba(238, 51, 51, 0.85);
+        color: #fff;
+    }
+
     /*
     input[type="number"].ng-invalid,
     */

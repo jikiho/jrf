@@ -30,6 +30,7 @@
             <div class="row">
                 <div class="col-12">
                     <h4>01 Podnikatel</h4>
+                    <output>{{form.controls.podnikatel?.errors | json}}</output>
                 </div>
             </div>
 <ng-container ngModelGroup="podnikatel">
@@ -37,7 +38,8 @@
                 <div class="col-12">
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
-                        <input type="text" #inputNazev name="nazev" valid="some" [(ngModel)]="value.podnikatel.nazev">
+                        <input type="text" #inputNazev name="nazev" [(ngModel)]="value.podnikatel.nazev">
+                        <invalid-component [control]="form.control.get('podnikatel.nazev')"></invalid-component>
                     </label>
                 </div>
             </div>
@@ -55,6 +57,7 @@
                     <label>
                         <dfn>c) <abbr title="identifikační číslo osoby">IČO</abbr></dfn>
                         <input type="text" name="ico" valid="ico" [(ngModel)]="value.podnikatel.ico">
+                        <invalid-component [control]="form.control.get('podnikatel.ico')"></invalid-component>
                     </label>
                 </div>
             </div>
@@ -81,18 +84,21 @@
                     <label>
                         <dfn>b) <abbr title="číslo domovní (popisné / evidenční)">č.p. / č.ev.</abbr></dfn>
                         <input type="text" name="cisloDomovni" valid="number" [(ngModel)]="value.adresaSidla.cisloDomovni">
+                        <invalid-component [control]="form.control.get('adresaSidla.cisloDomovni')"></invalid-component>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>c) <abbr title="číslo orientační">č. or.</abbr></dfn>
-                        <input type="text" name="cisloOrientacni" pattern="[1-9]\d*[A-Za-z]?" [(ngModel)]="value.adresaSidla.cisloOrientacni">
+                        <input type="text" name="cisloOrientacni" [valid]="[validCisloOrientacni]" [(ngModel)]="value.adresaSidla.cisloOrientacni">
+                        <invalid-component [control]="form.control.get('adresaSidla.cisloOrientacni')"></invalid-component>
                     </label>
                 </div>
                 <div class="col-2">
                     <label>
                         <dfn>d) <abbr title="poštovní směrovací číslo">PSČ</abbr></dfn>
                         <input type="text" name="psc" valid="psc" [(ngModel)]="value.adresaSidla.psc">
+                        <invalid-component [control]="form.control.get('adresaSidla.psc')"></invalid-component>
                     </label>
                 </div>
             </div>
