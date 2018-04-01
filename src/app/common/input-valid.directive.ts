@@ -2,6 +2,7 @@
  * Directive to provide custom validations and normalization.
  */
 //TODO: reset cursor position after normalization
+//TODO: validator list extension
 import {Directive, Input, ElementRef, HostListener} from '@angular/core';
 import {NG_VALIDATORS, Validator, AbstractControl, ValidationErrors} from '@angular/forms';
 

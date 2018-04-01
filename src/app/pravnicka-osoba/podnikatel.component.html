@@ -30,7 +30,9 @@
             <div class="row">
                 <div class="col-12">
                     <h4>01 Podnikatel</h4>
-                    <output>{{form.controls.podnikatel?.errors | json}}</output>
+                    <!--
+                    <invalid-component [control]="form.controls.podnikatel"></invalid-component>
+                    -->
                 </div>
             </div>
 <ng-container ngModelGroup="podnikatel">
@@ -39,7 +41,6 @@
                     <label>
                         <dfn>a) obchodní firma / název právnické osoby</dfn>
                         <input type="text" #inputNazev name="nazev" [(ngModel)]="value.podnikatel.nazev">
-                        <invalid-component [control]="form.control.get('podnikatel.nazev')"></invalid-component>
                     </label>
                 </div>
             </div>
