@@ -133,4 +133,16 @@ export class InputValidDirective implements Validator {
             }
         }
     }
+
+    /*
+    @HostListener('focus')
+    private activateOnFocus() {
+        this.control['active'] = true;
+    }
+
+    @HostListener('blur')
+    private deactivateOnFocus() {
+        this.control['active'] = false;
+    }
+    */
 }

@@ -356,8 +356,9 @@
 
     output.invalid {
         position: absolute;
-        background: #dde7f0;
-        box-shadow: -0.5rem 0 0 0 #dde7f0;
+        margin-left: -1.5rem;
+        padding-left: 1.5rem;
+        background: linear-gradient(to right, transparent, #dde7f0 1.5rem);
         font-size: 0.9rem;
         color: #e33;
     }

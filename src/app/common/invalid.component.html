@@ -1,1 +1,1 @@
-<output *ngIf="control && control.errors && control.dirty" class="invalid">{{control.errors | invalid:message}}</output>
+<output *ngIf="control && !control.valid && control.errors && control.dirty" class="invalid">{{control.errors | invalid:message}}</output>
