@@ -7,15 +7,15 @@ import {Pipe, PipeTransform} from '@angular/core';
     name: 'invalid'
 })
 export class InvalidPipe implements PipeTransform {
-    transform(value: any, message: any = {}): string {
+    transform(value: any, messages: any = {}): string {
         if (value) {
             for (let name of Object.keys(value)) {
-                if (message[name]) {
-                    return message[name];
+                if (messages[name]) {
+                    return messages[name];
                 }
             }
 
-            return message['invalid'];
+            return messages['invalid'];
         }
     }
 }

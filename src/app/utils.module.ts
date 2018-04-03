@@ -4,7 +4,8 @@
  * @example
  *      import {UtilsModule as utils} from './common/utils.module';
  */
-import {NgModule} from '@angular/core';
+import {NgModule, Inject, LOCALE_ID} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {AbstractControl} from '@angular/forms';
 import {ControlContainer} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
@@ -14,10 +15,12 @@ import {saveAs} from 'file-saver';
 @NgModule({
 })
 export class UtilsModule {
-    constructor() {
+    constructor(@Inject(LOCALE_ID) public readonly locale: string) {
         Observable.fromEvent(document, 'keyup').subscribe((event: KeyboardEvent) => {
             UtilsModule.keydowns.delete(event.key);
         });
+
+        UtilsModule.datePipe = new DatePipe(locale);
     }
 
     /**
@@ -428,17 +431,24 @@ export class UtilsModule {
     }
 
     /**
-     * Concats values into a sentence (trimmed string with single spaces).
+     * Converts a date to string.
      */
-    static concat(...args): string {
-        return args.join(' ').trim().replace(/ +/, ' ');
+    static datePipe;
+
+    static date(value: any, format?: string, timezone?: string, locale?: string): string {
+        return UtilsModule.datePipe.transform(value, format, timezone, locale);
+    }
+
+    static now(format?: string, timezone?: string, locale?: string): string {
+        return format ? UtilsModule.datePipe.transform(new Date(), format, timezone, locale) :
+                new Date().toISOString();
     }
 
     /**
      * Trims and replaces white spaces with a single space.
      */
-    static trims(input: string): string | null {
-        return String(input).trim().replace(/\s+/g, ' ');
+    static trims(value: string): string | null {
+        return String(value).trim().replace(/\s+/g, ' ');
     }
 
     /**

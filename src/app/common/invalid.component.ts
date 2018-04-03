@@ -14,18 +14,18 @@ export class InvalidComponent {
     /**
      * Error messages.
      */
-    message = {
+    messages = {
         invalid: 'Položka není správně vyplněná.',
         some: 'Položka musí být vyplněná.'
     };
 
     @Input()
     set invalid(value: string) {
-        this.message.invalid = value;
+        this.messages.invalid = value;
     }
 
     @Input()
     set some(value: string) {
-        this.message.some = value;
+        this.messages.some = value;
     }
 }
