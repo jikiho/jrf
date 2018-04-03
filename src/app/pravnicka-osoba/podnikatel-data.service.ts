@@ -62,7 +62,7 @@ export class PodnikatelDataService {
             value: {
                 podnikatel: {
                     nazev: Podnikatel.ObchodniJmeno,
-                    pravniForma: Podnikatel.PravniForma.$.kod,
+                    pravniForma: utils.get(Podnikatel.PravniForma, '$.kod'),
                     ico: Podnikatel.ICO
                 },
                 adresaSidla: {
