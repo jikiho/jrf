@@ -28,11 +28,11 @@ export class PodnikatelDataService {
             ZakladniCastPO: {
                 Podnikatel: {
                     ObchodniJmeno: podnikatel.nazev,
-                    PravniForma: {
+                    PravniForma: podnikatel.pravniForma ? {
                         $: {
                             kod: podnikatel.pravniForma
                         }
-                    },
+                    } : null,
                     ICO: podnikatel.ico
                 },
                 SidloAdresa: {

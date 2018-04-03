@@ -49,6 +49,7 @@ export class ContentsService {
     /**
      * Loads contents from a file.
      */
+//TODO: store file name
     load(file: File, complete?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             utils.read(file, 'readAsText')
@@ -77,6 +78,7 @@ export class ContentsService {
     /**
      * Saves contents to a XML file.
      */
+//TODO: use loaded file name
     save(): boolean {
         const date = utils.now('yyyyMMdd'),
             name = `jrf-${date}.xml`,
