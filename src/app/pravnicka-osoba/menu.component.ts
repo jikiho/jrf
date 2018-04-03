@@ -65,11 +65,8 @@ export class MenuComponent {
     }
 
     save() {
-        const message = 'Uložení údajů podání proběhlo v pořádku.';
-
-        if (this.contents.save()) {
-            this.app.alert(message);
-        }
+        //Uložení údajů podání proběhlo v pořádku.
+        this.contents.save();
     }
 
     check() {

@@ -3,8 +3,10 @@
  */
 import {Injectable} from '@angular/core';
 
+import {ContentModel} from '../content.model';
 import {DataService} from './data.service';
 import {HttpService} from '../http/http.service';
+import {PodnikatelModel} from './podnikatel.model';
 import {UtilsModule as utils} from '../utils.module';
 import {xmlBuilder, xmlParser} from '../feature.module';
 
@@ -14,10 +16,38 @@ export class PodnikatelDataService {
     }
 
     /**
-     * Prepares a model value for XML builder.
+     * Prepares a value with contents for XML builder.
      */
-    prepareValue(value: any): string {
-        return '';
+    prepareValue(value: any, content: ContentModel<PodnikatelModel>): any {
+        const entry = content.entry,
+            podnikatel = entry.value.podnikatel,
+            adresaSidla = entry.value.adresaSidla,
+            cisloOrientacni = (adresaSidla.cisloOrientacni || '').match(/^(\d+)([a-z])?$/i);
+
+        Object.assign(value.Podani.NovaOpravneniPO, {
+            ZakladniCastPO: {
+                Podnikatel: {
+                    ObchodniJmeno: podnikatel.nazev,
+                    PravniForma: {
+                        $: {
+                            kod: podnikatel.pravniForma
+                        }
+                    },
+                    ICO: podnikatel.ico
+                },
+                SidloAdresa: {
+                    UliceNazev: adresaSidla.ulice,
+                    CisloDomovniHodnota: adresaSidla.cisloDomovni,
+                    CisloOrientacni: cisloOrientacni ? cisloOrientacni[1] : adresaSidla.cisloOrientacni,
+                    CisloOrientacniZnak: cisloOrientacni && cisloOrientacni[2],
+                    PSC: adresaSidla.psc,
+                    ObecNazev: adresaSidla.obec,
+                    CastObceNazev: adresaSidla.castObce,
+                    OkresKod: adresaSidla.okres,
+                    StatKod: adresaSidla.stat
+                }
+            }
+        });
     }
 
     /**
@@ -25,25 +55,25 @@ export class PodnikatelDataService {
      */
     finishValue(result: any): any {
         const data = result.Podani.NovaOpravneniPO,
-            podnikatel = utils.get(data, 'ZakladniCastPO.Podnikatel') || {},
-            adresaSidla = utils.get(data, 'ZakladniCastPO.SidloAdresa') || {};
+            Podnikatel = utils.get(data, 'ZakladniCastPO.Podnikatel') || {},
+            SidloAdresa = utils.get(data, 'ZakladniCastPO.SidloAdresa') || {};
 
         return {
             value: {
                 podnikatel: {
-                    nazev: podnikatel.ObchodniJmeno,
-                    pravniForma: podnikatel.PravniForma.$.kod,
-                    ico: podnikatel.ICO
+                    nazev: Podnikatel.ObchodniJmeno,
+                    pravniForma: Podnikatel.PravniForma.$.kod,
+                    ico: Podnikatel.ICO
                 },
                 adresaSidla: {
-                    ulice: adresaSidla.UliceNazev,
-                    cisloDomovni: adresaSidla.CisloDomovniHodnota,
-                    cisloOrientacni: [adresaSidla.CisloOrientacni, adresaSidla.CisloOrientacniZnak].join(''),
-                    psc: adresaSidla.PSC,
-                    obec: adresaSidla.ObecNazev,
-                    castObce: adresaSidla.CastObceNazev,
-                    okres: adresaSidla.OkresKod,
-                    stat: adresaSidla.StatKod
+                    ulice: SidloAdresa.UliceNazev,
+                    cisloDomovni: SidloAdresa.CisloDomovniHodnota,
+                    cisloOrientacni: [SidloAdresa.CisloOrientacni, SidloAdresa.CisloOrientacniZnak].join(''),
+                    psc: SidloAdresa.PSC,
+                    obec: SidloAdresa.ObecNazev,
+                    castObce: SidloAdresa.CastObceNazev,
+                    okres: SidloAdresa.OkresKod,
+                    stat: SidloAdresa.StatKod
                 }
             }
         };
@@ -96,17 +126,17 @@ export class PodnikatelDataService {
                     xmlns: 'urn:cz:isvs:rzp:schemas:Podani:v1'
                 },
                 OvereniAdresy: {
+                    Ulice: value.ulice,
+                    CisloDomovni: value.cisloDomovni,
+                    CisloOrientacni: value.cisloOrientacni,
+                    PSC: value.psc,
+                    Obec: value.obec,
+                    CastObce: value.castObce,
                     Stat: {
                         $: {
                             kod: value.stat || defaults.stat
                         }
-                    },
-                    Obec: value.obec,
-                    CastObce: value.castObce,
-                    Ulice: value.ulice,
-                    CisloDomovni: value.cisloDomovni,
-                    CisloOrientacni: value.cisloOrientacni,
-                    PSC: value.psc
+                    }
                 }
             }
         });
@@ -120,13 +150,14 @@ export class PodnikatelDataService {
             items = Array.isArray(data) ? data : data && [data] || [];
 
         return items.map((item) => ({
-            stat: item.Stat.$.kod,
-            obec: item.Obec._,
-            castObce: item.CastObce._,
             ulice: item.Ulice,
             cisloDomovni: item.CisloDomovni,
             cisloOrientacni: item.CisloOrientacni,
-            psc: item.PSC
+            psc: item.PSC,
+            obec: item.Obec._,
+            castObce: item.CastObce._,
+            okres: item.Okres.$.kod,
+            stat: item.Stat.$.kod
         }));
     }
 }
