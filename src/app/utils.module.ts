@@ -201,7 +201,7 @@ export class UtilsModule {
     static formData(params?: any): FormData {
         const data = new FormData();
 
-        for (let name in Object.keys(params)) {
+        for (let name of Object.keys(params)) {
             const value = params[name];
 
             if (value instanceof File) {
