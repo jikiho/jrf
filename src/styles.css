@@ -153,9 +153,6 @@
         background: #f9f9f9;
     }
 
-    /*
-    input[type="number"],
-    */
     button, input[type="text"], input[type="password"], select:not([multiple]):not([size]) {
         overflow: visible;
     }
@@ -219,9 +216,6 @@
         background: #dde8f2;
     }
 
-    /*
-    input[type="number"],
-    */
     input[type="text"], input[type="password"], select, textarea {
         width: 100%;
         background: #fff;
@@ -247,9 +241,6 @@
         width: 11.5rem;
     }
 
-    /*
-    input[type="number"],
-    */
     input[type="text"], input[type="password"], select:not([multiple]):not([size]) {
         height: 2rem;
         line-height: 1rem;
@@ -303,20 +294,6 @@
     }
     */
 
-    /*
-	input[type="number"] {
-		-moz-appearance: textfield;
-		appearance: textfield;
-		margin: 0;
-	}
-
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    */
-
     select:focus, select:hover:not([disabled]) {
         background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
     }
@@ -364,17 +341,11 @@
         color: #e33;
     }
 
-    /*
-    input[type="number"].ng-invalid,
-    */
     input[type="text"].ng-invalid, input[type="password"].ng-invalid, select.ng-invalid, textarea.ng-invalid {
         box-shadow: none;
         border-color: #e33;
     }
 
-    /*
-    input[type="number"]:focus.ng-invalid,
-    */
     input[type="text"]:focus.ng-invalid, input[type="password"]:focus.ng-invalid, select:focus.ng-invalid, textarea:focus.ng-invalid {
         box-shadow: 0 0 1.5px 0 #ccc;
     }
