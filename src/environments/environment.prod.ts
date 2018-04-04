@@ -2,8 +2,7 @@ import {EnvironmentBase} from './environment-base';
 
 export const environment = new EnvironmentBase({
     production: true,
-
     resources: {
-        api: location.origin + '/rest'
+        api: 'https://gibon.i.cz/cgi-bin/aps_cacheWEB.sh'
     }
 });
