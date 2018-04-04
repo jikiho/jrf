@@ -240,17 +240,15 @@ export class UtilsModule {
      */
     static patch(obj: any, ...args): any {
         return args.reduce((acc, part) => {
-            const whole = false; //part === null
-
             for (let name of Object.keys(acc)) {
-                if (!whole && !part.propertyIsEnumerable(name)) {
+                if (!part || !part.propertyIsEnumerable(name)) {
                     ;
                 }
-                else if (UtilsModule.isObject(acc[name])) {
-                    UtilsModule.patch(acc[name], whole ? part : part[name]);
+                else if (UtilsModule.isObject(part[name]) && UtilsModule.isObject(acc[name])) {
+                    UtilsModule.patch(acc[name], part[name]);
                 }
                 else {
-                    acc[name] = whole ? part : part[name];
+                    acc[name] = part[name];
                 }
             }
 

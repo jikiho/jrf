@@ -57,7 +57,7 @@
                 <div class="col-3">
                     <label>
                         <dfn>c) <abbr title="identifikační číslo osoby">IČO</abbr></dfn>
-                        <input type="text" name="ico" valid="ico" [(ngModel)]="value.podnikatel.ico">
+                        <input type="text" name="ico" valid="ico" [(ngModel)]="value.podnikatel.ico" class="icon fa-search">
                         <invalid-component [control]="form.control.get('podnikatel.ico')"></invalid-component>
                     </label>
                 </div>
@@ -122,7 +122,7 @@
                     <label>
                         <dfn>g) okres</dfn>
                         <select name="okres" [(ngModel)]="value.adresaSidla.okres">
-                            <option [value]="null"></option>
+                            <option [ngValue]="null"></option>
                             <option *ngFor="let item of (data.okres$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>
@@ -131,7 +131,7 @@
                     <label>
                         <dfn>h) stát</dfn>
                         <select name="stat" [(ngModel)]="value.adresaSidla.stat">
-                            <option [value]="null"></option>
+                            <option [ngValue]="null"></option>
                             <option *ngFor="let item of (data.stat$ | async)" [value]="item.Kod">{{item.Hodnota}}</option>
                         </select>
                     </label>

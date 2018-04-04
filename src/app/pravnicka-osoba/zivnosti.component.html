@@ -74,7 +74,7 @@
                     <label>
                         <dfn>Druh živnosti</dfn>
                         <select #inputDruhZivnosti name="druhZivnosti" [(ngModel)]="vyberZivnosti.druhZivnosti">
-                            <option [value]="null"></option>
+                            <option [ngValue]="null"></option>
                             <option *ngFor="let item of items" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
@@ -85,7 +85,7 @@
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
                         <select #inputSkupinaZivnosti name="skupinaZivnosti" [(ngModel)]="vyberZivnosti.skupinaZivnosti" [disabled]="!vyberZivnosti.druhZivnosti?.Kod">
-                            <option [value]="null"></option>
+                            <option [ngValue]="null"></option>
                             <option *ngFor="let item of items" [hidden]="item.Druh != vyberZivnosti.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
@@ -96,7 +96,7 @@
                     <label>
                         <dfn>Předmět podnikání</dfn>
                         <select #inputZivnost name="zivnost" [(ngModel)]="vyberZivnosti.zivnost" [disabled]="!vyberZivnosti.skupinaZivnosti?.Kod">
-                            <option [value]="null"></option>
+                            <option [ngValue]="null"></option>
                             <option *ngFor="let item of items" [hidden]="item.Skupina != vyberZivnosti.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
                     </label>
