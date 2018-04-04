@@ -1,8 +1,8 @@
 /**
  * Directive to provide custom validations and normalization.
  */
+//TODO: password, file, checkbox, radiobutton, textarea
 //TODO: reset cursor position after normalization
-//TODO: validator list extension
 import {Directive, Input, ElementRef, HostListener} from '@angular/core';
 import {NG_VALIDATORS, Validator, AbstractControl, ValidationErrors} from '@angular/forms';
 
@@ -23,16 +23,6 @@ class InputValidContext {
     ]
 })
 export class InputValidDirective implements Validator {
-    static readonly VALIDATORS = {
-        'any': utils.validAny,
-        'some': utils.validSome,
-        'number': utils.validNumber,
-        'date': utils.validDate,
-        'psc': utils.validPsc,
-        'rc': utils.validRc,
-        'ico': utils.validIco
-    };
-
     /**
      * List of validators to use, any text value by default.
      */
@@ -44,7 +34,7 @@ export class InputValidDirective implements Validator {
     private pristine: boolean;
 
     /**
-     * One or more validators, or "off" for none.
+     * One or more validators, or boolean for no more.
      * "number", "number|any", "[callback]", "[/regexp/]", "['number', callback...]"
      */
     @Input()
@@ -52,8 +42,7 @@ export class InputValidDirective implements Validator {
         const items = Array.isArray(value) ? value :
                 (typeof value === 'string' ? value.split('|') : value);
 
-        this.validators = items.indexOf('off') > -1 ? [] : items;
-
+        this.validators = items;
         this.pristine = items.indexOf('some') > -1;
     }
 
@@ -95,7 +84,7 @@ export class InputValidDirective implements Validator {
 
         for (let item of this.validators) {
             const callback = typeof item === 'function' ? item : null,
-                validator = callback || InputValidDirective.VALIDATORS[item],
+                validator = callback || utils.valid[item],
                 value = validator(input, errors);
 
             if (value !== null) {
@@ -133,16 +122,4 @@ export class InputValidDirective implements Validator {
             }
         }
     }
-
-    /*
-    @HostListener('focus')
-    private activateOnFocus() {
-        this.control['active'] = true;
-    }
-
-    @HostListener('blur')
-    private deactivateOnFocus() {
-        this.control['active'] = false;
-    }
-    */
 }

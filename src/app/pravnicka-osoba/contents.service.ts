@@ -23,6 +23,11 @@ export class ContentsService {
     ostatni = new ContentModel(OstatniModel);
     zmenoveListy = new ContentModel(ZmenovyListModel, 3);
 
+    /**
+     * Last loaded file name.
+     */
+    filename: string;
+
     constructor(private podnikatelData: PodnikatelDataService) {
     }
 
@@ -49,7 +54,6 @@ export class ContentsService {
     /**
      * Loads contents from a file.
      */
-//TODO: store file name
     load(file: File, complete?: Function): Promise<any> {
         return new Promise((resolve, reject) => {
             utils.read(file, 'readAsText')
@@ -78,10 +82,8 @@ export class ContentsService {
     /**
      * Saves contents to a XML file.
      */
-//TODO: use loaded file name
-    save(): boolean {
-        const date = utils.now('yyyyMMdd'),
-            name = `jrf-${date}.xml`,
+    save(filename?: string): boolean {
+        const name = filename || `jrf-${utils.now('yyyyMMdd')}.xml`,
             value = this.prepareValue(),
             content = xmlBuilder.buildObject(value),
             file = utils.xmlFile(content, name);

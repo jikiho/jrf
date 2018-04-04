@@ -92,6 +92,7 @@ export class UtilsModule {
         }
 
         if (UtilsModule.keydowns.has(key)) {
+//console.warn("ignore keydown", key, event);
             return false;
         }
 
@@ -200,14 +201,16 @@ export class UtilsModule {
     static formData(params?: any): FormData {
         const data = new FormData();
 
-        Object.entries(params).forEach(([name, value]) => {
+        for (let name in Object.keys(params)) {
+            const value = params[name];
+
             if (value instanceof File) {
                 data.append(name, <Blob>value, value.name);
             }
             else {
                 data.append(name, <string>value);
             }
-        });
+        }
 
         return data;
     }
@@ -584,6 +587,17 @@ export class UtilsModule {
      *
      * @returns a normalized string value, or null for an invalid one.
      */
+    static valid = {
+        true: () => undefined,
+        false: () => null,
+        'any': UtilsModule.validAny,
+        'some': UtilsModule.validSome,
+        'number': UtilsModule.validNumber,
+        'date': UtilsModule.validDate,
+        'psc': UtilsModule.validPsc,
+        'rc': UtilsModule.validRc,
+        'ico': UtilsModule.validIco
+    };
 
     /**
      * Any text value.

@@ -109,8 +109,9 @@ export class ConfigService {
      * Initializes request resources.
      */
     initRequestResources(resources: any = {}) {
-        for (let [name, config] of Object.entries(resources)) {
-            const protocol = `${name}:`,
+        for (let name of Object.keys(resources)) {
+            const config = resources[name],
+                protocol = `${name}:`,
                 urls = Array.isArray(config) ? [...config] : [config],
                 resource = new RequestResourceModel(urls, this);
 

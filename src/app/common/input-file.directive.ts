@@ -10,7 +10,7 @@ import {UtilsModule as utils} from '../utils.module';
     selector: 'input[type=file][name][value]'
 })
 export class InputFileDirective {
-    constructor(private control: NgControl) {
+    constructor(private model: NgControl) {
     }
 
     /**
@@ -18,8 +18,8 @@ export class InputFileDirective {
      */
     @HostListener('change', ['$event.target'])
     private changeOnEvent(input: HTMLInputElement) {
-        const group = this.control.control.parent,
-            name = this.control.name,
+        const group = this.model.control.parent,
+            name = this.model.name,
             files = input.files;
 
         utils.set(group.value, name, files.length ? files : null);

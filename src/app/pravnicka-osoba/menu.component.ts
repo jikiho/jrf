@@ -32,6 +32,8 @@ export class MenuComponent {
         const message = 'Vytvoření nového podání proběhlo v pořádku.';
 
         if (this.loose()) {
+            this.contents.filename = undefined;
+
             if (this.contents.create()) {
                 this.refresh(message);
             }
@@ -54,6 +56,8 @@ export class MenuComponent {
         if (file) {
             this.contents.load(file)
                 .then((value) => {
+                    this.contents.filename = file.name;
+
                     if (this.contents.create(value)) {
                         this.refresh(message);
                     }
@@ -65,8 +69,7 @@ export class MenuComponent {
     }
 
     save() {
-        //Uložení údajů podání proběhlo v pořádku.
-        this.contents.save();
+        this.contents.save(this.contents.filename);
     }
 
     check() {
@@ -83,6 +86,8 @@ export class MenuComponent {
 
     close() {
         if (this.loose()) {
+            this.contents.filename = undefined;
+
             if (this.contents.create()) {
                 this.app.navigate();
             }
@@ -150,6 +155,7 @@ export class MenuComponent {
 
     @HostListener('document:keydown.alt.s', ['$event'])
     private saveOnKey(event: KeyboardEvent) {
+//TODO: alt+s is also keyboard shortcut at the system dialog
         if (utils.keydown(event)) {
             this.save();
         }

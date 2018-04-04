@@ -1,5 +1,5 @@
 /**
- * Component with information about a control errors.
+ * Component with information about an invalid control.
  */
 import {Component, Input} from '@angular/core';
 
@@ -14,6 +14,7 @@ export class InvalidComponent {
     /**
      * Error messages.
      */
+//TODO: get common/custom messages
     messages = {
         invalid: 'Položka není správně vyplněná.',
         some: 'Položka musí být vyplněná.'
@@ -27,5 +28,13 @@ export class InvalidComponent {
     @Input()
     set some(value: string) {
         this.messages.some = value;
+    }
+
+    /**
+     * Flag to show information.
+     */
+    get visible(): boolean {
+        return this.control && !this.control.valid && (this.control.active ||
+                (this.control.form && this.control.form.submitted));
     }
 }

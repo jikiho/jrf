@@ -13,6 +13,7 @@ import {DialogDirective} from './dialog.directive';
 import {FileComponent} from './file.component';
 import {FileIconPipe} from './file-icon.pipe';
 import {FilterPipe} from './filter.pipe';
+import {FormControlDirective, FormGroupDirective, FormGroupsDirective} from './form-control.directive';
 import {FormResetDirective} from './form-reset.directive';
 import {FormValidateDirective} from './form-validate.directive';
 import {HiddenDirective} from './hidden.directive';
@@ -45,6 +46,9 @@ import {UnavailablePipe} from './unavailable.pipe';
         FileComponent,
         FileIconPipe,
         FilterPipe,
+        FormControlDirective,
+        FormGroupDirective,
+        FormGroupsDirective,
         FormResetDirective,
         FormValidateDirective,
         HiddenDirective,
@@ -71,6 +75,9 @@ import {UnavailablePipe} from './unavailable.pipe';
         FileComponent,
         FileIconPipe,
         FilterPipe,
+        FormControlDirective,
+        FormGroupDirective,
+        FormGroupsDirective,
         FormResetDirective,
         FormValidateDirective,
         HiddenDirective,
