@@ -79,7 +79,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
                 items.sort((a, b) => this.app.collator.compare(a.file.name, b.file.name));
 
-                this.content.patch({
+                Object.assign(entry, {
                     velikostPriloh: size + file.size
                 });
             }
@@ -102,7 +102,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
 
                 items.splice(index, 1);
 
-                this.content.patch({
+                Object.assign(entry, {
                     velikostPriloh: size - file.size
                 });
             }
@@ -141,7 +141,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
             });
         });
 
-        this.content.patch({
+        Object.assign(entry, {
             state: {
                 pocetPriloh: totalCount
             },

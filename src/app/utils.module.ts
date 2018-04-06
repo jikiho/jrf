@@ -331,8 +331,8 @@ export class UtilsModule {
     /*
      * Plucks an object property from a list of objects.
      */
-    static pluck(items: any[], name: string): any[] {
-        return items.map((item) => UtilsModule.get(item, name));
+    static pluck(items: any[], name: string): any[] | null {
+        return items ? items.map((item) => UtilsModule.get(item, name)) : null;
     }
 
     /*

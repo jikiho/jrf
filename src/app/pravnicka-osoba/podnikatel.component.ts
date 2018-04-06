@@ -133,13 +133,9 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     applyVyberAdresySidla(value: any = this.vyberAdresySidla.adresa) {
-        this.content.patch({
-            value: {
-                adresaSidla: {
-                    ...value
-                }
-            }
-        });
+        const entry = this.content.entry;
+
+        utils.patch(entry.value.adresaSidla, value);
 
         this.closeVyberAdresySidla();
     }
@@ -152,14 +148,13 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
      * Updates...
      */
     private updatePodnikatel() {
-        const value = this.content.entry.value.podnikatel;
+        const entry = this.content.entry,
+            value = entry.value.podnikatel;
 
-        this.content.patch({
-            state: {
-                completePodnikatel: utils.some(value.nazev, value.ico),
-                nazev: value.nazev,
-                ico: value.ico
-            }
+        Object.assign(entry.state, {
+            completePodnikatel: utils.some(value.nazev, value.ico),
+            nazev: value.nazev,
+            ico: value.ico
         });
 
         // apply complex content changes
@@ -167,13 +162,12 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     private updateAdresaSidla() {
-        const value = this.content.entry.value.adresaSidla;
+        const entry = this.content.entry,
+            value = entry.value.adresaSidla;
 
-        this.content.patch({
-            state: {
-                completeAdresaSidla: utils.some(value.ulice) && utils.some(value.obec) &&
-                        utils.some(value.cisloDomovni, value.cisloOrientacni)
-            }
+        Object.assign(entry.state, {
+            completeAdresaSidla: utils.some(value.ulice) && utils.some(value.obec) &&
+                    utils.some(value.cisloDomovni, value.cisloOrientacni)
         });
 
         // apply complex content changes
@@ -181,32 +175,26 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     }
 
     private updateAdresaSidlaOkres() {
-        const value = this.content.entry.value.adresaSidla.okres;
+        const entry = this.content.entry,
+            value = entry.value.adresaSidla.okres;
 
         if (value) {
-            utils.suspend(this.content.entry.value.adresaSidla.okres, 0);
+            utils.suspend(entry.value.adresaSidla.okres, 0);
 
-            this.content.patch({
-                value: {
-                    adresaSidla: {
-                        stat: this.data.refs.stat.CZ.Kod
-                    }
-                }
+            Object.assign(entry.value.adresaSidla, {
+                stat: this.data.refs.stat.CZ.Kod
             });
         }
     }
 
     private updateAdresaSidlaStat() {
-        const value = this.content.entry.value.adresaSidla.okres;
+        const entry = this.content.entry,
+            value = entry.value.adresaSidla.okres;
 
         if (value !== this.data.refs.stat.CZ.Kod) {
-            if (!utils.suspended(this.content.entry.value.adresaSidla.okres)) {
-                this.content.patch({
-                    value: {
-                        adresaSidla: {
-                            okres: null
-                        }
-                    }
+            if (!utils.suspended(entry.value.adresaSidla.okres)) {
+                Object.assign(entry.value.adresaSidla, {
+                    okres: null
                 });
             }
         }

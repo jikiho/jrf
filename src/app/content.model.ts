@@ -80,13 +80,6 @@ export class ContentModel<T> {
     }
 
     /**
-     * Patches a current content entry with a value.
-     */
-    patch(value?: any): T {
-        return utils.patch(this.entry, value);
-    }
-
-    /**
      * Adds a new current content entry.
      */
     add(value?: any): T {

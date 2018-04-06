@@ -93,7 +93,9 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     }
 
     applierVyberZivnosti() {
-        this.content.patch({
+        const entry = this.content.entry;
+
+        Object.assign(entry, {
             zivnost: this.vyberZivnosti.zivnost
         });
 
@@ -129,13 +131,12 @@ export class ZmenoveListyComponent implements OnInit, OnDestroy {
     }
 
     private updateUdaj() {
-        const value = this.content.entry.value;
+        const entry = this.content.entry,
+            value = entry.value;
 
-        this.content.patch({
-            state: {
-                udaje: utils.some(value.puvodniUdaj, value.novyUdaj) ?
-                        [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
-            }
+        Object.assign(entry.state, {
+            udaje: utils.some(value.puvodniUdaj, value.novyUdaj) ?
+                    [value.puvodniUdaj, value.novyUdaj].join(' / ') : ''
         });
 
         // apply complex content changes

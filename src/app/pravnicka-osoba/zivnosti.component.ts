@@ -116,7 +116,7 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
                     `${hodnotaZivnosti} (${count})`;
         }
 
-        this.content.patch({
+        Object.assign(entry, {
             state: {
                 kodZivnosti,
                 predmetPodnikani
