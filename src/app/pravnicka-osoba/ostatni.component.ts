@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
+import {ConfigService} from '../config.service';
 import {ContentModel} from '../content.model';
 import {ContentsService} from './contents.service';
 import {OstatniModel, OstatniPrilohaModel} from './ostatni.model';
@@ -31,7 +32,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, private contents: ContentsService) {
+            private app: AppService, public config: ConfigService, private contents: ContentsService) {
     }
 
     ngOnInit() {
@@ -39,7 +40,7 @@ export class OstatniComponent implements OnInit, OnDestroy {
             this.updatePocetPriloh(this.form.value);
 
             this.changes.push(this.form.control.valueChanges
-                .debounceTime(1) //add, reset...
+                .debounceTime(1) //add, reset
                 .subscribe((value) => this.updatePocetPriloh(value)));
         });
     }

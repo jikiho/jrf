@@ -42,6 +42,11 @@ export class ConfigService {
     confirmWindowUnload: boolean = false;
 
     /**
+     * Show single content entry list (content overview).
+     */
+    singleList: boolean = true;
+
+    /**
      * Allow request canceling.
      */
     requestCancel: boolean = true;

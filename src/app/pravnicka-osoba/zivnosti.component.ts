@@ -32,8 +32,8 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
         fresh: {}
     };
 
-    @ViewChild('form')
-    form: NgForm;
+    //@ViewChild('form')
+    //form: NgForm;
 
     //@ViewChild('formVyberZivnosti')
     //formVyberZivnosti: NgForm;
@@ -47,7 +47,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     ngOnInit() {
         setTimeout(() => {
             this.changes.push(Observable.fromEvent(this.inputDruhZivnosti.nativeElement, 'change')
-                .merge(Observable.fromEvent(this.form['el'].nativeElement, 'reset'))
                 .subscribe(() => this.updateDruhZivnosti()));
 
             this.changes.push(Observable.fromEvent(this.inputSkupinaZivnosti.nativeElement, 'change')

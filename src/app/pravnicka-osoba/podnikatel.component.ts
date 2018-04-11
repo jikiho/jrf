@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
+import {ConfigService} from '../config.service';
 import {ContentModel} from '../content.model';
 import {ContentsService} from './contents.service';
 import {DataService} from './data.service';
@@ -38,8 +39,8 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
     private changes: Subscription[] = [];
 
     constructor(private cdr: ChangeDetectorRef,
-            private app: AppService, private contents: ContentsService, public data: DataService,
-            private podnikatelData: PodnikatelDataService) {
+            private app: AppService, public config: ConfigService, private contents: ContentsService,
+            public data: DataService, private podnikatelData: PodnikatelDataService) {
     }
 
     ngOnInit() {
@@ -50,7 +51,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
 
             this.changes.push(control.get('podnikatel.nazev').valueChanges
                 .merge(control.get('podnikatel.ico').valueChanges)
-                .debounceTime(1) //reset...
+                .debounceTime(1) //reset
                 .subscribe(() => this.updatePodnikatel()));
 
             this.updateAdresaSidla();
@@ -59,7 +60,7 @@ export class PodnikatelComponent implements OnInit, OnDestroy {
                 .merge(control.get('adresaSidla.cisloDomovni').valueChanges)
                 .merge(control.get('adresaSidla.cisloOrientacni').valueChanges)
                 .merge(control.get('adresaSidla.obec').valueChanges)
-                .debounceTime(1) //reset...
+                .debounceTime(1) //reset
                 .subscribe(() => this.updateAdresaSidla()));
 
             this.changes.push(control.get('adresaSidla.okres').valueChanges
