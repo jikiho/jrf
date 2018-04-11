@@ -4,7 +4,7 @@
 //TODO: separate dialog form
 import {Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Rx';
 
 import {AppService} from '../app.service';
 import {ContentModel} from '../content.model';
@@ -35,8 +35,8 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
     //@ViewChild('form')
     //form: NgForm;
 
-    //@ViewChild('formVyberZivnosti')
-    //formVyberZivnosti: NgForm;
+    @ViewChild('formVyberZivnosti')
+    formVyberZivnosti: NgForm;
 
     private changes: Subscription[] = [];
 
@@ -46,13 +46,15 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setTimeout(() => {
-            this.changes.push(Observable.fromEvent(this.inputDruhZivnosti.nativeElement, 'change')
+            const control = this.formVyberZivnosti.control;
+
+            this.changes.push(utils.observableChanges(control.get('druhZivnosti'))
                 .subscribe(() => this.updateDruhZivnosti()));
 
-            this.changes.push(Observable.fromEvent(this.inputSkupinaZivnosti.nativeElement, 'change')
+            this.changes.push(utils.observableChanges(control.get('skupinaZivnosti'))
                 .subscribe(() => this.updateSkupinaZivnosti()));
 
-            this.changes.push(Observable.fromEvent(this.inputZivnost.nativeElement, 'change')
+            this.changes.push(utils.observableChanges(control.get('zivnost'))
                 .subscribe(() => this.updateZivnost()));
         });
     }
@@ -185,12 +187,6 @@ export class ZivnostiComponent implements OnInit, OnDestroy {
 
     @ViewChild('inputDruhZivnosti')
     private inputDruhZivnosti: ElementRef;
-
-    @ViewChild('inputSkupinaZivnosti')
-    private inputSkupinaZivnosti: ElementRef;
-
-    @ViewChild('inputZivnost')
-    private inputZivnost: ElementRef;
 
     @HostListener('document:keydown.alt.5')
     private focusDruhZivnostiOnKey() {

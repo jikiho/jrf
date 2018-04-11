@@ -8,7 +8,7 @@ import {NgModule, Inject, LOCALE_ID} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {AbstractControl} from '@angular/forms';
 import {ControlContainer} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import {MD5} from 'object-hash';
 import {saveAs} from 'file-saver';
 
@@ -565,6 +565,20 @@ export class UtilsModule {
 
 //TODO
         return `${ulice} ${cisloDomovni}/${cisloOrientacni}, ${psc} ${obec}, ${stat}`;
+    }
+
+    /**
+     * Element manipulation.
+     */
+
+    /**
+     * Returns an observable form control change event.
+     */
+    static observableChanges(control: AbstractControl, event: string = 'change'): Observable<Event> {
+        const el = control && control['el'],
+            element = el ? el.nativeElement : undefined;
+
+        return element ? Observable.fromEvent(element, event) : Observable.empty();
     }
 
     /**

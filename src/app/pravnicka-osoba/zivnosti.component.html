@@ -84,7 +84,7 @@
                 <div class="col-12" *ngIf="data.skupinaZivnosti$ | async as items">
                     <label>
                         <dfn>Skupina předmětu podnikání</dfn>
-                        <select #inputSkupinaZivnosti name="skupinaZivnosti" [(ngModel)]="vyberZivnosti.skupinaZivnosti" [disabled]="!vyberZivnosti.druhZivnosti?.Kod">
+                        <select name="skupinaZivnosti" [(ngModel)]="vyberZivnosti.skupinaZivnosti" [disabled]="!vyberZivnosti.druhZivnosti?.Kod">
                             <option [ngValue]="null"></option>
                             <option *ngFor="let item of items" [hidden]="item.Druh != vyberZivnosti.druhZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
@@ -95,7 +95,7 @@
                 <div class="col-12" *ngIf="data.zivnost$ | async as items">
                     <label>
                         <dfn>Předmět podnikání</dfn>
-                        <select #inputZivnost name="zivnost" [(ngModel)]="vyberZivnosti.zivnost" [disabled]="!vyberZivnosti.skupinaZivnosti?.Kod">
+                        <select name="zivnost" [(ngModel)]="vyberZivnosti.zivnost" [disabled]="!vyberZivnosti.skupinaZivnosti?.Kod">
                             <option [ngValue]="null"></option>
                             <option *ngFor="let item of items" [hidden]="item.Skupina != vyberZivnosti.skupinaZivnosti?.Kod" [ngValue]="item">{{item.Hodnota}}</option>
                         </select>
